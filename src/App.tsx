@@ -1,14 +1,19 @@
 import * as React from 'react';
-import { hot } from 'react-hot-loader';
-import { BrowserRouter } from 'react-router-dom';
+import { ApolloProvider } from 'react-apollo';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import { TextField } from 'worldpins-react-framework';
+import client from './ApolloClient';
+import Auth from './modules/auth';
 
 const App = () => (
-  <div>
-    Hello WORLD!
-    <TextField label="Name" onChange={console.log} value="REKT" />
-  </div>
+  <ApolloProvider client={client}>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact render={() => <p>Home</p>} />
+        <Route path="/auth" component={Auth} />
+      </Switch>
+    </BrowserRouter>
+  </ApolloProvider>
 );
 
-export default hot(module)(App);
+export default App;

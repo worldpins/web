@@ -49,6 +49,15 @@ module.exports = () => {
     module: {
       rules: [
         {
+          test: /\.jsx$/,
+          use: ["babel-loader", "source-map-loader"],
+          exclude: /node_modules/,
+        },
+        {
+          test: /\.ts?$/,
+          loader: 'babel-loader',
+        },
+        {
           test: /\.tsx?$/,
           loader: 'babel-loader',
         },
