@@ -4,12 +4,13 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import client from './ApolloClient';
 import Auth from './modules/auth';
+import Home from './modules/home';
 
 const App = () => (
   <ApolloProvider client={client}>
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact render={() => <p>Home</p>} />
+        <Route path="/" exact component={Home} />
         <Route path="/auth" component={Auth} />
       </Switch>
     </BrowserRouter>

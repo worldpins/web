@@ -50,7 +50,8 @@ module.exports = () => {
       rules: [
         {
           test: /\.jsx$/,
-          use: ["babel-loader", "source-map-loader"],
+          use: ["source-map-loader"],
+          enforce: "pre",
           exclude: /node_modules/,
         },
         {
