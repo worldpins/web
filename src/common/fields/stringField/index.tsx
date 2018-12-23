@@ -27,11 +27,11 @@ class TextField extends React.Component<TextFieldProps, TextFieldState> {
 
   public state = { isFocussed: false }
 
-  public onChange = (e) => {
-    this.props.onChange(e.target.value);
+  public onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    this.props.onChange(e.currentTarget.value);
   }
 
-  public onFocus = (e) => {
+  public onFocus = (e: React.SyntheticEvent) => {
     const { onFocus } = this.props;
     this.setState({ isFocussed: true });
     if (onFocus && typeof onFocus === 'function') {
@@ -39,7 +39,7 @@ class TextField extends React.Component<TextFieldProps, TextFieldState> {
     }
   }
 
-  public onBlur = (e) => {
+  public onBlur = (e: React.SyntheticEvent) => {
     const { onBlur } = this.props;
     this.setState({ isFocussed: false });
     if (onBlur && typeof onBlur === 'function') {

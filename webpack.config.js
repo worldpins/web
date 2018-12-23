@@ -55,6 +55,14 @@ module.exports = () => {
           exclude: /node_modules/,
         },
         {
+          // This is to support our `graphql` dependency, they expose a .mjs bundle instead of .js
+          // Sneaky sneaky sir graphql.
+          test: /\.mjs$/,
+          include: /node_modules/,
+          type: 'javascript/auto',
+        },
+
+        {
           test: /\.ts?$/,
           loader: 'babel-loader',
         },

@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-      "lib": ["es2015.promise"],
+      "lib": ["es2015","es2015.promise", "dom"],
       "outDir": "./dist/",
       "sourceMap": true,
       "noImplicitAny": true,
-      "module": "commonjs",
+      "module": "es2015",
       "target": "es5",
       "jsx": "react"
   },

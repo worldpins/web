@@ -35,7 +35,44 @@ const RegisterForm = ({ handleSubmit }: { handleSubmit: () => void }) => (
     />
     <button type="submit">Submit</button>
   </form>
-)
+);
 
+interface FormValues {
+  email: string;
+  confirmPassword: string;
+  password: string;
+  firstName: string;
+  lastName: string
+}
 
-export default Form({})(RegisterForm);
+interface FormErrors {
+  email?: string;
+  confirmPassword?: string;
+  password?: string;
+  firstName?: string;
+  lastName?: string
+}
+
+export default Form({
+  validateOnBlur: true,
+  validateOnChange: true,
+  validate: ({ email, password, confirmPassword, lastName, firstName }: FormValues) => {
+    const errors : FormErrors = {};
+    if (!email) {
+      errors.email = 'You need an email to register.';
+    }
+    if (!password) {
+      errors.password = 'You need a password to register.';
+    }
+    if (confirmPassword !== password) {
+      errors.confirmPassword = 'Your passwords need to match.';
+    }
+    if (!lastName) {
+      errors.lastName = 'You need a last name to register.';
+    }
+    if (!firstName) {
+      errors.firstName = 'You need a first name to register.';
+    }
+    return errors;
+  },
+})(RegisterForm);

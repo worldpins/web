@@ -16,7 +16,7 @@ export const registerMutation = gql`
     $firstName: String!,
     $lastName: String!
   ){
-    login(input: {
+    register(input: {
       email: $email,
       password: $password,
       confirmPassword: $confirmPassword,

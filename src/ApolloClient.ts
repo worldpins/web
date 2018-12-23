@@ -2,7 +2,46 @@ import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
-import { ApolloLink } from 'apollo-link';
+import { ApolloLink, Observable } from 'apollo-link';
+
+// Can be used to add a token to the request headers.
+const request = (operation: { setContext: (options: object) => void }) => {
+  console.log('getting token');
+  const token = window.localStorage.getItem('token');
+  console.dir(token);
+  operation.setContext({
+    headers: {
+      authorization: `bearer ${token}`,
+    },
+  });
+};
+
+// The default requestLink.
+const requestLink = new ApolloLink((operation: any, forward: (operation: (any)) => any) => {
+  return new Observable((observer: any) => {
+    let handle: any;
+    // The reason for using Promise.resolve here is because the typing for using
+    // async observer are invalid.
+    console.log('usingrequestlink');
+    Promise.resolve(operation)
+      .then((oper: any) => request(oper))
+      .then(() => {
+        // This handle is what your Query uses to observe handled values.
+        // Complete --> completed request,
+        // next is a request for data an
+        // error implies an errored request.
+        handle = forward(operation).subscribe({
+          complete: observer.complete.bind(observer),
+          error: observer.error.bind(observer),
+          next: observer.next.bind(observer),
+        });
+      }).catch(e => observer.error.bind(observer));
+    return () => {
+      if (handle) handle.unsubscribe();
+    };
+  });
+});
+
 
 const client = new ApolloClient({
   link: ApolloLink.from([
@@ -15,6 +54,7 @@ const client = new ApolloClient({
         );
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
+    requestLink,
     new HttpLink({
       uri: 'http://localhost:3000/graphql',
       credentials: 'same-origin'

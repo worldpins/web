@@ -6,13 +6,19 @@ import client from './ApolloClient';
 import Auth from './modules/auth';
 import Home from './modules/home';
 
+const Maps = React.lazy(() => import('./modules/maps'));
+
 const App = () => (
   <ApolloProvider client={client}>
     <BrowserRouter>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/auth" component={Auth} />
-      </Switch>
+      <React.Suspense fallback={<p>Loading</p>}>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/auth" component={Auth} />
+          <Route path="/maps" component={Maps} />
+        </Switch>
+      </React.Suspense>
+
     </BrowserRouter>
   </ApolloProvider>
 );

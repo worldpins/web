@@ -9,7 +9,7 @@ const LoginForm = ({ handleSubmit }: { handleSubmit: () => void }) => (
     <Field
       component={StringField}
       fieldId="email"
-      label="username"
+      label="email"
     />
     <Field
       component={StringField}
