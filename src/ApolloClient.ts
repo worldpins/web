@@ -6,9 +6,7 @@ import { ApolloLink, Observable } from 'apollo-link';
 
 // Can be used to add a token to the request headers.
 const request = (operation: { setContext: (options: object) => void }) => {
-  console.log('getting token');
   const token = window.localStorage.getItem('token');
-  console.dir(token);
   operation.setContext({
     headers: {
       authorization: `bearer ${token}`,
@@ -22,7 +20,6 @@ const requestLink = new ApolloLink((operation: any, forward: (operation: (any)) 
     let handle: any;
     // The reason for using Promise.resolve here is because the typing for using
     // async observer are invalid.
-    console.log('usingrequestlink');
     Promise.resolve(operation)
       .then((oper: any) => request(oper))
       .then(() => {
