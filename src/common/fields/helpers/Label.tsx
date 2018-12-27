@@ -1,5 +1,6 @@
 import * as React from 'react';
-import styled from 'styled-components';
+
+import styled from '../../../layout/styled';
 
 interface LabelProps {
   children: React.ReactNode
@@ -7,7 +8,7 @@ interface LabelProps {
 }
 
 const LabelWrapper = styled.p`
-  color: grey;
+  color: ${({ theme }) => theme.grey};
   font-size: 12px;
   margin: 0;
   transition: all .25s;

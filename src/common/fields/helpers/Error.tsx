@@ -1,5 +1,6 @@
 import * as React from 'react';
-import styled from 'styled-components';
+
+import styled from '../../../layout/styled';
 
 interface ErrorProps {
   children: React.ReactNode
@@ -7,7 +8,7 @@ interface ErrorProps {
 }
 
 const ErrorWrapper = styled.p`
-  color: red;
+  color: ${({ theme }) => theme.danger};
   font-size: 12px;
   margin: 0;
   transition: all .25s;

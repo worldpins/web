@@ -1,6 +1,6 @@
 import * as React from 'react';
-import styled from 'styled-components';
 
+import styled from '../../../layout/styled';
 import { Label } from '../helpers';
 
 import { TextFieldProps, TextFieldState } from './types';
@@ -10,36 +10,35 @@ const TextFieldWrapper = styled.div`
   flex-direction: column;
 `;
 
-// TODO
 const FocussedLabel = styled(Label)``;
 
 const TextInput = styled.input`
   border: 0;
-  border-bottom: 1px solid blue;
+  border-bottom: 1px solid ${({ theme }) => theme.primary};
   border-radius: 2px;
   transition: all .25s;
   &:focus {
-    background-color: grey;
+    background-color: ${({ theme }) => theme.greyAccent};
   }
 `;
 
 class TextField extends React.Component<TextFieldProps, TextFieldState> {
 
-  public state = { isFocussed: false }
+  state = { isFocussed: false }
 
-  public onChange = (e: React.FormEvent<HTMLInputElement>) => {
+  onChange = (e: React.FormEvent<HTMLInputElement>) => {
     this.props.onChange(e.currentTarget.value);
   }
 
-  public onFocus = (e: React.SyntheticEvent) => {
-    const { onFocus } = this.props;
+  onFocus = (e: React.SyntheticEvent) => {
+    const { onFocus } = this.props;
     this.setState({ isFocussed: true });
     if (onFocus && typeof onFocus === 'function') {
       onFocus();
     }
   }
 
-  public onBlur = (e: React.SyntheticEvent) => {
+  onBlur = (e: React.SyntheticEvent) => {
     const { onBlur } = this.props;
     this.setState({ isFocussed: false });
     if (onBlur && typeof onBlur === 'function') {
@@ -47,7 +46,7 @@ class TextField extends React.Component<TextFieldProps, TextFieldState> {
     }
   }
 
-  public render() {
+  render() {
     const { label, value, type } = this.props;
     const { isFocussed } = this.state;
     return (

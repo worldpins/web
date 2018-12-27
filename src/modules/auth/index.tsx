@@ -6,24 +6,8 @@ import Login from './Login';
 import Register from './Register';
 
 interface LoginArguments {
-  variables: {
-    email: string;
-    password: string;
-  }
-}
-
-interface AuthResult {
-  authToken: string;
-}
-
-interface RegisterArguments {
-  variables: {
-    email: string;
-    confirmPassword: string;
-    password: string;
-    firstName: string;
-    lastName: string
-  }
+  email: string;
+  password: string;
 }
 
 interface FormValues {
@@ -54,21 +38,26 @@ interface RegisterPayload {
   }
 }
 
+class LoginMutation extends Mutation<LoginPayload, LoginArguments> { }
+class RegisterMutation extends Mutation<RegisterPayload, FormValues> { }
+
 export default () => (
   <React.Fragment>
-    <Mutation mutation={loginMutation}>
-      {(login: (input: LoginArguments) => LoginPayload, result: AuthResult) =>
+    <LoginMutation mutation={loginMutation}>
+      {(login, result) =>
         <Login onSubmit={async (values: { email: string, password: string }) => {
-          const { data: { login: { authToken } } } = await login({ variables: values });
-          setToken(authToken);
+          const result = await login({ variables: values });
+          console.log(result);
+          setToken((result as any).data.login.authToken);
         }} result={result} />}
-    </Mutation>
-    <Mutation mutation={registerMutation}>
-      {(register: (input: RegisterArguments) => RegisterPayload, result: AuthResult) =>
+    </LoginMutation>
+    <RegisterMutation mutation={registerMutation}>
+      {(register, result) =>
         <Register onSubmit={async (values: FormValues) => {
-          const { data: { register: { authToken } } } = await register({ variables: values });
-          setToken(authToken);
+          const result = await register({ variables: values });
+          console.log(result);
+          setToken((result as any).data.register.authToken);
         }} result={result} onSuccess={setToken} />}
-    </Mutation>
+    </RegisterMutation>
   </React.Fragment>
 );

@@ -45,9 +45,9 @@ const requestLink = new ApolloLink((operation: any, forward: (operation: (any)) 
 
 const client = new ApolloClient({
   link: ApolloLink.from([
-    onError(({ graphQLErrors, networkError }: { graphQLErrors: any, networkError: any }) => {
+    onError(({ graphQLErrors, networkError }: { graphQLErrors?: any, networkError?: any }) => {
       if (graphQLErrors)
-        graphQLErrors.map(({ message, locations, path }: { message: any, locations: any, path: any}) =>
+        graphQLErrors.map(({ message, locations, path }: { message: any, locations: any, path: any }) =>
           console.log(
             `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
           ),
