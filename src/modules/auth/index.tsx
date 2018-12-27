@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Mutation } from 'react-apollo';
 
+import { meQuery } from './_queries';
 import { loginMutation, registerMutation } from './_mutations';
 import Login from './Login';
 import Register from './Register';
@@ -43,7 +44,10 @@ class RegisterMutation extends Mutation<RegisterPayload, FormValues> { }
 
 export default () => (
   <React.Fragment>
-    <LoginMutation mutation={loginMutation}>
+    <LoginMutation
+      mutation={loginMutation}
+      refetchQueries={() => [{ query: meQuery }]}
+    >
       {(login, result) =>
         <Login onSubmit={async (values: { email: string, password: string }) => {
           const result = await login({ variables: values });
@@ -51,7 +55,10 @@ export default () => (
           setToken((result as any).data.login.authToken);
         }} result={result} />}
     </LoginMutation>
-    <RegisterMutation mutation={registerMutation}>
+    <RegisterMutation
+      mutation={registerMutation}
+      refetchQueries={() => [{ query: meQuery }]}
+    >
       {(register, result) =>
         <Register onSubmit={async (values: FormValues) => {
           const result = await register({ variables: values });

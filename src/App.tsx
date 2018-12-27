@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import client from './ApolloClient';
 import Home from './modules/home';
+import Spinner from './common/Spinner';
 import { ThemeProvider } from './layout/styled';
 import theme from './layout/theme';
 import GlobalStyles from './global/GlobalStyles';
@@ -16,7 +17,7 @@ const App = () => (
   <ThemeProvider theme={theme}>
     <ApolloProvider client={client}>
       <BrowserRouter>
-        <React.Suspense fallback={<p>Loading</p>}>
+        <React.Suspense fallback={<Spinner />}>
           <GlobalStyles />
           <TopBar />
           <Switch>

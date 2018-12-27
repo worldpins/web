@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Query } from 'react-apollo';
 import { Route } from 'react-router';
 
+import Spinner from '../../common/Spinner';
+
 import { mapsQuery } from './_queries';
 import SideBar from './components/SideBar';
 import CreateMapModal from './create';
@@ -31,7 +33,7 @@ const Maps = () => {
     <React.Fragment>
       <MapsQuery fetchPolicy="cache-and-network" query={mapsQuery}>
         {({ loading, data, error }) => {
-          if (loading) return <p>Loading...</p>
+          if (loading) return <Spinner />
           if (error) return <p>Error {error.message}</p>
           return data && (
             <SideBar

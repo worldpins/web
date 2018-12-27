@@ -1,6 +1,6 @@
 import * as React from 'react';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import { Query } from 'react-apollo';
 
 import styled from '../../layout/styled';
 import Button from '../../common/button';
@@ -20,27 +20,41 @@ const meQuery = gql`
   }
 `;
 
+const NameWrapper = styled.p`
+  margin: 0;
+`;
+
 const TopBarWrapper = styled.div<{ notAuthenticated?: boolean }>`
+  align-items: center;
   background-color: ${({ theme }) => theme.primary};
   border: ${({ theme }) => theme.greyAccent};
   display: flex;
   justify-content: ${({ notAuthenticated }) => notAuthenticated ? 'flex-end' : 'space-between'};
-  padding: 10px 0;
+  padding: 10px 6px;
   width: 100%
+`;
+
+const UserContainer = styled.div`
+  display: flex;
 `;
 
 interface MeData {
   me: {
     id: string;
     email: string;
+    profile: {
+      firstName: string;
+      lastName: string;
+    }
   }
 }
 
-class MeQuery extends Query<MeData, {}> {}
+class MeQuery extends Query<MeData, {}> { }
 
 const TopBar = React.memo(() => (
   <MeQuery query={meQuery}>
-    {({ error, data }) => {
+    {({ data, error, loading }) => {
+      if (loading) return <TopBarWrapper />
       if (error) {
         return (
           <TopBarWrapper notAuthenticated>
@@ -51,7 +65,12 @@ const TopBar = React.memo(() => (
 
       return (
         <TopBarWrapper>
-          TODO: topbar! Data from user is inside
+          <div>
+            <Button label="Maps" to="/maps" />
+          </div>
+          <UserContainer>
+            {data && <NameWrapper>Welcome {data.me.profile.firstName} {data.me.profile.lastName}</NameWrapper>}
+          </UserContainer>
         </TopBarWrapper>
       )
     }}

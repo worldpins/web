@@ -21,5 +21,4 @@ const LoginForm = ({ handleSubmit }: { handleSubmit: () => void }) => (
   </form>
 )
 
-
 export default Form({})(LoginForm);
