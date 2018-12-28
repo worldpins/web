@@ -8,11 +8,13 @@ export const createMapMutation = gql`
     $latitude: Float
   ) {
     createMap(
-      name: $name
-      comment: $comment
-      initialArea: {
-        longitude: $longitude
-        latitude: $latitude
+      input: {
+        name: $name
+        comment: $comment
+        initialArea: {
+          longitude: $longitude
+          latitude: $latitude
+        }
       }
     ) {
       id

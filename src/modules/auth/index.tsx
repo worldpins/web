@@ -42,29 +42,30 @@ interface RegisterPayload {
 class LoginMutation extends Mutation<LoginPayload, LoginArguments> { }
 class RegisterMutation extends Mutation<RegisterPayload, FormValues> { }
 
+const refetchQueries = () => [{ query: meQuery }];
+
 export default () => (
   <React.Fragment>
-    <LoginMutation
-      mutation={loginMutation}
-      refetchQueries={() => [{ query: meQuery }]}
-    >
-      {(login, result) =>
+    <LoginMutation mutation={loginMutation}>
+      {(login) =>
         <Login onSubmit={async (values: { email: string, password: string }) => {
-          const result = await login({ variables: values });
-          console.log(result);
-          setToken((result as any).data.login.authToken);
-        }} result={result} />}
+          await login({
+            variables: values,
+            refetchQueries,
+            update: (proxy, { data }) => setToken((data as any).login.authToken),
+          });
+        }} />}
     </LoginMutation>
-    <RegisterMutation
-      mutation={registerMutation}
-      refetchQueries={() => [{ query: meQuery }]}
-    >
-      {(register, result) =>
-        <Register onSubmit={async (values: FormValues) => {
-          const result = await register({ variables: values });
-          console.log(result);
-          setToken((result as any).data.register.authToken);
-        }} result={result} onSuccess={setToken} />}
+    <RegisterMutation mutation={registerMutation}>
+      {(register) =>
+        <Register onSubmit={
+          async (values: FormValues) => {
+            await register({
+              variables: values,
+              refetchQueries,
+              update: (proxy, { data }) => setToken((data as any).register.authToken),
+            })
+          }} />}
     </RegisterMutation>
   </React.Fragment>
 );

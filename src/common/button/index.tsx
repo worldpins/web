@@ -15,11 +15,12 @@ const StyledLink = FakeButton.withComponent(
   <NavLink {...props}>{children}</NavLink>
 ));
 
-interface ButtonProps {
+export interface ButtonProps {
   className?: string;
   label: string;
   onClick?: (e: React.SyntheticEvent) => void;
   to?: string;
+  type?: string;
 }
 
 const Button: React.SFC<ButtonProps> = React.memo(({
@@ -27,10 +28,11 @@ const Button: React.SFC<ButtonProps> = React.memo(({
   label,
   onClick,
   to,
+  type,
 }) => {
   return (
-    onClick ?
-      <StyledButton className={className} onClick={onClick}>{label}</StyledButton> :
+    onClick || type ?
+      <StyledButton className={className} onClick={onClick} type={type}>{label}</StyledButton> :
       <StyledLink className={className} to={to}>{label}</StyledLink>
   )
 });
