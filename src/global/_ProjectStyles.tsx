@@ -1,10 +1,14 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
+  html {
+    height: 100%;
+  }
   body {
     /* No ugly browser default padding/margin */
     padding: 0;
     margin: 0;
+    height: 100%;
     /* Smooth text hack by Daniël */
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -16,5 +20,11 @@ export default createGlobalStyle`
       box-sizing: border-box;
       font-family: 'Titillium Web', sans-serif;
     }
+  }
+
+  .leaflet-container {
+    height: 93vh;
+    width: 90%;
+    margin: 0 auto;
   }
 `;

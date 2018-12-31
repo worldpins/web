@@ -3,12 +3,14 @@ import { Query } from 'react-apollo';
 import { Route } from 'react-router';
 
 import Spinner from '../../common/Spinner';
+import styled from '../../layout/styled';
 
 import { mapsQuery } from './_queries';
-import SideBar from './components/SideBar';
-import CreateMapModal from './create';
+import SideBar from './read/SideBar';
+import CreateMapModal from './create/Map';
+import WorldsPinsMap from './read/Map';
 
-interface Map {
+interface MapItem {
   id: string;
   name: string;
 }
@@ -16,7 +18,7 @@ interface Map {
 interface MapData {
   maps: {
     filteredCount: number;
-    items: [Map]
+    items: [MapItem]
     totalCount: number;
   }
 }
@@ -26,9 +28,23 @@ interface MapVariables {
   limit?: number;
 }
 
+interface MapsProps {
+  history: { push: (path: string) => void; }
+  match: {
+    params: {
+      mapId?: string;
+    }
+  };
+};
+
+const Wrapper = styled.div`
+  display: flex;
+`;
+
 class MapsQuery extends Query<MapData, MapVariables> { };
 
-const Maps = () => {
+const Maps: React.SFC<MapsProps> = ({ history, match }) => {
+  const hasMapIdSelected = match.params.mapId && match.params.mapId !== 'create';
   return (
     <React.Fragment>
       <MapsQuery fetchPolicy="cache-and-network" query={mapsQuery}>
@@ -36,11 +52,15 @@ const Maps = () => {
           if (loading) return <Spinner />
           if (error) return <p>Error {error.message}</p>
           return data && (
-            <SideBar
-              totalCount={data.maps.totalCount}
-              filteredCount={data.maps.filteredCount}
-              maps={data.maps.items}
-            />
+            <Wrapper>
+              <SideBar
+                totalCount={data.maps.totalCount}
+                filteredCount={data.maps.filteredCount}
+                history={history}
+                maps={data.maps.items}
+              />
+              <WorldsPinsMap mapId={hasMapIdSelected ? match.params.mapId : undefined} />
+            </Wrapper>
           );
         }}
       </MapsQuery>

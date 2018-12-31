@@ -1,5 +1,28 @@
 import gql from 'graphql-tag';
 
+export const mapQuery = gql`
+  query map ($id: String!) {
+    map (id: $id) {
+      id
+      name
+      initialArea {
+        latitude
+        longitude
+      }
+      pins {
+        id
+        name
+        data
+        comment
+        location {
+          latitude
+          longitude
+        }
+      }
+    }
+  }
+`;
+
 export const mapsQuery = gql`
   query maps (
     $search: String

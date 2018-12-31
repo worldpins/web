@@ -41,7 +41,7 @@ module.exports = () => {
 
   if (!isProduction) {
     plugins.push(new webpack.HotModuleReplacementPlugin());
-    plugins.push(new BundleAnalyzerPlugin());
+    // plugins.push(new BundleAnalyzerPlugin());
   }
 
   // Return configuration

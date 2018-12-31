@@ -1,5 +1,32 @@
 import gql from 'graphql-tag';
 
+// TODO: template?
+export const createPinMutation = gql`
+  mutation createPin (
+    $id: String!
+    $name: String!
+    $comment: String
+    $latitude: Float
+    $longitude: Float
+    $data: JSON
+  ) {
+    map (id: $id) {
+      createPin(input: {
+        name: $name
+        comment: $comment
+        coordinates: {
+          longitude: $longitude
+          latitude: $latitude
+        }
+        data: $data
+      }) {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export const createMapMutation = gql`
   mutation createMap (
     $name: String!

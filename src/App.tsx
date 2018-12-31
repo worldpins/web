@@ -23,7 +23,7 @@ const App = () => (
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/auth" component={Auth} />
-            <Route path="/maps" component={Maps} />
+            <Route path="/maps/:mapId?" component={Maps} />
           </Switch>
         </React.Suspense>
       </BrowserRouter>
