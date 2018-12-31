@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Marker, Popup } from 'react-leaflet';
+import { Marker, Popup, Tooltip } from 'react-leaflet';
 
 interface PinProps {
+  comment: string;
   id: string;
   name: string;
   location: {
@@ -10,12 +11,13 @@ interface PinProps {
   }
 }
 
-const Pin: React.SFC<PinProps> = React.memo(({ name, location }) => {
+const Pin: React.SFC<PinProps> = React.memo(({ comment, name, location }) => {
   const position: [number, number] = [location.latitude, location.longitude];
   console.log('rendering pin on', position);
   return (
     <Marker position={position}>
       <Popup>{name}</Popup>
+      <Tooltip>{comment}</Tooltip>
     </Marker>
   )
 });

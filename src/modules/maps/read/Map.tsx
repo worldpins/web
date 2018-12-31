@@ -65,8 +65,8 @@ const WorldPinsMap: React.SFC<MapProps> = ({
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             {!loading && data && (data as any).map && (data as any).map.pins &&
-              (data as any).map.pins.map(({ id, name, location }: Pin) => (
-                <PinMarker key={id} name={name} id={id} location={location} />
+              (data as any).map.pins.map(({ comment, id, name, location }: Pin) => (
+                <PinMarker key={id} name={name} id={id} location={location} comment={comment} />
               ))
             }
           </Map>
