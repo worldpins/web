@@ -2,15 +2,20 @@ import * as React from 'react';
 
 import styled from '../../../layout/styled';
 
-const CardWrapper = styled.div`
-  background-color: ${({ theme }) => theme.grey};
-  box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.5);
+const CardWrapper = styled.div<{ isSelected: boolean }>`
+  background-color: ${({ theme }) => theme.bg};
+  box-shadow: ${({ isSelected }) => isSelected ? '0px 0px 2px 2px rgba(0,0,0,0.5)' : '0'};
   cursor: pointer;
   display: flex;
   justify-content: center;
   margin-bottom: 16px;
   padding: 10px;
-  width: 100%;
+  width: 90%;
+  transform: ${({ isSelected }) => isSelected ? 'scale(1.1)' : 'scale(1)'};
+  transition: transform .25s;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 interface Map {
@@ -18,10 +23,12 @@ interface Map {
   name: string;
 }
 
-const Card: React.SFC<{ map: Map; push: (path: string) => void; }> = React.memo(({ map, push }) => {
+const Card: React.SFC<{ map: Map; push: (path: string) => void; isSelected: boolean; }> = React.memo((
+  { map, push, isSelected }
+) => {
   const onClick = React.useCallback(() => push(`/maps/${map.id}`), [map.id]);
   return (
-    <CardWrapper onClick={onClick}>
+    <CardWrapper onClick={onClick} isSelected={isSelected}>
       <p>{map.name}</p>
     </CardWrapper>
   )

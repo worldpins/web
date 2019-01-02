@@ -24,6 +24,7 @@ interface SideBarProps {
     push: (path: string) => void;
   };
   maps: [Map];
+  selectedId?: string;
   totalCount: number;
 }
 
@@ -32,10 +33,13 @@ const SideBar: React.SFC<SideBarProps> = React.memo(({
   history,
   maps,
   totalCount,
+  selectedId,
 }) => {
   return (
     <SideBarWrapper>
-      {maps.map((map) => <MapCard key={map.id} map={map} push={history.push} />)}
+      {maps.map((map) => (
+        <MapCard key={map.id} map={map} push={history.push} isSelected={selectedId === map.id} />
+      ))}
       <Button to="/maps/create" label="Create" />
     </SideBarWrapper>
   )

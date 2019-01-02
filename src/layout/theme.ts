@@ -1,6 +1,7 @@
 const theme = {
   danger: '#ff4757',
   primary: '#1e90ff',
+  bg: '#dde2e7',
   grey: '#a4b0be',
   greyAccent: '#57606f',
   secondary: '#2f3542',
@@ -9,6 +10,7 @@ const theme = {
 }
 
 export interface ThemeInterface {
+  bg: string;
   danger: string;
   primary: string;
   grey: string;

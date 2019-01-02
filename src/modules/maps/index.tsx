@@ -58,6 +58,7 @@ const Maps: React.SFC<MapsProps> = ({ history, match }) => {
                 filteredCount={data.maps.filteredCount}
                 history={history}
                 maps={data.maps.items}
+                selectedId={match.params.mapId}
               />
               <WorldsPinsMap mapId={hasMapIdSelected ? match.params.mapId : undefined} />
             </Wrapper>
