@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Map, TileLayer } from 'react-leaflet';
 import { useToggle } from 'react-angler';
 import { LeafletMouseEvent } from 'leaflet';
-import { Query } from 'react-apollo';
+import { Query } from 'react-apollo';
 
 import CreatePinModal from '../create/pin';
 import { mapQuery } from '../_queries';
@@ -41,11 +41,11 @@ interface MapData {
   }
 }
 
-class MapQuery extends Query<MapData, { id?: string }> {}
+class MapQuery extends Query<MapData, { id?: string }> { }
 
-const WorldPinsMap: React.SFC<MapProps> = ({
+const WorldPinsMap = ({
   lat = 50.85045, lon = 4.34878, mapId, zoom = 13,
-}) => {
+}: MapProps) => {
   const { 0: coordinates, 1: setCoordinates } = React.useState({});
   const { value: isCreating, setTrue, setFalse } = useToggle(false);
   const handleClick = React.useCallback((e: LeafletMouseEvent) => {
@@ -71,7 +71,7 @@ const WorldPinsMap: React.SFC<MapProps> = ({
                 <PinMarker key={id} data={data} name={name} id={id} location={location} comment={comment} />
               ))
             }
-            <Route path="/maps/templates" render={() => <ManageTemplatesModal id={mapId} templatePins={(data as any).map.templatePins} />} />
+            <Route path={`/maps/${mapId}/templates`} render={() => <ManageTemplatesModal id={mapId} templatePins={(data as any).map.templatePins} />} />
           </Map>
           {isCreating && mapId &&
             <CreatePinModal coordinates={coordinates} mapId={mapId} onClose={setFalse} />}

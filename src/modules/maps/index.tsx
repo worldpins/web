@@ -28,7 +28,7 @@ interface MapVariables {
   limit?: number;
 }
 
-interface MapsProps {};
+interface MapsProps { };
 
 const Wrapper = styled.div`
   display: flex;
@@ -36,9 +36,9 @@ const Wrapper = styled.div`
 
 class MapsQuery extends Query<MapData, MapVariables> { };
 
-const Maps: React.SFC<MapsProps> = () => {
-  const { 0: selectedMap, 1: selectMap } = React.useState('');
-  const hasMapIdSelected = Boolean(selectedMap);
+const Maps: React.SFC<MapsProps> = ({ history, match: { params: { mapId: selectedMap } } }) => {
+  const hasMapIdSelected = Boolean(selectedMap) && selectedMap !== 'create';
+  const selectMap = React.useCallback((id: string) => history.replace(`/maps/${id}`));
   return (
     <React.Fragment>
       <MapsQuery fetchPolicy="cache-and-network" query={mapsQuery}>

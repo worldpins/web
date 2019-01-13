@@ -72,7 +72,7 @@
     "apollo-link-state": "^0.4.2",
     "graphql": "14.0.2",
     "graphql-tag": "2.10.0",
-    "hooked-form": "0.3.2",
+    "hooked-form": "1.1.1",
     "leaflet": "^1.3.4",
     "react": "16.7.0-alpha.2",
     "react-angler": "^0.0.3",

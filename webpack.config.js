@@ -56,7 +56,8 @@ module.exports = () => {
     stats: 'minimal',
     devtool: isProduction ? '' : 'eval-source-map',
     devServer: {
-      host: '127.0.0.1',
+      contentBase: path.join(__dirname, 'dist'),
+      host: 'localhost',
       port: 8080,
       historyApiFallback: true,
       hot: true,
@@ -67,8 +68,12 @@ module.exports = () => {
       overlay: true,
     },
     output: {
-      filename: '[name].[hash].js',
+      // contentHash enables us to cache until we alter our code, big benefit to our users.
+      chunkFilename: '[name].[contenthash].js',
+      // HMR needs a hash and won't work with contenthash
+      filename: isProduction ? '[name].[contenthash].js' : '[name].[hash].js',
       path: path.resolve(__dirname, './dist'),
+      publicPath: '/',
     },
     optimization: {
       concatenateModules: process.env.NODE_ENV === 'production',

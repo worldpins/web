@@ -5,6 +5,13 @@ import { meQuery } from './_queries';
 import { loginMutation, registerMutation } from './_mutations';
 import Login from './Login';
 import Register from './Register';
+import styled from '../../layout/styled';
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 32px 32px;
+`;
 
 interface LoginArguments {
   email: string;
@@ -44,8 +51,8 @@ class RegisterMutation extends Mutation<RegisterPayload, FormValues> { }
 
 const refetchQueries = () => [{ query: meQuery }];
 
-export default () => (
-  <React.Fragment>
+export default ({ history }) => (
+  <Wrapper>
     <LoginMutation mutation={loginMutation}>
       {(login) =>
         <Login onSubmit={async (values: { email: string, password: string }) => {
@@ -54,6 +61,7 @@ export default () => (
             refetchQueries,
             update: (proxy, { data }) => setToken((data as any).login.authToken),
           });
+          history.push('/maps');
         }} />}
     </LoginMutation>
     <RegisterMutation mutation={registerMutation}>
@@ -65,7 +73,8 @@ export default () => (
               refetchQueries,
               update: (proxy, { data }) => setToken((data as any).register.authToken),
             })
+            history.push('/maps');
           }} />}
     </RegisterMutation>
-  </React.Fragment>
+  </Wrapper>
 );

@@ -16,15 +16,17 @@ const FieldEntries: React.SFC<Props> = ({ addElement, removeElement, values }) =
   const onAdd = React.useCallback(() => addElement({}), [addElement]);
   return (
     <div>
-      {values.map((field, fieldId) => (
+      <h3>Fields:</h3>
+      {values.map((field, fieldId, i) => (
         <div key={fieldId}>
           <Field
             component={StringField}
             fieldId={`${fieldId}.name`}
+            label={`Field ${i}`}
           />
         </div>
       ))}
-      <Button onClick={onAdd} label="Add field" />
+      <Button onClick={onAdd} label="Add field" type="button" />
     </div>
   )
 }

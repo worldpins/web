@@ -48,7 +48,7 @@ const TemplatePin: React.SFC<Props> = ({ addElement, removeElement, values }) =>
           );
         })
       }
-      <Button label="Add template" onClick={onAdd} />
+      <Button label="Add template" onClick={onAdd} type="button" />
     </div>
   );
 }

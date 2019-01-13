@@ -10,7 +10,7 @@ export const createTemplatePinMutation = gql`
   ) {
     map(id: $id) {
       id
-      createTemplatePin(name: $name, comment: $comment, fields: $fields) {
+      createTemplatePin(input: { name: $name, comment: $comment, fields: $fields }) {
         id
       }
     }

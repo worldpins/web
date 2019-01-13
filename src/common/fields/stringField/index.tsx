@@ -18,11 +18,11 @@ const TextInput = styled.input`
   border-radius: 2px;
   transition: all .25s;
   &:focus {
-    background-color: ${({ theme }) => theme.greyAccent};
+    background-color: ${({ theme }) => theme.grey};
   }
 `;
 
-class TextField extends React.Component<TextFieldProps, TextFieldState> {
+class TextField extends React.PureComponent<TextFieldProps, TextFieldState> {
 
   state = { isFocussed: false }
 

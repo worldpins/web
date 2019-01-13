@@ -18,6 +18,10 @@ interface CreateMapModalProps {
 
 const CreateMapModal: React.SFC<CreateMapModalProps> = ({ handleSubmit, history }) => {
   const onClose = React.useCallback(() => history.push('/maps'), []);
+  let x = 0;
+  setInterval(() => {
+    x = x + 1;
+  })
   return (
     <Modal
       isOpen
@@ -30,6 +34,7 @@ const CreateMapModal: React.SFC<CreateMapModalProps> = ({ handleSubmit, history 
           fieldId="name"
           label="name"
           placeholder="Name"
+          x={x}
         />
         <Button type="submit" label="Save" />
       </form>
@@ -39,8 +44,9 @@ const CreateMapModal: React.SFC<CreateMapModalProps> = ({ handleSubmit, history 
 
 const CreateMapFormModal = withRouter(
   Form({
-    onSubmit: async (values, { createMap }: { createMap: Function }) => {
+    onSubmit: async (values, { createMap, history }: { createMap: Function }) => {
       await createMap({ variables: values });
+      history.replace('/maps');
     }
   })(CreateMapModal)
 );

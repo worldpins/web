@@ -42,7 +42,7 @@ const SideBar: React.SFC<SideBarProps> = React.memo(({
         <MapCard key={map.id} map={map} selectMap={selectMap} isSelected={selectedId === map.id} />
       ))}
       <Button to="/maps/create" label="Create Map" />
-      {selectedId && <Button to="/maps/templates" label="Manage template pins" />}
+      {selectedId && <Button to={`/maps/${selectedId}/templates`} label="Manage template pins" />}
     </SideBarWrapper>
   )
 });

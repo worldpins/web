@@ -2,39 +2,59 @@ import * as React from 'react';
 import { Field, Form } from 'hooked-form';
 
 import StringField from '../../common/fields/stringField';
+import styled from '../../layout/styled';
+import Button from '../../common/button';
+
+const Divider = styled.div`
+  border-left: 1px solid ${(theme) => theme.greyAccent};
+`;
+
+const FormWrapper = styled.form`
+  display: flex;
+  flex-direction: column;
+  padding: 6px 12px;
+  margin-right: 24px;
+  margin-left: 24px;
+  > * {
+    margin-bottom: 6px;
+  }
+`;
 
 const RegisterForm = ({ handleSubmit }: { handleSubmit: () => void }) => (
-  <form onSubmit={handleSubmit}>
-    <h1>Register</h1>
-    <Field
-      component={StringField}
-      fieldId="email"
-      label="Email"
-    />
-    <Field
-      component={StringField}
-      fieldId="password"
-      label="Password"
-      type="password"
-    />
-    <Field
-      component={StringField}
-      fieldId="confirmPassword"
-      label="Confirm password"
-      type="password"
-    />
-    <Field
-      component={StringField}
-      fieldId="firstName"
-      label="First name"
-    />
-    <Field
-      component={StringField}
-      fieldId="lastName"
-      label="Last name"
-    />
-    <button type="submit">Submit</button>
-  </form>
+  <React.Fragment>
+    <Divider />
+    <FormWrapper onSubmit={handleSubmit}>
+      <h1>Register</h1>
+      <Field
+        component={StringField}
+        fieldId="email"
+        label="Email"
+      />
+      <Field
+        component={StringField}
+        fieldId="password"
+        label="Password"
+        type="password"
+      />
+      <Field
+        component={StringField}
+        fieldId="confirmPassword"
+        label="Confirm password"
+        type="password"
+      />
+      <Field
+        component={StringField}
+        fieldId="firstName"
+        label="First name"
+      />
+      <Field
+        component={StringField}
+        fieldId="lastName"
+        label="Last name"
+      />
+      <Button label="Submit" type="submit" />
+    </FormWrapper>
+  </React.Fragment>
 );
 
 interface FormValues {
@@ -57,7 +77,7 @@ export default Form({
   validateOnBlur: true,
   validateOnChange: true,
   validate: ({ email, password, confirmPassword, lastName, firstName }: FormValues) => {
-    const errors : FormErrors = {};
+    const errors: FormErrors = {};
     if (!email) {
       errors.email = 'You need an email to register.';
     }
