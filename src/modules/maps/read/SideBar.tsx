@@ -11,6 +11,9 @@ const SideBarWrapper = styled.div`
   flex-direction: column;
   padding: 5px;
   width: 10%;
+  > a {
+    margin-bottom: 12px;
+  }
 `;
 
 interface Map {
@@ -20,9 +23,7 @@ interface Map {
 
 interface SideBarProps {
   filteredCount: number;
-  history: {
-    push: (path: string) => void;
-  };
+  selectMap: (id: string) => void;
   maps: [Map];
   selectedId?: string;
   totalCount: number;
@@ -30,7 +31,7 @@ interface SideBarProps {
 
 const SideBar: React.SFC<SideBarProps> = React.memo(({
   filteredCount,
-  history,
+  selectMap,
   maps,
   totalCount,
   selectedId,
@@ -38,9 +39,10 @@ const SideBar: React.SFC<SideBarProps> = React.memo(({
   return (
     <SideBarWrapper>
       {maps.map((map) => (
-        <MapCard key={map.id} map={map} push={history.push} isSelected={selectedId === map.id} />
+        <MapCard key={map.id} map={map} selectMap={selectMap} isSelected={selectedId === map.id} />
       ))}
-      <Button to="/maps/create" label="Create" />
+      <Button to="/maps/create" label="Create Map" />
+      {selectedId && <Button to="/maps/templates" label="Manage template pins" />}
     </SideBarWrapper>
   )
 });

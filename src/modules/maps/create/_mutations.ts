@@ -1,6 +1,5 @@
 import gql from 'graphql-tag';
 
-// TODO: template?
 export const createPinMutation = gql`
   mutation createPin (
     $id: String!

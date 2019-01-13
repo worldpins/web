@@ -23,10 +23,10 @@ interface Map {
   name: string;
 }
 
-const Card: React.SFC<{ map: Map; push: (path: string) => void; isSelected: boolean; }> = React.memo((
-  { map, push, isSelected }
+const Card: React.SFC<{ map: Map; selectMap: (id: string) => void; isSelected: boolean; }> = React.memo((
+  { map, selectMap, isSelected }
 ) => {
-  const onClick = React.useCallback(() => push(`/maps/${map.id}`), [map.id]);
+  const onClick = React.useCallback(() => selectMap(map.id), [map.id]);
   return (
     <CardWrapper onClick={onClick} isSelected={isSelected}>
       <p>{map.name}</p>

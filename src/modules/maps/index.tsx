@@ -28,14 +28,7 @@ interface MapVariables {
   limit?: number;
 }
 
-interface MapsProps {
-  history: { push: (path: string) => void; }
-  match: {
-    params: {
-      mapId?: string;
-    }
-  };
-};
+interface MapsProps {};
 
 const Wrapper = styled.div`
   display: flex;
@@ -43,8 +36,9 @@ const Wrapper = styled.div`
 
 class MapsQuery extends Query<MapData, MapVariables> { };
 
-const Maps: React.SFC<MapsProps> = ({ history, match }) => {
-  const hasMapIdSelected = match.params.mapId && match.params.mapId !== 'create';
+const Maps: React.SFC<MapsProps> = () => {
+  const { 0: selectedMap, 1: selectMap } = React.useState('');
+  const hasMapIdSelected = Boolean(selectedMap);
   return (
     <React.Fragment>
       <MapsQuery fetchPolicy="cache-and-network" query={mapsQuery}>
@@ -56,11 +50,11 @@ const Maps: React.SFC<MapsProps> = ({ history, match }) => {
               <SideBar
                 totalCount={data.maps.totalCount}
                 filteredCount={data.maps.filteredCount}
-                history={history}
+                selectMap={selectMap}
                 maps={data.maps.items}
-                selectedId={match.params.mapId}
+                selectedId={selectedMap}
               />
-              <WorldsPinsMap mapId={hasMapIdSelected ? match.params.mapId : undefined} />
+              <WorldsPinsMap mapId={hasMapIdSelected ? selectedMap : undefined} />
             </Wrapper>
           );
         }}

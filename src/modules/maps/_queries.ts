@@ -19,6 +19,12 @@ export const mapQuery = gql`
           longitude
         }
       }
+      templatePins {
+        id
+        name
+        comment
+        fields
+      }
     }
   }
 `;

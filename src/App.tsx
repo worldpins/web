@@ -22,8 +22,8 @@ const App = () => (
           <TopBar />
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/auth" component={Auth} />
-            <Route path="/maps/:mapId?" component={Maps} />
+            <Route path="/auth" exact component={Auth} />
+            <Route path="/maps" exact={false} component={Maps} />
           </Switch>
         </React.Suspense>
       </BrowserRouter>

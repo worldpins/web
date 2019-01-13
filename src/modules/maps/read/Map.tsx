@@ -7,6 +7,8 @@ import { Query } from 'react-apollo';
 import CreatePinModal from '../create/pin';
 import { mapQuery } from '../_queries';
 import PinMarker from './Pin';
+import { Route } from 'react-router';
+import ManageTemplatesModal from '../templatePins';
 
 interface MapProps {
   lat?: number;
@@ -69,6 +71,7 @@ const WorldPinsMap: React.SFC<MapProps> = ({
                 <PinMarker key={id} data={data} name={name} id={id} location={location} comment={comment} />
               ))
             }
+            <Route path="/maps/templates" render={() => <ManageTemplatesModal id={mapId} templatePins={(data as any).map.templatePins} />} />
           </Map>
           {isCreating && mapId &&
             <CreatePinModal coordinates={coordinates} mapId={mapId} onClose={setFalse} />}
