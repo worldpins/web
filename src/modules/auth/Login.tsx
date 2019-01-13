@@ -4,6 +4,7 @@ import { Field, Form } from 'hooked-form';
 import StringField from '../../common/fields/stringField';
 import styled from '../../layout/styled';
 import Button from '../../common/button';
+import { meQuery } from './_queries';
 
 const FormWrapper = styled.form`
   display: flex;
@@ -15,9 +16,22 @@ const FormWrapper = styled.form`
   }
 `;
 
-const LoginForm = ({ handleSubmit }: { handleSubmit: () => void }) => (
+const setToken = (token: string) => { window.localStorage.setItem('token', token) }
+const refetchQueries = () => [{ query: meQuery }];
+
+interface Props {
+  formError: string;
+  handleSubmit: () => void;
+  history: {
+    push: (path: string) => void
+  }
+  login: (values: object) => Promise<void>;
+}
+
+const LoginForm = React.memo(({ formError, handleSubmit }: Props) => (
   <FormWrapper onSubmit={handleSubmit}>
     <h1>Login</h1>
+    {formError && <p>{formError}</p>}
     <Field
       component={StringField}
       fieldId="email"
@@ -32,5 +46,16 @@ const LoginForm = ({ handleSubmit }: { handleSubmit: () => void }) => (
     <Button label="Submit" type="submit" />
   </FormWrapper>
 )
+)
 
-export default Form({})(LoginForm);
+export default Form({
+  onError: (err: any, setFormError: (err: string) => void) => setFormError(err.message),
+  onSubmit: async (values: { email: string, password: string }, { login, history }: Props) => {
+    await login({
+      variables: values,
+      refetchQueries,
+      update: (proxy: any, { data }: any) => setToken(data.login.authToken),
+    });
+    history.push('/maps');
+  }
+})(LoginForm);

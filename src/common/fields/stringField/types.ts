@@ -6,7 +6,3 @@ export interface TextFieldProps {
   type?: string
   value?: string
 }
-
-export interface TextFieldState {
-  isFocussed: boolean
-}

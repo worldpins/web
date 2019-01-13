@@ -4,6 +4,7 @@ import { Field, Form } from 'hooked-form';
 import StringField from '../../common/fields/stringField';
 import styled from '../../layout/styled';
 import Button from '../../common/button';
+import { meQuery } from './_queries';
 
 const Divider = styled.div`
   border-left: 1px solid ${(theme) => theme.greyAccent};
@@ -20,11 +21,24 @@ const FormWrapper = styled.form`
   }
 `;
 
-const RegisterForm = ({ handleSubmit }: { handleSubmit: () => void }) => (
+const setToken = (token: string) => { window.localStorage.setItem('token', token) }
+const refetchQueries = () => [{ query: meQuery }];
+
+interface Props {
+  formError: string;
+  handleSubmit: () => void;
+  history: {
+    push: (path: string) => void
+  }
+  register: (values: object) => Promise<void>;
+}
+
+const RegisterForm = React.memo(({ formError, handleSubmit }: Props) => (
   <React.Fragment>
     <Divider />
     <FormWrapper onSubmit={handleSubmit}>
       <h1>Register</h1>
+      {formError && <p>{formError}</p>}
       <Field
         component={StringField}
         fieldId="email"
@@ -55,7 +69,7 @@ const RegisterForm = ({ handleSubmit }: { handleSubmit: () => void }) => (
       <Button label="Submit" type="submit" />
     </FormWrapper>
   </React.Fragment>
-);
+));
 
 interface FormValues {
   email: string;
@@ -74,8 +88,17 @@ interface FormErrors {
 }
 
 export default Form({
+  onError: (err: any, setFormError: (str: string) => void) => setFormError(err.message),
+  onSubmit: async (values: object, { register, history }: Props) => {
+    await register({
+      variables: values,
+      refetchQueries,
+      update: (proxy: any, { data }: any) => setToken(data.register.authToken),
+    })
+    history.push('/maps');
+  },
   validateOnBlur: true,
-  validateOnChange: true,
+  validateOnChange: false,
   validate: ({ email, password, confirmPassword, lastName, firstName }: FormValues) => {
     const errors: FormErrors = {};
     if (!email) {
