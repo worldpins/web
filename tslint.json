@@ -5,6 +5,29 @@
     "tslint-config-airbnb"
   ],
   "rules": {
-    "ordered-imoprts": 0,
+    "import-name": false,
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
+    "jsx-boolean-value": false,
+    "jsx-no-multiline-js": false,
+    "member-access": false,
+    "no-console": false,
+    "no-import-side-effect": true,
+    "ordered-imports": false,
+    "variable-name": false,
+    "semicolon": [
+      true,
+      "always"
+    ],
+    "jsx-no-lambda": false,
+    "max-classes-per-file": false,
+    "space-in-parens": false,
+    "quotemark": [
+      true,
+      "single",
+      "jsx-double"
+    ]
   }
 }
