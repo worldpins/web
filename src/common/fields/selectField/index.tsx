@@ -11,19 +11,22 @@ const SelectFieldWrapper = styled.div`
 `;
 
 const SelectField = React.memo(({ label, value, onChange, options }: SelectFieldProps) => {
-  const change = React.useCallback((e: React.FormEvent<HTMLSelectElement>) => {
-    onChange(e.currentTarget.value);
-  }, [onChange]);
+  const change = React.useCallback(
+    (e: React.FormEvent<HTMLSelectElement>) => {
+      onChange(e.currentTarget.value);
+    },
+    [onChange],
+  );
   return (
     <SelectFieldWrapper>
       {label && <Label>{label}</Label>}
       <select value={value} onChange={change}>
-        {options.map(({ value, label }) => (
-          <option key={value} value={value}>{label}</option>
+        {options.map(({ value: optionValue, label: optionLabel }) => (
+          <option key={value} value={optionValue}>{optionLabel}</option>
         ))}
       </select>
     </SelectFieldWrapper>
-  )
-})
+  );
+});
 
 export default SelectField;

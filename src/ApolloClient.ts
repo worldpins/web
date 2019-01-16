@@ -39,25 +39,27 @@ const requestLink = new ApolloLink((operation: any, forward: (operation: (any)) 
   });
 });
 
-
 const client = new ApolloClient({
+  cache: new InMemoryCache(),
   link: ApolloLink.from([
     onError(({ graphQLErrors, networkError }: { graphQLErrors?: any, networkError?: any }) => {
-      if (graphQLErrors)
-        graphQLErrors.map(({ message, locations, path }: { message: any, locations: any, path: any }) =>
+      if (graphQLErrors) {
+        graphQLErrors.map((
+          { message, locations, path }: { message: any, locations: any, path: any },
+        ) =>
           console.log(
             `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
           ),
         );
+      }
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
     requestLink,
     new HttpLink({
+      credentials: 'same-origin',
       uri: 'http://localhost:3000/graphql',
-      credentials: 'same-origin'
-    })
+    }),
   ]),
-  cache: new InMemoryCache()
 });
 
 export default client;

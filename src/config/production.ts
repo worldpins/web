@@ -1,4 +1,4 @@
-import Config from "./interface";
+import Config from './interface';
 
 const config: Config = {
   baseUrl: 'TODO',

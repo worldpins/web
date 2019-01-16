@@ -46,7 +46,7 @@ interface MeData {
       firstName: string;
       lastName: string;
     }
-  }
+  };
 }
 
 class MeQuery extends Query<MeData, {}> { }
@@ -54,13 +54,13 @@ class MeQuery extends Query<MeData, {}> { }
 const TopBar = React.memo(() => (
   <MeQuery query={meQuery}>
     {({ data, error, loading }) => {
-      if (loading) return <TopBarWrapper />
+      if (loading) return <TopBarWrapper />;
       if (error) {
         return (
           <TopBarWrapper notAuthenticated>
             <Button label="login / register" to="/auth" />
           </TopBarWrapper>
-        )
+        );
       }
 
       return (
@@ -69,10 +69,14 @@ const TopBar = React.memo(() => (
             <Button label="Maps" to="/maps" />
           </div>
           <UserContainer>
-            {data && <NameWrapper>Welcome {data.me.profile.firstName} {data.me.profile.lastName}</NameWrapper>}
+            {data && (
+              <NameWrapper>
+                Welcome {data.me.profile.firstName} {data.me.profile.lastName}
+              </NameWrapper>
+            )}
           </UserContainer>
         </TopBarWrapper>
-      )
+      );
     }}
   </MeQuery>
 ));

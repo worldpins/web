@@ -38,10 +38,18 @@ const Button: React.SFC<ButtonProps> = React.memo(({
   type,
 }) => {
   return (
-    onClick || type ?
-      <StyledButton flavor={flavor || 'primary'} disabled={disabled} className={className} onClick={onClick} type={type}>{label}</StyledButton> :
+    onClick || type ? (
+      <StyledButton
+        flavor={flavor || 'primary'}
+        disabled={disabled}
+        className={className}
+        onClick={onClick}
+        type={type}
+      >{label}
+      </StyledButton>
+    ) :
       <StyledLink disabled={disabled} className={className} to={to}>{label}</StyledLink>
-  )
+  );
 });
 
 export default Button;

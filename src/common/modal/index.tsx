@@ -1,12 +1,12 @@
-import * as React from "react";
-import ReactModal from "react-modal";
+import * as React from 'react';
+import ReactModal from 'react-modal';
 
-import styled from "../../layout/styled";
-import Cross from "./cross";
-import Button, { ButtonProps } from "../button";
+import styled from '../../layout/styled';
+import Cross from './cross';
+import Button, { ButtonProps } from '../button';
 
 interface ModalProps {
-  buttons?: Array<ButtonProps>;
+  buttons?: ButtonProps[];
   className?: string;
   children: React.ReactNode;
   isOpen: boolean;
@@ -70,14 +70,14 @@ const Footer = styled.div`
   }
 `;
 
-const Modal: React.SFC<ModalProps> = ({
+const Modal: React.FC<ModalProps> = React.memo(({
   title,
   onClose,
   children,
   className,
   isOpen,
   buttons = [],
-  onSubmit
+  onSubmit,
 }) => {
   const contentClassName = `${className}__content`;
   const overlayClassName = `${className}__overlay`;
@@ -86,7 +86,7 @@ const Modal: React.SFC<ModalProps> = ({
       e.preventDefault();
       onClose();
     },
-    [onClose]
+    [onClose],
   );
   let Wrapper = ModalWrapper;
   if (onSubmit) {
@@ -114,7 +114,7 @@ const Modal: React.SFC<ModalProps> = ({
       </Wrapper>
     </ReactModal>
   );
-};
+});
 
 export default styled(Modal)`
   .ReactModal__Overlay {

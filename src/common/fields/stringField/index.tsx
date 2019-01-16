@@ -20,20 +20,28 @@ const TextInput = styled.input`
   }
 `;
 
-const TextField = React.memo(({ onBlur, label, value, type, onFocus, onChange }: TextFieldProps) => {
-  const blur = React.useCallback(() => {
-    if (onBlur && typeof onBlur === 'function') {
-      onBlur();
-    }
-  }, [onBlur]);
-  const focus = React.useCallback(() => {
-    if (onFocus && typeof onFocus === 'function') {
-      onFocus();
-    }
-  }, [onFocus]);
-  const change = React.useCallback((e: React.FormEvent<HTMLInputElement>) => {
-    onChange(e.currentTarget.value);
-  }, [onChange]);
+const TextField: React.FC<TextFieldProps> = React.memo((
+  { onBlur, label, value, type, onFocus, onChange },
+) => {
+  const blur = React.useCallback(
+    () => {
+      if (onBlur && typeof onBlur === 'function') {
+        onBlur();
+      }
+    },
+    [onBlur]);
+  const focus = React.useCallback(
+    () => {
+      if (onFocus && typeof onFocus === 'function') {
+        onFocus();
+      }
+    },
+    [onFocus]);
+  const change = React.useCallback(
+    (e: React.FormEvent<HTMLInputElement>) => {
+      onChange(e.currentTarget.value);
+    },
+    [onChange]);
   return (
     <TextFieldWrapper>
       {label && <Label>{label}</Label>}
@@ -45,7 +53,7 @@ const TextField = React.memo(({ onBlur, label, value, type, onFocus, onChange }:
         value={value}
       />
     </TextFieldWrapper>
-  )
-})
+  );
+});
 
 export default TextField;
