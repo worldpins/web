@@ -4,7 +4,6 @@ import { Field, Form } from 'hooked-form';
 import StringField from '../../common/fields/stringField';
 import styled from '../../layout/styled';
 import Button from '../../common/button';
-import { meQuery } from './_queries';
 
 const Divider = styled.div`
   border-left: 1px solid ${theme => theme.greyAccent};
@@ -22,7 +21,6 @@ const FormWrapper = styled.form`
 `;
 
 const setToken = (token: string) => { window.localStorage.setItem('token', token); };
-const refetchQueries = () => [{ query: meQuery }];
 
 interface Props {
   formError: string;
@@ -91,11 +89,10 @@ export default Form({
   onError: (err: any, setFormError: (str: string) => void) => setFormError(err.message),
   onSubmit: async (values: object, { register, history }: Props) => {
     await register({
-      refetchQueries,
       update: (proxy: any, { data }: any) => setToken(data.register.authToken),
       variables: values,
     });
-    history.push('/maps');
+    setTimeout(() => history.push('/maps'), 300);
   },
   validate: ({ email, password, confirmPassword, lastName, firstName }: FormValues) => {
     const errors: FormErrors = {};

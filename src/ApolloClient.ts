@@ -43,16 +43,18 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: ApolloLink.from([
     onError(({ graphQLErrors, networkError }: { graphQLErrors?: any, networkError?: any }) => {
-      if (graphQLErrors) {
+      if (graphQLErrors && process.env.NODE_ENV !== 'production') {
         graphQLErrors.map((
           { message, locations, path }: { message: any, locations: any, path: any },
         ) =>
           console.log(
-            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+            `Message: ${message}, Location: ${locations}, Path: ${path}`,
           ),
         );
       }
-      if (networkError) console.log(`[Network error]: ${networkError}`);
+      if (networkError && process.env.NODE_ENV !== 'production') {
+        console.log(`[Network error]: ${networkError}`);
+      }
     }),
     requestLink,
     new HttpLink({

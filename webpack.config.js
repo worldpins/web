@@ -46,7 +46,7 @@ module.exports = () => {
   }
 
   if (isProduction) {
-    plugins.push(new CompressionPlugin())
+    plugins.push(new CompressionPlugin({ deleteOriginalAssets: false }))
   }
 
   // Return configuration

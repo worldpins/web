@@ -4,6 +4,7 @@ import { useToggle } from 'react-angler';
 
 import Button from '../../../common/button';
 import UpdatePinModal from '../update/Pin';
+import styled from '../../../layout/styled';
 
 interface PinProps {
   comment: string;
@@ -16,19 +17,25 @@ interface PinProps {
   };
 }
 
+const DataEntry = styled.p`
+  margin: 0 !important;
+  margin-bottom: 4px !important;
+`;
+
 const Pin: React.FC<PinProps> = React.memo(({ comment, id, name, location, data = {} }) => {
   const position: [number, number] = [location.latitude, location.longitude];
   const { value: isUpdating, setTrue, setFalse } = useToggle(false);
   return (
     <Marker position={position}>
       <Popup>
-        <p>Name: {name}</p>
+        <DataEntry>Name: {name}</DataEntry>
+        {comment && <DataEntry>Comment: {comment}</DataEntry>}
         {Object.keys(data).map(property => (
-          <p key={property}>{property}: {data[property]}</p>
+          <DataEntry key={property}>{property}: {data[property]}</DataEntry>
         ))}
         <Button label="Edit" onClick={setTrue} />
       </Popup>
-      <Tooltip>{comment}</Tooltip>
+      <Tooltip>{name}</Tooltip>
       {isUpdating && <UpdatePinModal id={id} onClose={setFalse} />}
     </Marker>
   );
