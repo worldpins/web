@@ -1,12 +1,12 @@
-import * as React from "react";
-import { Form, FieldArray } from "hooked-form";
-import { withRouter } from "react-router";
-import { graphql } from "react-apollo";
+import * as React from 'react';
+import { Form, FieldArray } from 'hooked-form';
+import { withRouter } from 'react-router';
+import { graphql } from 'react-apollo';
 
-import Modal from "../../../common/modal";
+import Modal from '../../../common/modal';
 
-import TemplatePins from "./TemplatePins";
-import { createTemplatePinMutation } from "./_mutations";
+import TemplatePins from './TemplatePins';
+import { createTemplatePinMutation } from './_mutations';
 
 interface Props {
   createTemplatePin: (
@@ -15,28 +15,28 @@ interface Props {
         id: string;
         name: string;
         comment: string;
-        fields: Array<object>;
+        fields: object[];
       };
-    }
+    },
   ) => Promise<void>;
   handleSubmit: () => void;
   history: {
     replace: (path: string) => void;
   };
   id: string;
-  templatePins: Array<object>;
+  templatePins: object[];
 }
 
 const ManageTemplatesModal: React.FC<Props> = ({ history, handleSubmit }) => {
-  const onClose = React.useCallback(() => history.replace("/maps"), []);
+  const onClose = React.useCallback(() => history.replace('/maps'), []);
   return (
     <Modal
       isOpen
       onClose={onClose}
       title="templates"
       buttons={[
-        { label: "Close", flavor: "danger", onClick: onClose },
-        { label: "Submit", flavor: "primary", onClick: handleSubmit }
+        { label: 'Close', flavor: 'danger', onClick: onClose },
+        { label: 'Submit', flavor: 'primary', onClick: handleSubmit },
       ]}
     >
       <form onSubmit={handleSubmit}>
@@ -46,27 +46,26 @@ const ManageTemplatesModal: React.FC<Props> = ({ history, handleSubmit }) => {
   );
 };
 
-const ManageTemplatesFormModal = withRouter(
-  Form({
-    mapPropsToValues: props => {
-      console.log(props);
-      return { templatePins: (props as any).templatePins };
-    },
-    onSubmit: async (values: any, { createTemplatePin, id }: Props) => {
-      const newTemplate = values.templatePins[0];
-      console.log("submitting", values, newTemplate);
-      await createTemplatePin({
-        variables: {
-          id,
-          fields: newTemplate.fields,
-          comment: newTemplate.comment,
-          name: newTemplate.name
-        }
-      });
-    }
-  })(ManageTemplatesModal)
-);
+const ManageTemplatesFormModal = Form({
+  mapPropsToValues: (props) => {
+    return { templatePins: (props as any).templatePins };
+  },
+  onSubmit: async (values: any, { createTemplatePin, id }: Props) => {
+    const newTemplate = values.templatePins[0];
+    console.log('submitting', values, newTemplate);
+    await createTemplatePin({
+      variables: {
+        comment: newTemplate.comment,
+        fields: newTemplate.fields,
+        id,
+        name: newTemplate.name,
+      },
+    });
+  },
+})(ManageTemplatesModal);
 
-export default graphql(createTemplatePinMutation, {
-  name: "createTemplatePin"
-})(ManageTemplatesFormModal);
+export default withRouter(
+  graphql<{ id?: string; templatePins: object[] }>(createTemplatePinMutation, {
+    name: 'createTemplatePin',
+  })(ManageTemplatesFormModal),
+);

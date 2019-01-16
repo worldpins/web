@@ -7,7 +7,7 @@ import Button from '../../common/button';
 import { meQuery } from './_queries';
 
 const Divider = styled.div`
-  border-left: 1px solid ${(theme) => theme.greyAccent};
+  border-left: 1px solid ${theme => theme.greyAccent};
 `;
 
 const FormWrapper = styled.form`
@@ -21,15 +21,15 @@ const FormWrapper = styled.form`
   }
 `;
 
-const setToken = (token: string) => { window.localStorage.setItem('token', token) }
+const setToken = (token: string) => { window.localStorage.setItem('token', token); };
 const refetchQueries = () => [{ query: meQuery }];
 
 interface Props {
   formError: string;
   handleSubmit: () => void;
   history: {
-    push: (path: string) => void
-  }
+    push: (path: string) => void,
+  };
   register: (values: object) => Promise<void>;
 }
 
@@ -76,7 +76,7 @@ interface FormValues {
   confirmPassword: string;
   password: string;
   firstName: string;
-  lastName: string
+  lastName: string;
 }
 
 interface FormErrors {
@@ -84,21 +84,19 @@ interface FormErrors {
   confirmPassword?: string;
   password?: string;
   firstName?: string;
-  lastName?: string
+  lastName?: string;
 }
 
 export default Form({
   onError: (err: any, setFormError: (str: string) => void) => setFormError(err.message),
   onSubmit: async (values: object, { register, history }: Props) => {
     await register({
-      variables: values,
       refetchQueries,
       update: (proxy: any, { data }: any) => setToken(data.register.authToken),
-    })
+      variables: values,
+    });
     history.push('/maps');
   },
-  validateOnBlur: true,
-  validateOnChange: false,
   validate: ({ email, password, confirmPassword, lastName, firstName }: FormValues) => {
     const errors: FormErrors = {};
     if (!email) {
@@ -118,4 +116,6 @@ export default Form({
     }
     return errors;
   },
+  validateOnBlur: true,
+  validateOnChange: false,
 })(RegisterForm);

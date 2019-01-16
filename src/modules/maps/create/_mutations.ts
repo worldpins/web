@@ -8,11 +8,13 @@ export const createPinMutation = gql`
     $latitude: Float
     $longitude: Float
     $data: JSON
+    $templatePinId: String
   ) {
     map (id: $id) {
       createPin(input: {
         name: $name
         comment: $comment
+        templatePinId: $templatePinId
         coordinates: {
           longitude: $longitude
           latitude: $latitude

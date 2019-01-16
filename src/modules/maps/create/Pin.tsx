@@ -1,36 +1,55 @@
-import * as React from "react";
-import { Form, Field } from "hooked-form";
-import { graphql } from "react-apollo";
+import * as React from 'react';
+import { Form, Field } from 'hooked-form';
+import { graphql } from 'react-apollo';
 
-import { mapQuery } from "../_queries";
-import StringField from "../../../common/fields/stringField";
+import { mapQuery } from '../_queries';
+import StringField from '../../../common/fields/stringField';
 import SelectField from '../../../common/fields/selectField';
-import Modal from "../../../common/modal";
+import Modal from '../../../common/modal';
 
-import { createPinMutation } from "./_mutations";
+import { createPinMutation } from './_mutations';
 import Template from './Template';
+
+interface TemplateField {
+  name: string;
+}
+
+interface TemplatePin {
+  id: string;
+  name: string;
+  fields: TemplateField[];
+}
 
 interface CreatePinModalProps {
   coordinates: {
     lat: number;
     lng: number;
   };
-  createPin: Function;
+  createPin: (values: object) => void;
   mapId?: string;
   onClose: () => void;
   handleSubmit: () => void;
+  templatePins: TemplatePin[];
+  values: {
+    templatePinId?: string;
+    data: object;
+  };
 }
 
-const CreatePinModal: React.SFC<CreatePinModalProps> = ({
+const CreatePinModal: React.FC<CreatePinModalProps> = ({
   onClose,
   handleSubmit,
   templatePins,
   values: { templatePinId, data },
   ...props
 }) => {
-  const options = React.useMemo(() => templatePins.map(({ id, name }) => ({ value: id, label: name })), []);
-  const templatePin = React.useMemo(() => templatePinId && templatePins.find(({ id }) => id === templatePinId), [templatePinId]);
-  console.log(data)
+  const options = React.useMemo(
+    () => templatePins.map(({ id, name }) => ({ value: id, label: name })),
+    []);
+  const templatePin = React.useMemo(
+    () => templatePinId && templatePins.find(({ id }) => id === templatePinId),
+    [templatePinId]);
+  console.log(data);
   return (
     <Modal
       isOpen
@@ -38,8 +57,8 @@ const CreatePinModal: React.SFC<CreatePinModalProps> = ({
       title="Create Pin"
       onSubmit={handleSubmit}
       buttons={[
-        { label: "Close", type: "button", onClick: close, flavor: "danger" },
-        { label: "Submit", type: "submit", flavor: "primary" }
+        { label: 'Close', type: 'button', onClick: close, flavor: 'danger' },
+        { label: 'Submit', type: 'submit', flavor: 'primary' },
       ]}
     >
       <Field
@@ -60,28 +79,27 @@ const CreatePinModal: React.SFC<CreatePinModalProps> = ({
 };
 
 const CreatePinFormModal = Form({
-  mapPropsToValues: ({ coordinates, templatePins, mapId }) => ({
-    templatePinId: templatePins.length === 1 ? templatePins[0].id : '',
-    name: '',
+  mapPropsToValues: ({ coordinates, templatePins, mapId }: CreatePinModalProps) => ({
+    id: mapId,
     latitude: coordinates.lat,
     longitude: coordinates.lng,
-    id: mapId,
+    name: '',
+    templatePinId: templatePins.length === 1 ? templatePins[0].id : '',
   }),
   onSubmit: async (
     values,
-    { createPin, coordinates, mapId }: CreatePinModalProps
+    { createPin, coordinates, mapId }: CreatePinModalProps,
   ) => {
     await createPin({
-      variables: {
-        ...values,
-      },
-      refetchQueries: [{ query: mapQuery, variables: { id: mapId } }]
+      refetchQueries: [{ query: mapQuery, variables: { id: mapId } }],
+      variables: values,
     });
-  }
+  },
 })(CreatePinModal);
 
 export default graphql<{
   coordinates: object;
   mapId?: string;
   onClose: () => void;
-}>(createPinMutation, { name: "createPin" })(CreatePinFormModal);
+  templatePins: TemplatePin[];
+}>(createPinMutation, { name: 'createPin' })(CreatePinFormModal);

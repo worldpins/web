@@ -16,15 +16,15 @@ const FormWrapper = styled.form`
   }
 `;
 
-const setToken = (token: string) => { window.localStorage.setItem('token', token) }
+const setToken = (token: string) => { window.localStorage.setItem('token', token); };
 const refetchQueries = () => [{ query: meQuery }];
 
 interface Props {
   formError: string;
   handleSubmit: () => void;
   history: {
-    push: (path: string) => void
-  }
+    push: (path: string) => void,
+  };
   login: (values: object) => Promise<void>;
 }
 
@@ -45,17 +45,17 @@ const LoginForm = React.memo(({ formError, handleSubmit }: Props) => (
     />
     <Button label="Submit" type="submit" />
   </FormWrapper>
-)
-)
+),
+);
 
 export default Form({
   onError: (err: any, setFormError: (err: string) => void) => setFormError(err.message),
   onSubmit: async (values: { email: string, password: string }, { login, history }: Props) => {
     await login({
-      variables: values,
       refetchQueries,
       update: (proxy: any, { data }: any) => setToken(data.login.authToken),
+      variables: values,
     });
     history.push('/maps');
-  }
+  },
 })(LoginForm);

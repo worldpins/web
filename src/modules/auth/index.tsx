@@ -22,23 +22,23 @@ interface FormValues {
   confirmPassword: string;
   password: string;
   firstName: string;
-  lastName: string
+  lastName: string;
 }
 
 interface LoginPayload {
   data: {
     login: {
       authToken: string;
-    }
-  }
+    },
+  };
 }
 
 interface RegisterPayload {
   data: {
     register: {
       authToken: string;
-    }
-  }
+    },
+  };
 }
 
 class LoginMutation extends Mutation<LoginPayload, LoginArguments> { }
@@ -47,10 +47,10 @@ class RegisterMutation extends Mutation<RegisterPayload, FormValues> { }
 export default ({ history }: { history: any }) => (
   <Wrapper>
     <LoginMutation mutation={loginMutation}>
-      {(login) => <Login login={login} history={history} />}
+      {login => <Login login={login} history={history} />}
     </LoginMutation>
     <RegisterMutation mutation={registerMutation}>
-      {(register) => <Register register={register} history={history} />}
+      {register => <Register register={register} history={history} />}
     </RegisterMutation>
   </Wrapper>
 );

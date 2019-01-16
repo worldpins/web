@@ -1,9 +1,9 @@
-import * as React from "react";
-import { Field } from "hooked-form";
+import * as React from 'react';
+import { Field } from 'hooked-form';
 
-import StringField from "../../../common/fields/stringField";
-import Button from "../../../common/button";
-import styled from "../../../layout/styled";
+import StringField from '../../../common/fields/stringField';
+import Button from '../../../common/button';
+import styled from '../../../layout/styled';
 
 const FieldEntriesWrapper = styled.div`
   display: flex;
@@ -18,15 +18,13 @@ const FieldEntry = styled.div`
 interface Props {
   addElement: (field: object) => void;
   removeElement: (index: number) => void;
-  values: Array<{
-    name: string;
-  }>;
+  values: object[];
 }
 
-const FieldEntries: React.SFC<Props> = ({
+const FieldEntries: React.FC<Props> = ({
   addElement,
   removeElement,
-  values
+  values,
 }) => {
   const onAdd = React.useCallback(() => addElement({}), [addElement]);
   return (

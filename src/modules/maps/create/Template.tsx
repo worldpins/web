@@ -1,9 +1,17 @@
 import * as React from 'react';
 import { Field } from 'hooked-form';
 
-import StringField from "../../../common/fields/stringField";
+import StringField from '../../../common/fields/stringField';
 
-const Template = ({ fields }) => {
+interface Field {
+  name: string;
+}
+
+interface Props {
+  fields: Field[];
+}
+
+const Template: React.FC<Props> = React.memo(({ fields }) => {
   return (
     fields.map(({ name }, i) => (
       <Field
@@ -14,7 +22,7 @@ const Template = ({ fields }) => {
         label={name}
       />
     ))
-  )
-}
+  );
+});
 
-export default Template
+export default Template;

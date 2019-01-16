@@ -24,8 +24,8 @@ const CreateMapModal: React.SFC<CreateMapModalProps> = ({ handleSubmit, history 
       onClose={onClose}
       title="Create Map"
       buttons={[
-        { label: "Submit", type: "submit", flavor: 'primary' },
-        { label: "Close", type: "button", onClick: onClose, flavor: 'danger' }
+        { label: 'Submit', type: 'submit', flavor: 'primary' },
+        { label: 'Close', type: 'button', onClick: onClose, flavor: 'danger' },
       ]}
     >
       <form onSubmit={handleSubmit}>
@@ -38,15 +38,15 @@ const CreateMapModal: React.SFC<CreateMapModalProps> = ({ handleSubmit, history 
       </form>
     </Modal>
   );
-}
+};
 
 const CreateMapFormModal = withRouter(
   Form({
     onSubmit: async (values, { createMap, history }: { createMap: Function }) => {
       await createMap({ variables: values });
       history.replace('/maps');
-    }
-  })(CreateMapModal)
+    },
+  })(CreateMapModal),
 );
 
 export default graphql(createMapMutation, {

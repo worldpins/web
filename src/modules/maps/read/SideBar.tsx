@@ -29,22 +29,20 @@ interface SideBarProps {
   totalCount: number;
 }
 
-const SideBar: React.SFC<SideBarProps> = React.memo(({
-  filteredCount,
+const SideBar: React.FC<SideBarProps> = React.memo(({
   selectMap,
   maps,
-  totalCount,
   selectedId,
 }) => {
   return (
     <SideBarWrapper>
-      {maps.map((map) => (
+      {maps.map(map => (
         <MapCard key={map.id} map={map} selectMap={selectMap} isSelected={selectedId === map.id} />
       ))}
       <Button to="/maps/create" label="Create Map" />
       {selectedId && <Button to={`/maps/${selectedId}/templates`} label="Manage template pins" />}
     </SideBarWrapper>
-  )
+  );
 });
 
 export default SideBar;
