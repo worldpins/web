@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // TODO: add custom terser
 
@@ -44,6 +45,10 @@ module.exports = () => {
     // plugins.push(new BundleAnalyzerPlugin());
   }
 
+  if (isProduction) {
+    plugins.push(new CompressionPlugin())
+  }
+
   // Return configuration
   return {
     mode: isProduction ? 'production' : 'development',
@@ -53,7 +58,7 @@ module.exports = () => {
       stateVendors,
     },
     context: path.resolve(__dirname, './'),
-    stats: 'minimal',
+    stats: 'normal',
     devtool: isProduction ? '' : 'eval-source-map',
     devServer: {
       contentBase: path.join(__dirname, 'dist'),

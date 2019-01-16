@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 
 import styled from '../../layout/styled';
 
-const FakeButton = styled.div<ButtonProps>`
-  background-color: ${({ theme, onClick }) => onClick ? theme.primary : 'transparant'};
-  border: ${({ theme, onClick }) => onClick ? `1px solid ${theme.greyAccent}` : 0};
-  color: ${({ theme }) => theme.secondary};
+const FakeButton = styled.div<{ to?: string; disabled?: boolean; flavor: Flavor; type?: string; }>`
+  background-color: ${({ theme, to, flavor }) => to ? 'transparant' : theme[flavor]};
+  border: ${({ theme, onClick, type }) => onClick || type ? `1px solid ${theme.greyAccent}` : 0};
+  color: ${({ theme, to }) => to ? theme.secondary : '#FFFFFF'};
   cursor: ${({ disabled }) => disabled ? 'default' : 'pointer'};
 `;
 
@@ -16,9 +16,12 @@ const StyledLink = FakeButton.withComponent(
     <NavLink {...props}>{children}</NavLink>
   ));
 
+type Flavor = 'primary' | 'secondary' | 'danger';
+
 export interface ButtonProps {
   className?: string;
   disabled?: boolean;
+  flavor?: Flavor;
   label: string;
   onClick?: (e: React.SyntheticEvent) => void;
   to?: string;
@@ -31,11 +34,12 @@ const Button: React.SFC<ButtonProps> = React.memo(({
   label,
   onClick,
   to,
+  flavor,
   type,
 }) => {
   return (
     onClick || type ?
-      <StyledButton disabled={disabled} className={className} onClick={onClick} type={type}>{label}</StyledButton> :
+      <StyledButton flavor={flavor || 'primary'} disabled={disabled} className={className} onClick={onClick} type={type}>{label}</StyledButton> :
       <StyledLink disabled={disabled} className={className} to={to}>{label}</StyledLink>
   )
 });

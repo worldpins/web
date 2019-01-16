@@ -1,16 +1,17 @@
-import * as React from 'react';
-import ReactModal from 'react-modal';
+import * as React from "react";
+import ReactModal from "react-modal";
 
-import styled from '../../layout/styled';
-import Cross from './cross';
-import { ButtonProps } from '../button';
+import styled from "../../layout/styled";
+import Cross from "./cross";
+import Button, { ButtonProps } from "../button";
 
 interface ModalProps {
-  buttons?: [ButtonProps];
+  buttons?: Array<ButtonProps>;
   className?: string;
   children: React.ReactNode;
   isOpen: boolean;
   onClose: () => void;
+  onSubmit: () => void;
   title: string;
 }
 
@@ -44,7 +45,12 @@ const Header = styled.div`
   padding-top: 0.938em;
 `;
 
-const Wrapper = styled.div`
+const ModalWrapper = styled.div`
+  box-shadow: 0em 1px 2px 0px rgba(0, 0, 0, 0.25);
+  height: 100%;
+`;
+
+const FormModalWrapper = styled.form`
   box-shadow: 0em 1px 2px 0px rgba(0, 0, 0, 0.25);
   height: 100%;
 `;
@@ -59,10 +65,19 @@ const Footer = styled.div`
   padding-right: 32px;
   padding-left: 32px;
   padding-top: 16px;
+  > * {
+    margin-left: 8px;
+  }
 `;
 
 const Modal: React.SFC<ModalProps> = ({
-  title, onClose, children, className, isOpen,
+  title,
+  onClose,
+  children,
+  className,
+  isOpen,
+  buttons = [],
+  onSubmit
 }) => {
   const contentClassName = `${className}__content`;
   const overlayClassName = `${className}__overlay`;
@@ -71,8 +86,12 @@ const Modal: React.SFC<ModalProps> = ({
       e.preventDefault();
       onClose();
     },
-    [onClose],
+    [onClose]
   );
+  let Wrapper = ModalWrapper;
+  if (onSubmit) {
+    Wrapper = FormModalWrapper;
+  }
   return (
     <ReactModal
       className={contentClassName}
@@ -81,19 +100,21 @@ const Modal: React.SFC<ModalProps> = ({
       portalClassName={className}
       onRequestClose={memoizedOnClose}
     >
-      <Wrapper>
+      <Wrapper onSubmit={onSubmit}>
         <Header>
           <Title>{title}</Title>
           <Cross onClick={onClose} />
         </Header>
-        <Body>
-          {children}
-        </Body>
-        <Footer></Footer>
+        <Body>{children}</Body>
+        <Footer>
+          {buttons.map((props, i) => (
+            <Button key={i} {...props} />
+          ))}
+        </Footer>
       </Wrapper>
     </ReactModal>
   );
-}
+};
 
 export default styled(Modal)`
   .ReactModal__Overlay {
@@ -111,7 +132,7 @@ export default styled(Modal)`
 
   &__overlay {
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.80);
+    background-color: rgba(0, 0, 0, 0.8);
     bottom: 0;
     display: flex;
     justify-content: center;

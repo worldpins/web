@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { Field, FieldArray } from 'hooked-form';
+import * as React from "react";
+import { Field, FieldArray } from "hooked-form";
 
-import StringField from '../../../common/fields/stringField';
-import Button from '../../../common/button';
+import StringField from "../../../common/fields/stringField";
+import Button from "../../../common/button";
 
-import FieldEntries from './FieldEntries';
+import FieldEntries from "./FieldEntries";
 
 interface Props {
   addElement: (template: object) => void;
@@ -12,19 +12,26 @@ interface Props {
   values: Array<{
     fields: Array<{
       name: string;
-    }>
+    }>;
     name: string;
     comment: string;
-  }>
+  }>;
 }
 
-const TemplatePin: React.SFC<Props> = ({ addElement, removeElement, values }) => {
-  const onAdd = React.useCallback(() => addElement({ fields: [] }), [addElement]);
+const TemplatePin: React.SFC<Props> = ({
+  addElement,
+  removeElement,
+  values
+}) => {
+  const onAdd = React.useCallback(() => addElement({ fields: [] }), [
+    addElement
+  ]);
   return (
     <div>
       <h2>TemplatePins</h2>
-      {values.length === 0 ?
-        <p>No Pins Yet</p> :
+      {values.length === 0 ? (
+        <p>No Pins Yet</p>
+      ) : (
         values.map((pin, fieldId) => {
           return (
             <div key={fieldId}>
@@ -47,10 +54,10 @@ const TemplatePin: React.SFC<Props> = ({ addElement, removeElement, values }) =>
             </div>
           );
         })
-      }
+      )}
       <Button label="Add template" onClick={onAdd} type="button" />
     </div>
   );
-}
+};
 
 export default TemplatePin;

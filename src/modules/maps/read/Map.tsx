@@ -74,7 +74,7 @@ const WorldPinsMap = ({
             <Route path={`/maps/${mapId}/templates`} render={() => <ManageTemplatesModal id={mapId} templatePins={(data as any).map.templatePins} />} />
           </Map>
           {isCreating && mapId &&
-            <CreatePinModal coordinates={coordinates} mapId={mapId} onClose={setFalse} />}
+            <CreatePinModal coordinates={coordinates} mapId={mapId} onClose={setFalse} templatePins={(data as any).map.templatePins || []} />}
         </React.Fragment>
       )}
     </MapQuery>

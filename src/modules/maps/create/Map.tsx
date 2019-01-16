@@ -5,9 +5,9 @@ import { withRouter } from 'react-router';
 
 import Modal from '../../../common/modal';
 import StringField from '../../../common/fields/stringField';
+import SelectField from '../../../common/fields/selectField';
 
 import { createMapMutation } from './_mutations';
-import Button from '../../../common/button';
 
 interface CreateMapModalProps {
   handleSubmit: () => void;
@@ -18,15 +18,15 @@ interface CreateMapModalProps {
 
 const CreateMapModal: React.SFC<CreateMapModalProps> = ({ handleSubmit, history }) => {
   const onClose = React.useCallback(() => history.push('/maps'), []);
-  let x = 0;
-  setInterval(() => {
-    x = x + 1;
-  })
   return (
     <Modal
       isOpen
       onClose={onClose}
       title="Create Map"
+      buttons={[
+        { label: "Submit", type: "submit", flavor: 'primary' },
+        { label: "Close", type: "button", onClick: onClose, flavor: 'danger' }
+      ]}
     >
       <form onSubmit={handleSubmit}>
         <Field
@@ -34,9 +34,7 @@ const CreateMapModal: React.SFC<CreateMapModalProps> = ({ handleSubmit, history 
           fieldId="name"
           label="name"
           placeholder="Name"
-          x={x}
         />
-        <Button type="submit" label="Save" />
       </form>
     </Modal>
   );
