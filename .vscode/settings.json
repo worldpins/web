@@ -1,9 +1,0 @@
-{
-  "javascript.updateImportsOnFileMove.enabled": "never",
-  "javascript.validate.enable": true,
-  "javascript.format.enable": false,
-  "tslint.autoFixOnSave": true,
-  "editor.scrollBeyondLastLine": false,
-  "editor.renderWhitespace": "all",
-  "editor.formatOnSave": true
-}
