@@ -21,6 +21,7 @@
       true,
       "always"
     ],
+    "forin": false,
     "jsx-no-lambda": false,
     "max-classes-per-file": false,
     "space-in-parens": false,
