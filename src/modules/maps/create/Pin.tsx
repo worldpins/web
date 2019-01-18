@@ -88,7 +88,7 @@ const CreatePinFormModal = Form({
   }),
   onSubmit: async (
     values,
-    { createPin, coordinates, mapId }: CreatePinModalProps,
+    { createPin, mapId }: CreatePinModalProps,
   ) => {
     await createPin({
       refetchQueries: [{ query: mapQuery, variables: { id: mapId } }],

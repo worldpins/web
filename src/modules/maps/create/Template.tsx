@@ -13,15 +13,17 @@ interface Props {
 
 const Template: React.FC<Props> = React.memo(({ fields }) => {
   return (
-    fields.map(({ name }, i) => (
-      <Field
-        key={i}
-        component={StringField}
-        fieldId={`data.${name}`}
-        placeholder={name}
-        label={name}
-      />
-    ))
+    <React.Fragment>
+      {fields.map(({ name }, i) => (
+        <Field
+          key={i}
+          component={StringField}
+          fieldId={`data.${name}`}
+          placeholder={name}
+          label={name}
+        />
+        ))}
+    </React.Fragment>
   );
 });
 
