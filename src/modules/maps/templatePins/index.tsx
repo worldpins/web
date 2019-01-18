@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Form, FieldArray } from 'hooked-form';
 import { withRouter } from 'react-router';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 
 import Modal from '../../../common/modal';
 
@@ -70,7 +70,7 @@ const ManageTemplatesFormModal = Form({
             comment: newTemplate.comment,
             fields: newTemplate.fields,
             id: newTemplate.id,
-            mapId: mapId,
+            mapId,
             name: newTemplate.name,
           },
         });
@@ -89,7 +89,12 @@ const ManageTemplatesFormModal = Form({
 })(ManageTemplatesModal);
 
 export default withRouter(
-  graphql<{ id?: string; templatePins: object[] }>(createTemplatePinMutation, {
-    name: 'createTemplatePin',
-  })(ManageTemplatesFormModal),
+  compose(
+    graphql<{ id?: string; templatePins: object[] }>(createTemplatePinMutation, {
+      name: 'createTemplatePin',
+    }),
+    graphql<{ id?: string; templatePins: object[] }>(updateTemplatePinMutation, {
+      name: 'updateTemplatePin',
+    }),
+  )(ManageTemplatesFormModal),
 );
