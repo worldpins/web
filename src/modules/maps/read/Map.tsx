@@ -30,14 +30,23 @@ interface Pin {
   location: Location;
 }
 
+interface Field {
+  name: string;
+}
+
+interface Template {
+  comment: string;
+  fields: Field[];
+  name: string;
+}
+
 interface MapData {
-  data: {
-    map: {
-      id: string;
-      name: string;
-      initialArea: Location;
-      pins: [Pin]
-    };
+  map: {
+    id: string;
+    name: string;
+    initialArea: Location;
+    pins: Pin[]
+    templatePins: Template[]
   };
 }
 
@@ -81,12 +90,13 @@ const WorldPinsMap: React.FC<MapProps> = ({
                 />
               ))
             }
-            <Route
-              path={`/maps/${mapId}/templates`}
-              render={() => (
-                <ManageTemplatesModal id={mapId} templatePins={(data as any).map.templatePins} />
-              )}
-            />
+            {data && data.map &&
+              <Route
+                path={`/maps/${mapId}/templates`}
+                render={() => (
+                  <ManageTemplatesModal id={mapId} templatePins={data.map.templatePins} />
+                )}
+              />}
           </Map>
           {isCreating && mapId &&
             <CreatePinModal
