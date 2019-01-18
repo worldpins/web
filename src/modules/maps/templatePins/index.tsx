@@ -34,33 +34,57 @@ const ManageTemplatesModal: React.FC<Props> = ({ history, handleSubmit }) => {
       isOpen
       onClose={onClose}
       title="templates"
+      onSubmit={handleSubmit}
       buttons={[
         { label: 'Close', flavor: 'danger', onClick: onClose },
         { label: 'Submit', flavor: 'primary', onClick: handleSubmit },
       ]}
     >
-      <form onSubmit={handleSubmit}>
-        <FieldArray fieldId="templatePins" component={TemplatePins} />
-      </form>
+      <FieldArray fieldId="templatePins" component={TemplatePins} />
     </Modal>
   );
 };
 
+interface Field {
+  name: string;
+}
+
+interface Template {
+  comment: string;
+  fields: Field[];
+  id?: string;
+  name: string;
+}
+
+interface Values {
+  templatePins: Template[];
+}
+
 const ManageTemplatesFormModal = Form({
-  mapPropsToValues: (props) => {
-    return { templatePins: (props as any).templatePins };
-  },
-  onSubmit: async (values: any, { createTemplatePin, id }: Props) => {
-    const newTemplate = values.templatePins[0];
-    console.log('submitting', values, newTemplate);
-    await createTemplatePin({
-      variables: {
-        comment: newTemplate.comment,
-        fields: newTemplate.fields,
-        id,
-        name: newTemplate.name,
-      },
-    });
+  mapPropsToValues: props => ({ templatePins: (props as any).templatePins }),
+  onSubmit: async (values: Values, { createTemplatePin, updateTemplatePin, id: mapId }: Props) => {
+    for (const newTemplate of values.templatePins) {
+      if (newTemplate.id) {
+        await updateTemplatePin({
+          variables: {
+            comment: newTemplate.comment,
+            fields: newTemplate.fields,
+            id: newTemplate.id,
+            mapId: mapId,
+            name: newTemplate.name,
+          },
+        });
+      } else {
+        await createTemplatePin({
+          variables: {
+            comment: newTemplate.comment,
+            fields: newTemplate.fields,
+            id: mapId,
+            name: newTemplate.name,
+          },
+        });
+      }
+    }
   },
 })(ManageTemplatesModal);
 

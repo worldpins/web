@@ -6,16 +6,20 @@ import Button from '../../../common/button';
 
 import FieldEntries from './FieldEntries';
 
+interface Field {
+  name: string;
+}
+
+interface Template {
+  comment: string;
+  fields: Field[];
+  name: string;
+}
+
 interface Props {
   addElement: (template: object) => void;
   removeElement: (index: number) => void;
-  values: Array<{
-    fields: Array<{
-      name: string;
-    }>;
-    name: string;
-    comment: string;
-  }>;
+  values: Template[];
 }
 
 const TemplatePin: React.SFC<Props> = ({
