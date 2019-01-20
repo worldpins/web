@@ -35,28 +35,22 @@ module.exports = () => {
   // Build plugins
   const plugins = [
     new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({
-      template: './index.html'
-    }),
+    new HtmlWebpackPlugin({ template: './index.html' }),
   ];
 
   if (!isProduction) {
     plugins.push(new webpack.HotModuleReplacementPlugin());
-    // plugins.push(new BundleAnalyzerPlugin());
+    plugins.push(new BundleAnalyzerPlugin());
   }
 
   if (isProduction) {
-    plugins.push(new CompressionPlugin({ deleteOriginalAssets: false }))
+    plugins.push(new CompressionPlugin({ deleteOriginalAssets: true }))
   }
 
   // Return configuration
   return {
     mode: isProduction ? 'production' : 'development',
-    entry: {
-      main: './src/index.tsx',
-      frameworkVendors,
-      stateVendors,
-    },
+    entry: { main: './src/index.tsx' },
     context: path.resolve(__dirname, './'),
     stats: 'normal',
     devtool: isProduction ? '' : 'eval-source-map',
