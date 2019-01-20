@@ -1,32 +1,30 @@
 import gql from 'graphql-tag';
 
 export const updatePinMutation = gql`
-  mutation updatePin(
+  mutation createPin (
     $id: String!
+    $mapId: String!
     $name: String
     $comment: String
     $data: JSON
     $latitude: Float
     $longitude: Float
+    $templatePinId: String
   ) {
-    pin (id: $id) {
-      update(input: {
+    map (id: $mapId) {
+      createPin(input: {
+        id: $id
         name: $name
         comment: $comment
-        data: $data
-        location: {
-          latitude: $latitude
+        templatePinId: $templatePinId
+        coordinates: {
           longitude: $longitude
+          latitude: $latitude
         }
+        data: $data
       }) {
         id
         name
-        comment
-        data
-        location {
-          latitude
-          longitude
-        }
       }
     }
   }

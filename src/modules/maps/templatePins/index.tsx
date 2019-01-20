@@ -6,7 +6,7 @@ import { graphql, compose } from 'react-apollo';
 import Modal from '../../../common/modal';
 
 import TemplatePins from './TemplatePins';
-import { createTemplatePinMutation } from './_mutations';
+import { createTemplatePinMutation, updateTemplatePinMutation } from './_mutations';
 
 interface Props {
   createTemplatePin: (
@@ -25,6 +25,17 @@ interface Props {
   };
   id: string;
   templatePins: object[];
+  updateTemplatePin: (
+    input: {
+      variables: {
+        mapId: string;
+        id: string;
+        name: string;
+        comment: string;
+        fields: object[];
+      };
+    },
+  ) => Promise<void>;
 }
 
 const ManageTemplatesModal: React.FC<Props> = ({ history, handleSubmit }) => {
@@ -62,7 +73,7 @@ interface Values {
 
 const ManageTemplatesFormModal = Form({
   mapPropsToValues: props => ({ templatePins: (props as any).templatePins }),
-  onSubmit: async (values: Values, { createTemplatePin, updateTemplatePin, id: mapId }: Props) => {
+  onSubmit: async (values: Values, { createTemplatePin, updateTemplatePin, id: mapid }: Props) => {
     for (const newTemplate of values.templatePins) {
       if (newTemplate.id) {
         await updateTemplatePin({
@@ -70,7 +81,7 @@ const ManageTemplatesFormModal = Form({
             comment: newTemplate.comment,
             fields: newTemplate.fields,
             id: newTemplate.id,
-            mapId,
+            mapId: mapid,
             name: newTemplate.name,
           },
         });
@@ -79,7 +90,7 @@ const ManageTemplatesFormModal = Form({
           variables: {
             comment: newTemplate.comment,
             fields: newTemplate.fields,
-            id: mapId,
+            id: mapid,
             name: newTemplate.name,
           },
         });
