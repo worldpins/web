@@ -82,7 +82,7 @@ module.exports = () => {
           common: {
             chunks: 'all',
             name: 'common',
-            test: /[\\/]src[\\/](common|layout)[\\/]/
+            test: /[\\/]src[\\/](common|global|layout)[\\/]/
           },
           frameworkVendors: {
             chunks: 'all',
@@ -95,7 +95,7 @@ module.exports = () => {
             test: 'stateVendors'
           },
         },
-        chunks: 'all',
+        chunks: 'async',
       },
       runtimeChunk: 'single',
     },
