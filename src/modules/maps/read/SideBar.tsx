@@ -41,6 +41,7 @@ const SideBar: React.FC<SideBarProps> = React.memo(({
       ))}
       <Button to="/maps/create" label="Create Map" />
       {selectedId && <Button to={`/maps/${selectedId}/templates`} label="Manage template pins" />}
+      <Button to="/maps/upload" label="Upload Map" />
     </SideBarWrapper>
   );
 });

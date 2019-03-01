@@ -7,8 +7,10 @@ import styled from '../../layout/styled';
 
 import { mapsQuery } from './_queries';
 import SideBar from './read/SideBar';
-import CreateMapModal from './create/Map';
 import WorldsPinsMap from './read/Map';
+
+const CreateMapModal = React.lazy(() => import(/* webpackChunkName: "createMap" */'./create/Map'));
+const UploadMapModal = React.lazy(() => import(/* webpackChunkName: "uploadMap" */'./upload'));
 
 interface MapItem {
   id: string;
@@ -69,7 +71,10 @@ const Maps: React.SFC<MapsProps> = ({ history, match: { params: { mapId: selecte
           );
         }}
       </MapsQuery>
-      <Route path="/maps/create" component={CreateMapModal} />
+      <React.Suspense fallback={<p>Loading...</p>}>
+        <Route path="/maps/create" component={CreateMapModal} />
+        <Route path="/maps/upload" component={UploadMapModal} />
+      </React.Suspense>
     </React.Fragment>
   );
 };
