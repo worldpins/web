@@ -4,7 +4,7 @@ import { useToggle } from 'react-angler';
 import { LeafletMouseEvent } from 'leaflet';
 import { Query } from 'react-apollo';
 
-import CreatePinModal from '../create/pin';
+import CreatePinModal from '../create/Pin';
 import { mapQuery } from '../_queries';
 import PinMarker from './Pin';
 import { Route } from 'react-router';
