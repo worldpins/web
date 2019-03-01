@@ -45,6 +45,7 @@ const Header = styled.div`
   padding-top: 0.938em;
 `;
 
+// TODO: Refactor to withComponent
 const ModalWrapper = styled.div`
   box-shadow: 0em 1px 2px 0px rgba(0, 0, 0, 0.25);
   height: 100%;

@@ -23,7 +23,7 @@ export default createGlobalStyle`
   }
 
   .leaflet-container {
-    height: 93vh;
+    height: 97vh;
     width: 90%;
     margin: 0 auto;
   }
