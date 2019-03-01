@@ -25,6 +25,7 @@
     "jsx-no-lambda": false,
     "max-classes-per-file": false,
     "space-in-parens": false,
+    "object-shorthand-properties-first": false,
     "quotemark": [
       true,
       "single",
