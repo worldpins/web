@@ -108,6 +108,7 @@ module.exports = () => {
       mainFields: ['module', 'main', 'browser'],
       extensions: [".tsx", ".ts", ".mjs", ".js", ".jsx"]
     },
+    stats: "minimal",
     module: {
       rules: [
         {
