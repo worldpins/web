@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-const Home = React.memo(() => (
+const Home = () => (
   <div>
-    TODO: landing page
+    <h1>Welcome to Worldpins!</h1>
   </div>
-));
+);
 
 export default Home;

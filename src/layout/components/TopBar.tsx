@@ -44,6 +44,7 @@ const TopBarWrapper = styled.div<{ notAuthenticated?: boolean }>`
   justify-content: ${({ notAuthenticated }) => notAuthenticated ? 'flex-end' : 'space-between'};
   padding: 10px 6px;
   width: 100%
+  height: ${({ notAuthenticated }) => notAuthenticated ? '3vh' : 'auto'};
 `;
 
 const UserContainer = styled.div`
@@ -75,20 +76,17 @@ const LinkButton = styled(Button)`
 interface Props {
   history: {
     push: (path: string) => void;
-    listen: Function
+    listen: Function;
   };
 }
 
-const TopBar: React.FC<Props> = React.memo(({ history }) => {
+const TopBar: React.FC<Props> = ({ history }) => {
   return (
     <MeQuery query={meQuery}>
       {({ data, error, loading, refetch }) => {
-        history.listen((match: any, operation: string) => {
-          if (operation === 'PUSH') {
-            refetch();
-          }
-        });
+
         if (loading) return <TopBarWrapper />;
+
         if (error) {
           return (
             <TopBarWrapper notAuthenticated>
@@ -122,6 +120,6 @@ const TopBar: React.FC<Props> = React.memo(({ history }) => {
       }}
     </MeQuery>
   );
-});
+};
 
-export default withRouter(TopBar);
+export default withRouter(React.memo(TopBar));

@@ -26,7 +26,7 @@ interface Props {
   login: (values: object) => Promise<void>;
 }
 
-const LoginForm = React.memo(({ formError, handleSubmit }: Props) => (
+const LoginForm = ({ formError, handleSubmit }: Props) => (
   <FormWrapper onSubmit={handleSubmit}>
     <h1>Login</h1>
     {formError && <p>{formError}</p>}
@@ -43,16 +43,16 @@ const LoginForm = React.memo(({ formError, handleSubmit }: Props) => (
     />
     <Button label="Submit" type="submit" />
   </FormWrapper>
-),
 );
 
 export default Form({
   onError: (err: any, setFormError: (err: string) => void) => setFormError(err.message),
   onSubmit: async (values: { email: string, password: string }, { login, history }: Props) => {
     await login({
+      refetchQueries: ['me'],
       update: (proxy: any, { data }: any) => setToken(data.login.authToken),
       variables: values,
     });
     setTimeout(() => history.push('/maps'), 300);
   },
-})(LoginForm);
+})(React.memo(LoginForm));

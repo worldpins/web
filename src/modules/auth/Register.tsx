@@ -31,7 +31,7 @@ interface Props {
   register: (values: object) => Promise<void>;
 }
 
-const RegisterForm = React.memo(({ formError, handleSubmit }: Props) => (
+const RegisterForm = ({ formError, handleSubmit }: Props) => (
   <React.Fragment>
     <Divider />
     <FormWrapper onSubmit={handleSubmit}>
@@ -67,7 +67,7 @@ const RegisterForm = React.memo(({ formError, handleSubmit }: Props) => (
       <Button label="Submit" type="submit" />
     </FormWrapper>
   </React.Fragment>
-));
+);
 
 interface FormValues {
   email: string;
@@ -89,6 +89,7 @@ export default Form({
   onError: (err: any, setFormError: (str: string) => void) => setFormError(err.message),
   onSubmit: async (values: object, { register, history }: Props) => {
     await register({
+      refetchQueries: ['me'],
       update: (proxy: any, { data }: any) => setToken(data.register.authToken),
       variables: values,
     });
@@ -115,4 +116,4 @@ export default Form({
   },
   validateOnBlur: true,
   validateOnChange: false,
-})(RegisterForm);
+})(React.memo(RegisterForm));

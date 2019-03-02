@@ -26,6 +26,7 @@ const CreateMapModal: React.SFC<CreateMapModalProps> = ({
   const onClose = React.useCallback(
     () => history.push(`/maps${selectedMap ? `/${selectedMap}` : ''}`),
     []);
+
   return (
     <Modal
       isOpen
@@ -49,7 +50,9 @@ const CreateMapModal: React.SFC<CreateMapModalProps> = ({
 
 const CreateMapFormModal = withRouter(
   Form({
-    onSubmit: async (values, { createMap, history }: { createMap: Function }) => {
+    onSubmit: async (values, { createMap, history }:
+      { createMap: Function, history: { replace: (path: string) => void },
+    }) => {
       const { data } = await createMap({ variables: values });
       const { id } = data.createMap;
       history.replace(`/maps/${id}`);
@@ -59,4 +62,4 @@ const CreateMapFormModal = withRouter(
 
 export default graphql(createMapMutation, {
   name: 'createMap',
-})(CreateMapFormModal);
+})(React.memo(CreateMapFormModal));
