@@ -7,7 +7,7 @@ interface CrossProperties {
   onClick: () => void;
 }
 
-const Cross = React.memo(({ onClick }: CrossProperties) => (
+const Cross = ({ onClick }: CrossProperties) => (
   <SVG
     onClick={onClick}
     xmlns="http://www.w3.org/2000/svg"
@@ -21,6 +21,6 @@ const Cross = React.memo(({ onClick }: CrossProperties) => (
       opacity=".495"
     />
   </SVG>
-));
+);
 
-export default Cross;
+export default React.memo(Cross);

@@ -71,7 +71,7 @@ const Footer = styled.div`
   }
 `;
 
-const Modal: React.FC<ModalProps> = React.memo(({
+const Modal: React.FC<ModalProps> = ({
   title,
   onClose,
   children,
@@ -82,6 +82,7 @@ const Modal: React.FC<ModalProps> = React.memo(({
 }) => {
   const contentClassName = `${className}__content`;
   const overlayClassName = `${className}__overlay`;
+
   const memoizedOnClose = React.useCallback(
     (e: Event) => {
       e.preventDefault();
@@ -89,10 +90,12 @@ const Modal: React.FC<ModalProps> = React.memo(({
     },
     [onClose],
   );
+
   let Wrapper = ModalWrapper;
   if (onSubmit) {
     Wrapper = FormModalWrapper;
   }
+
   return (
     <ReactModal
       className={contentClassName}
@@ -115,7 +118,7 @@ const Modal: React.FC<ModalProps> = React.memo(({
       </Wrapper>
     </ReactModal>
   );
-});
+};
 
 export default styled(Modal)`
   .ReactModal__Overlay {

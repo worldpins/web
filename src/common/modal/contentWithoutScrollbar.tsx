@@ -12,7 +12,9 @@ const ContentWithoutScrollbar: React.SFC<ContentWithoutScrollbarProps> = ({ chil
         setOriginalOverflow(() => document.body.style.overflow || 'auto');
         document.body.style.overflow = 'hidden';
       }
-      return () => document.body.style.overflow = originalOverflow;
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
     },
     [],
   );
