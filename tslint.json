@@ -21,6 +21,7 @@
       true,
       "always"
     ],
+    "ban-types": false,
     "forin": false,
     "jsx-no-lambda": false,
     "max-classes-per-file": false,

@@ -10,13 +10,14 @@ const SelectFieldWrapper = styled.div`
   flex-direction: column;
 `;
 
-const SelectField = React.memo(({ label, value, onChange, options }: SelectFieldProps) => {
+const SelectField = ({ label, value, onChange, options }: SelectFieldProps) => {
   const change = React.useCallback(
     (e: React.FormEvent<HTMLSelectElement>) => {
       onChange(e.currentTarget.value);
     },
     [onChange],
   );
+
   return (
     <SelectFieldWrapper>
       {label && <Label>{label}</Label>}
@@ -27,6 +28,6 @@ const SelectField = React.memo(({ label, value, onChange, options }: SelectField
       </select>
     </SelectFieldWrapper>
   );
-});
+};
 
-export default SelectField;
+export default React.memo(SelectField);

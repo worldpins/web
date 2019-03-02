@@ -14,8 +14,8 @@ const LabelWrapper = styled.p`
   transition: all .25s;
 `;
 
-const Label: React.FC<LabelProps> = React.memo(({ children, className }) => (
+const Label: React.FC<LabelProps> = ({ children, className }) => (
   <LabelWrapper className={className}>{children}</LabelWrapper>
-));
+);
 
-export default Label;
+export default React.memo(Label);

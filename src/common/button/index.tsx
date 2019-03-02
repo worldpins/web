@@ -28,7 +28,7 @@ export interface ButtonProps {
   type?: string;
 }
 
-const Button: React.SFC<ButtonProps> = React.memo(({
+const Button: React.SFC<ButtonProps> = ({
   className,
   disabled,
   label,
@@ -50,6 +50,6 @@ const Button: React.SFC<ButtonProps> = React.memo(({
     ) :
       <StyledLink disabled={disabled} className={className} to={to}>{label}</StyledLink>
   );
-});
+} ;
 
-export default Button;
+export default React.memo(Button);

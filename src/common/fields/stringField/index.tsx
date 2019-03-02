@@ -20,7 +20,7 @@ const TextInput = styled.input`
   }
 `;
 
-const TextField: React.FC<TextFieldProps> = React.memo((
+const TextField: React.FC<TextFieldProps> = (
   { onBlur, label, value, type, onFocus, onChange },
 ) => {
   const blur = React.useCallback(
@@ -54,6 +54,6 @@ const TextField: React.FC<TextFieldProps> = React.memo((
       />
     </TextFieldWrapper>
   );
-});
+};
 
-export default TextField;
+export default React.memo(TextField);

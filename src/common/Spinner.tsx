@@ -53,6 +53,8 @@ export const SpinnerContainer = styled.div`
   z-index: 4;
 `;
 
-export default React.memo(({ color, size = 1.417 }: { color?: string, size?: number }) => (
+const Spinner = ({ color, size = 1.417 }: { color?: string, size?: number }) => (
   <Signal color={color} size={size} />
-));
+);
+
+export default Spinner;
