@@ -41,10 +41,10 @@ interface Pin {
 }
 
 const parseCsv = (rows: any[][]) => {
-  console.log(rows);
   const dataCols: string[] = [];
-  const [firstRow, secondRow, ...restRows] = rows;
+  const [_, secondRow, ...restRows] = rows;
 
+  const coordinatesIndex = secondRow.indexOf('COORDINATES');
   secondRow.forEach((data, i) => {
     const header = headers.find(h => data.startsWith(h));
     if (header) {
@@ -52,16 +52,11 @@ const parseCsv = (rows: any[][]) => {
     }
   });
 
-  console.log(dataCols);
-
   const pins: Pin[] = [];
   restRows.forEach((cols, i) => {
     const entity: Pin = {};
-    // TODO: location
-    console.log(cols);
     entity.data = dataCols.reduce(
       (acc, header, j) => {
-        console.log(header, j);
         if (header) {
           return {
             ...acc,
@@ -71,12 +66,11 @@ const parseCsv = (rows: any[][]) => {
         return acc;
       },
       {});
-    entity.name = cols[1];
-    const [latitude, longitude] = cols[7].split(';');
+    entity.name = cols[2];
+    const [latitude, longitude] = cols[coordinatesIndex].split(';');
     entity.location = { latitude, longitude };
     pins.push(entity);
   });
-  console.log(pins);
 };
 
 export default parseCsv;

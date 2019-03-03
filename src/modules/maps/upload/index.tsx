@@ -5,20 +5,20 @@ import Papa from 'papaparse';
 import Modal from '../../../common/modal';
 import parseData from './_csvParser';
 
-const UploadMap = ({ mutate }) => {
+const UploadMap = () => {
   const onDrop = React.useCallback(
     ([file]) => {
       Papa.parse(file, {
         complete: async ({ data }) => {
-          const pins = parseData(data);
-          await mutate({
-            variables: {
-              map: {
-                name: 'Temp',
-                pins,
-              },
-            },
-          });
+          parseData(data);
+          // await mutate({
+          //   variables: {
+          //     map: {
+          //       name: 'Temp',
+          //       pins,
+          //     },
+          //   },
+          // });
         },
         skipEmptyLines: true,
       });
@@ -48,4 +48,4 @@ const UploadMap = ({ mutate }) => {
   );
 };
 
-export default UploadMap;
+export default React.memo(UploadMap);
