@@ -94,11 +94,15 @@ const TopBar: React.FC<Props> = ({ history }) => {
             </TopBarWrapper>
           );
         }
-        const logout = () => {
-          window.localStorage.removeItem('token');
-          refetch();
-          history.push('/');
-        };
+
+        const logout = React.useCallback(
+          () => {
+            window.localStorage.removeItem('token');
+            refetch();
+            history.push('/');
+          },
+          [refetch]);
+
         return (
           <TopBarWrapper>
             <div>

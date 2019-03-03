@@ -40,16 +40,16 @@ const CreatePinModal: React.FC<CreatePinModalProps> = ({
   onClose,
   handleSubmit,
   templatePins,
-  values: { templatePinId, data },
-  ...props
+  values: { templatePinId },
 }) => {
   const options = React.useMemo(
     () => templatePins.map(({ id, name }) => ({ value: id, label: name })),
     []);
+
   const templatePin = React.useMemo(
     () => templatePinId && templatePins.find(({ id }) => id === templatePinId),
     [templatePinId]);
-  console.log(data);
+
   return (
     <Modal
       isOpen
@@ -95,7 +95,7 @@ const CreatePinFormModal = Form({
       variables: values,
     });
   },
-})(CreatePinModal);
+})(React.memo(CreatePinModal));
 
 export default graphql<{
   coordinates: object;

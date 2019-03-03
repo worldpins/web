@@ -11,7 +11,7 @@ interface Props {
   fields: Field[];
 }
 
-const Template: React.FC<Props> = React.memo(({ fields }) => {
+const Template: React.FC<Props> = ({ fields }) => {
   return (
     <React.Fragment>
       {fields.map(({ name }, i) => (
@@ -25,6 +25,6 @@ const Template: React.FC<Props> = React.memo(({ fields }) => {
         ))}
     </React.Fragment>
   );
-});
+};
 
-export default Template;
+export default React.memo(Template);
