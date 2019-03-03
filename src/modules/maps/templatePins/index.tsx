@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Form, FieldArray } from 'hooked-form';
-import { withRouter } from 'react-router';
+import { withRouter, RouteComponentProps } from 'react-router';
 import { graphql, compose } from 'react-apollo';
 
 import Modal from '../../../common/modal';
@@ -40,6 +40,7 @@ interface Props {
 
 const ManageTemplatesModal: React.FC<Props> = ({ history, handleSubmit }) => {
   const onClose = React.useCallback(() => history.replace('/maps'), []);
+
   return (
     <Modal
       isOpen
@@ -72,7 +73,7 @@ interface Values {
 }
 
 const ManageTemplatesFormModal = Form({
-  mapPropsToValues: props => ({ templatePins: (props as any).templatePins }),
+  mapPropsToValues: props => ({ templatePins: (props as any).templatePins || [] }),
   onSubmit: async (values: Values, { createTemplatePin, updateTemplatePin, id: mapid }: Props) => {
     for (const newTemplate of values.templatePins) {
       if (newTemplate.id) {
@@ -97,9 +98,14 @@ const ManageTemplatesFormModal = Form({
       }
     }
   },
-})(ManageTemplatesModal);
+})(React.memo(ManageTemplatesModal));
 
-export default withRouter(
+interface InputProps {
+  id?: string;
+  templatePins: Template[];
+}
+
+export default withRouter<InputProps & RouteComponentProps>(
   compose(
     graphql<{ id?: string; templatePins: object[] }>(createTemplatePinMutation, {
       name: 'createTemplatePin',

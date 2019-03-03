@@ -59,4 +59,4 @@ const FieldEntries: React.FC<Props> = ({
   );
 };
 
-export default FieldEntries;
+export default React.memo(FieldEntries);

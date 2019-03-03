@@ -22,14 +22,14 @@ interface Props {
   values: Template[];
 }
 
-const TemplatePin: React.SFC<Props> = ({
+const TemplatePin: React.FC<Props> = ({
   addElement,
-  removeElement,
   values,
 }) => {
   const onAdd = React.useCallback(
     () => addElement({ fields: [] }),
     [addElement]);
+
   return (
     <div>
       <h2>TemplatePins</h2>
@@ -64,4 +64,4 @@ const TemplatePin: React.SFC<Props> = ({
   );
 };
 
-export default TemplatePin;
+export default React.memo(TemplatePin);
