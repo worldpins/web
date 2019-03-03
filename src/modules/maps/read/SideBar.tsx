@@ -29,7 +29,7 @@ interface SideBarProps {
   totalCount: number;
 }
 
-const SideBar: React.FC<SideBarProps> = React.memo(({
+const SideBar: React.FC<SideBarProps> = ({
   selectMap,
   maps,
   selectedId,
@@ -44,6 +44,6 @@ const SideBar: React.FC<SideBarProps> = React.memo(({
       <Button to="/maps/upload" label="Upload Map" />
     </SideBarWrapper>
   );
-});
+};
 
-export default SideBar;
+export default React.memo(SideBar);

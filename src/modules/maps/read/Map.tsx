@@ -3,12 +3,16 @@ import { Map, TileLayer } from 'react-leaflet';
 import { useToggle } from 'react-angler';
 import { LeafletMouseEvent } from 'leaflet';
 import { Query } from 'react-apollo';
-
-import CreatePinModal from '../create/Pin';
-import { mapQuery } from '../_queries';
-import PinMarker from './Pin';
 import { Route } from 'react-router';
-import ManageTemplatesModal from '../templatePins';
+
+import { mapQuery } from '../_queries';
+
+import PinMarker from './Pin';
+
+const ManageTemplatesModal = React.lazy(() => import(
+  /* webpackChunkName: "templatePinsModal" */'../templatePins'));
+const CreatePinModal = React.lazy(() => import(
+  /* webpackChunkName: "createPinModal" */'../create/Pin'));
 
 interface MapProps {
   lat?: number;
@@ -58,14 +62,20 @@ const WorldPinsMap: React.FC<MapProps> = ({
 }) => {
   const { 0: coordinates, 1: setCoordinates } = React.useState({});
   const { value: isCreating, setTrue, setFalse } = useToggle(false);
+
   const handleClick = React.useCallback(
     (e: LeafletMouseEvent) => {
       setCoordinates(e.latlng);
       setTrue();
     },
     [setCoordinates]);
+
   return (
-    <MapQuery skip={!mapId} query={mapQuery} variables={{ id: mapId }}>
+    <MapQuery
+      skip={!mapId || mapId === 'create' || mapId === 'upload'}
+      query={mapQuery}
+      variables={{ id: mapId }}
+    >
       {({ loading, data }) => (
         <React.Fragment>
           <Map
@@ -90,21 +100,23 @@ const WorldPinsMap: React.FC<MapProps> = ({
                 />
               ))
             }
-            {data && data.map &&
-              <Route
-                path={`/maps/${mapId}/templates`}
-                render={() => (
-                  <ManageTemplatesModal id={mapId} templatePins={data.map.templatePins} />
-                )}
-              />}
+            <React.Suspense fallback={<p>Loading...</p>}>
+              {data && data.map &&
+                <Route
+                  path={`/maps/${mapId}/templates`}
+                  render={() => (
+                    <ManageTemplatesModal id={mapId} templatePins={data.map.templatePins} />
+                  )}
+                />}
+              {isCreating && mapId &&
+                <CreatePinModal
+                  coordinates={coordinates}
+                  mapId={mapId}
+                  onClose={setFalse}
+                  templatePins={(data as any).map.templatePins || []}
+                />}
+            </React.Suspense>
           </Map>
-          {isCreating && mapId &&
-            <CreatePinModal
-              coordinates={coordinates}
-              mapId={mapId}
-              onClose={setFalse}
-              templatePins={(data as any).map.templatePins || []}
-            />}
         </React.Fragment>
       )}
     </MapQuery>
