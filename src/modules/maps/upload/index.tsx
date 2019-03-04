@@ -6,11 +6,21 @@ import Modal from '../../../common/modal';
 import parseData from './_csvParser';
 
 const UploadMap = () => {
+  const [step] = React.useState(0);
+  const [name, setName] = React.useState('');
+
+  const onChange = React.useCallback(
+    (e) => {
+      setName(() => e.currentTarget.value);
+    },
+    [],
+  );
+
   const onDrop = React.useCallback(
     ([file]) => {
       Papa.parse(file, {
         complete: async ({ data }) => {
-          parseData(data);
+          parseData(data, name);
           // await mutate({
           //   variables: {
           //     map: {
@@ -23,12 +33,14 @@ const UploadMap = () => {
         skipEmptyLines: true,
       });
     },
-    []);
+    [name]);
   return (
     <Modal
       isOpen
     >
-      <Dropzone onDrop={onDrop}>
+      {step === 0 &&
+        <input type="text" placeholder="Give the map a name" value={name} onChange={onChange} />}
+      {step === 1 && <Dropzone onDrop={onDrop}>
       {({ getRootProps, getInputProps, isDragActive }) => {
         return (
           <div
@@ -43,7 +55,7 @@ const UploadMap = () => {
           </div>
         );
       }}
-      </Dropzone>
+      </Dropzone>}
     </Modal>
   );
 };
