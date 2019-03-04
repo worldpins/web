@@ -6,6 +6,7 @@ interface ContentWithoutScrollbarProps {
 
 const ContentWithoutScrollbar: React.SFC<ContentWithoutScrollbarProps> = ({ children }) => {
   const { 0: originalOverflow, 1: setOriginalOverflow } = React.useState('auto');
+
   React.useLayoutEffect(
     () => {
       if (document.body && document.body.style) {
@@ -18,6 +19,7 @@ const ContentWithoutScrollbar: React.SFC<ContentWithoutScrollbarProps> = ({ chil
     },
     [],
   );
+
   return children;
 };
 

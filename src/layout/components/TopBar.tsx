@@ -43,7 +43,7 @@ const TopBarWrapper = styled.div<{ notAuthenticated?: boolean }>`
   display: flex;
   justify-content: ${({ notAuthenticated }) => notAuthenticated ? 'flex-end' : 'space-between'};
   padding: 10px 6px;
-  width: 100%
+  width: 100%;
   height: ${({ notAuthenticated }) => notAuthenticated ? '3vh' : 'auto'};
 `;
 

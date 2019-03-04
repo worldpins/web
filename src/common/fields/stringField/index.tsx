@@ -30,6 +30,7 @@ const TextField: React.FC<TextFieldProps> = (
       }
     },
     [onBlur]);
+
   const focus = React.useCallback(
     () => {
       if (onFocus && typeof onFocus === 'function') {
@@ -37,11 +38,13 @@ const TextField: React.FC<TextFieldProps> = (
       }
     },
     [onFocus]);
+
   const change = React.useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       onChange(e.currentTarget.value);
     },
     [onChange]);
+
   return (
     <TextFieldWrapper>
       {label && <Label>{label}</Label>}

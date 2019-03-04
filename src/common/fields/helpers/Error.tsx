@@ -14,8 +14,8 @@ const ErrorWrapper = styled.p`
   transition: all .25s;
 `;
 
-const Error: React.FC<ErrorProps> = ({ children, className }) => (
+const ErrorMessage: React.FC<ErrorProps> = ({ children, className }) => (
   <ErrorWrapper className={className}>{children}</ErrorWrapper>
 );
 
-export default React.memo(Error);
+export default React.memo(ErrorMessage);
