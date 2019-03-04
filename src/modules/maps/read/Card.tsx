@@ -29,15 +29,16 @@ interface Props {
   isSelected: boolean;
 }
 
-const Card: React.FC<Props> = React.memo((
+const Card: React.FC<Props> = (
   { map, selectMap, isSelected },
 ) => {
   const onClick = React.useCallback(() => selectMap(map.id), [map.id]);
+
   return (
     <CardWrapper onClick={onClick} isSelected={isSelected}>
       <p>{map.name}</p>
     </CardWrapper>
   );
-});
+};
 
-export default Card;
+export default React.memo(Card);

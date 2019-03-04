@@ -22,9 +22,10 @@ const DataEntry = styled.p`
   margin-bottom: 4px !important;
 `;
 
-const Pin: React.FC<PinProps> = React.memo(({ comment, id, name, location, data = {} }) => {
+const Pin: React.FC<PinProps> = ({ comment, id, name, location, data = {} }) => {
   const position: [number, number] = [location.latitude, location.longitude];
   const { value: isUpdating, setTrue, setFalse } = useToggle(false);
+
   return (
     <Marker position={position}>
       <Popup>
@@ -39,6 +40,6 @@ const Pin: React.FC<PinProps> = React.memo(({ comment, id, name, location, data 
       {isUpdating && <UpdatePinModal id={id} onClose={setFalse} />}
     </Marker>
   );
-});
+};
 
-export default Pin;
+export default React.memo(Pin);

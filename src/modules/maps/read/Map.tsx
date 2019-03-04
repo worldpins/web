@@ -123,4 +123,4 @@ const WorldPinsMap: React.FC<MapProps> = ({
   );
 };
 
-export default WorldPinsMap;
+export default React.memo(WorldPinsMap);

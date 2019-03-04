@@ -38,6 +38,7 @@ interface Props {
   ) => Promise<void>;
 }
 
+// TODO: add type mapping.
 const ManageTemplatesModal: React.FC<Props> = ({ history, handleSubmit }) => {
   const onClose = React.useCallback(() => history.replace('/maps'), []);
 
@@ -47,10 +48,13 @@ const ManageTemplatesModal: React.FC<Props> = ({ history, handleSubmit }) => {
       onClose={onClose}
       title="templates"
       onSubmit={handleSubmit}
-      buttons={[
-        { label: 'Close', flavor: 'danger', onClick: onClose },
-        { label: 'Submit', flavor: 'primary', onClick: handleSubmit },
-      ]}
+      buttons={React.useMemo(
+        () => [
+          { label: 'Close', flavor: 'danger', onClick: onClose },
+          { label: 'Submit', flavor: 'primary', onClick: handleSubmit },
+        ],
+        [onClose, handleSubmit],
+      )}
     >
       <FieldArray fieldId="templatePins" component={TemplatePins} />
     </Modal>
