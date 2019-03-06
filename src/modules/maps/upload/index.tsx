@@ -6,15 +6,18 @@ import Modal from '../../../common/modal';
 import parseData from './_csvParser';
 
 const UploadMap = () => {
-  const [step] = React.useState(0);
+  const [step, setStep] = React.useState(0);
   const [name, setName] = React.useState('');
 
   const onChange = React.useCallback(
-    (e) => {
-      setName(() => e.currentTarget.value);
+    (e: React.SyntheticEvent<HTMLInputElement>) => {
+      setName(e.currentTarget.value);
     },
-    [],
+    [setName],
   );
+
+  const next = React.useCallback(() => { setStep(s => s + 1); }, []);
+  const prev = React.useCallback(() => { setStep(s => s - 1); }, []);
 
   const onDrop = React.useCallback(
     ([file]) => {
@@ -34,12 +37,23 @@ const UploadMap = () => {
       });
     },
     [name]);
+
+  const buttons = React.useMemo(
+    () => [
+      { label: 'cancel', flavor: 'secondary' },
+      step === 0 ?
+        { label: 'Next', flavor: 'primary', onClick: next } :
+        { label: 'Previous', flavor: 'primary', onClick: prev },
+    ],
+    [step]);
+
   return (
     <Modal
+      buttons={buttons}
       isOpen
     >
       {step === 0 &&
-        <input type="text" placeholder="Give the map a name" value={name} onChange={onChange} />}
+        <input placeholder="Give the map a name" value={name} onChange={onChange} />}
       {step === 1 && <Dropzone onDrop={onDrop}>
       {({ getRootProps, getInputProps, isDragActive }) => {
         return (
