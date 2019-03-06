@@ -22,7 +22,7 @@ const DataEntry = styled.p`
   margin-bottom: 4px !important;
 `;
 
-const Pin: React.FC<PinProps> = ({ comment, id, name, location, data = {} }) => {
+const Pin: React.FC<PinProps> = ({ comment, id, name, location, data }) => {
   const position: [number, number] = [location.latitude, location.longitude];
   const { value: isUpdating, setTrue, setFalse } = useToggle(false);
 
@@ -31,7 +31,7 @@ const Pin: React.FC<PinProps> = ({ comment, id, name, location, data = {} }) => 
       <Popup>
         <DataEntry>Name: {name}</DataEntry>
         {comment && <DataEntry>Comment: {comment}</DataEntry>}
-        {Object.keys(data).map(property => (
+        {data && Object.keys(data).map(property => (
           <DataEntry key={property}>{property}: {data[property]}</DataEntry>
         ))}
         <Button label="Edit" onClick={setTrue} />
