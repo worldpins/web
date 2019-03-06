@@ -5,6 +5,9 @@ import styled from '../../layout/styled';
 import Cross from './cross';
 import Button, { ButtonProps } from '../button';
 
+// Needed for screen readers.
+ReactModal.setAppElement('body');
+
 interface ModalProps {
   buttons?: ButtonProps[];
   className?: string;
@@ -111,9 +114,7 @@ const Modal: React.FC<ModalProps> = ({
         </Header>
         <Body>{children}</Body>
         <Footer>
-          {buttons.map((props, i) => (
-            <Button key={i} {...props} />
-          ))}
+          {buttons.map((props, i) => <Button key={i} {...props} />)}
         </Footer>
       </Wrapper>
     </ReactModal>
