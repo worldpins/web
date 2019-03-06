@@ -4,6 +4,10 @@ import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink, Observable } from 'apollo-link';
 
+import getConfig from './config';
+
+const config = getConfig();
+
 // Can be used to add a token to the request headers.
 const request = (operation: { setContext: (options: object) => void }) => {
   const token = window.localStorage.getItem('token');
@@ -59,7 +63,7 @@ const client = new ApolloClient({
     requestLink,
     new HttpLink({
       credentials: 'same-origin',
-      uri: 'http://localhost:3000/graphql',
+      uri: `${config.baseUrl}/graphql`,
     }),
   ]),
 });

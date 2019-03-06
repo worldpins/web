@@ -1,7 +1,7 @@
 import Config from './interface';
 
 const config: Config = {
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://localhost:3001',
   editMode: true,
 };
 
