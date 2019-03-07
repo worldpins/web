@@ -4,8 +4,11 @@ import Papa from 'papaparse';
 
 import Modal from '../../../common/modal';
 import parseData from './_csvParser';
+import { uploadMapMutation } from './_mutation';
+import { graphql } from 'react-apollo';
 
-const UploadMap = () => {
+const UploadMap: React.FC<{ uploadMap: (input: any) => Promise<void> }> =
+({ uploadMap }) => {
   const [step, setStep] = React.useState(0);
   const [name, setName] = React.useState('');
 
@@ -23,20 +26,13 @@ const UploadMap = () => {
     ([file]) => {
       Papa.parse(file, {
         complete: async ({ data }) => {
-          parseData(data, name);
-          // await mutate({
-          //   variables: {
-          //     map: {
-          //       name: 'Temp',
-          //       pins,
-          //     },
-          //   },
-          // });
+          const map = parseData(data, name);
+          await uploadMap({ variables: { map }, refetchQueries: ['maps'] });
         },
         skipEmptyLines: true,
       });
     },
-    [name]);
+    [name, uploadMap]);
 
   const buttons = React.useMemo(
     () => [
@@ -74,4 +70,6 @@ const UploadMap = () => {
   );
 };
 
-export default React.memo(UploadMap);
+export default graphql(
+  uploadMapMutation, { name: 'uploadMap' },
+)(React.memo(UploadMap));
