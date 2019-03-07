@@ -32,7 +32,7 @@ const Pin: React.FC<PinProps> = ({ comment, id, name, location, data }) => {
         <DataEntry>Name: {name}</DataEntry>
         {comment && <DataEntry>Comment: {comment}</DataEntry>}
         {data && Object.keys(data).map(property => (
-          <DataEntry key={property}>{property}: {data[property]}</DataEntry>
+          data[property] && <DataEntry key={property}>{property}: {data[property]}</DataEntry>
         ))}
         <Button label="Edit" onClick={setTrue} />
       </Popup>
