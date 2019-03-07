@@ -89,7 +89,8 @@ const WorldPinsMap: React.FC<MapProps> = ({
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             {!loading && data && (data as any).map && (data as any).map.pins &&
-              (data as any).map.pins.map(({ comment, id, name, location, data: pinData }: Pin) => (
+              (data as any).map.pins.map(({ comment, id, name, location, data: pinData }: Pin) =>
+              location.latitude ? (
                 <PinMarker
                   key={id}
                   data={pinData}
@@ -98,7 +99,7 @@ const WorldPinsMap: React.FC<MapProps> = ({
                   location={location}
                   comment={comment}
                 />
-              ))
+              ) : <React.Fragment />)
             }
             <React.Suspense fallback={<p>Loading...</p>}>
               {data && data.map &&
