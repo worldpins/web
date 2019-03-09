@@ -1,5 +1,6 @@
 // Insert array of columns;
 const headers = [
+  'TYPE OF COLLABORATIVE COMMUNITY',
   'ARCHITECT',
   'ZIP CODE',
   'MUNICIPALITY',
@@ -57,6 +58,7 @@ const headerMapping = {
   SIZE: 'Size',
   'STREET + NUMBER': 'Street',
   'Shared goods': 'Shared goods',
+  'TYPE OF COLLABORATIVE COMMUNITY': 'Type of collaborative community',
   'TYPES OF COMMUNAL': 'Types of communal',
   'TYPES OF PRIVATE': 'Types of private',
   YEAR: 'Year',
