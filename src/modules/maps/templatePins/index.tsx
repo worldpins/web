@@ -77,7 +77,21 @@ interface Values {
 }
 
 const ManageTemplatesFormModal = Form({
-  mapPropsToValues: props => ({ templatePins: (props as any).templatePins || [] }),
+  mapPropsToValues: props => {
+    let templatePins = [];
+    if (props.templatePins) {
+      templatePins = props.templatePins.reduce(
+        (acc, template) => {
+          const item = {
+            ...template,
+            fields: template.fields.map(x => ({ name: x })),
+          };
+          return [...acc, item];
+        },
+        []);
+    }
+    return { templatePins };
+  },
   onSubmit: async (values: Values, { createTemplatePin, updateTemplatePin, id: mapid }: Props) => {
     for (const newTemplate of values.templatePins) {
       if (newTemplate.id) {
