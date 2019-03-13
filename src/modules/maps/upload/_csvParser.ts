@@ -32,6 +32,39 @@ const headers = [
   'AGE RANGE',
 ];
 
+const headersSorted = [
+  'Age range',
+  'Architect',
+  'Zip code',
+  'Municipality',
+  'Street',
+  'Year',
+  'Size',
+  'Population',
+  'Density',
+  'Number of units',
+  'Finished',
+  'Renovation',
+  'Explanation',
+  'Layout',
+  'Types of communal',
+  'Types of private',
+  'Building volumes',
+  'Centrality of indoor',
+  'Private space',
+  'Location',
+  'Community completed',
+  'Community focus',
+  'Ownership',
+  'Legal form',
+  'Resident participation',
+  'Organized communal activities',
+  'Shared goods',
+  'Decision-making',
+  'Household type',
+  'Age range',
+];
+
 const headerMapping = {
   'AGE RANGE': 'Age range',
   ARCHITECT: 'Architect',
@@ -103,7 +136,8 @@ const parseCsv = (rows: any[][], name: string): GeneratedMap => {
   const pins: Pin[] = [];
   // Make a generic template pin, this one will be used for all pins.
   const templatePin: TemplatePin = {
-    fields: Object.values(headerMapping),
+    fields: Object.values(headerMapping).sort((h1, h2) =>
+      headersSorted.indexOf(h1) - headersSorted.indexOf(h2)),
     name: 'Generated_Template_Pin',
   };
 
