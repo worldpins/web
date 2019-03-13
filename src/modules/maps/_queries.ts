@@ -14,6 +14,7 @@ export const mapQuery = gql`
         name
         data
         comment
+        orderedFields
         location {
           latitude
           longitude
