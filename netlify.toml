@@ -1,0 +1,4 @@
+# A redirect rule with all the supported properties
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
