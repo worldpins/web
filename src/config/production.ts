@@ -1,7 +1,7 @@
 import Config from './interface';
 
 const config: Config = {
-  baseUrl: 'TODO',
+  baseUrl: 'http://178.62.219.252:3000',
   editMode: true,
 };
 
