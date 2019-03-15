@@ -1,7 +1,7 @@
 import Config from './interface';
 
 const config: Config = {
-  baseUrl: 'http://178.62.219.252:3000',
+  baseUrl: 'https://api.worldpins.tk/graphql',
   editMode: true,
 };
 
