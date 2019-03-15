@@ -11,6 +11,7 @@ interface PinProps {
   data?: object;
   id: string;
   name: string;
+  orderedFields?: string[];
   location: {
     latitude: number;
     longitude: number;
@@ -22,17 +23,18 @@ const DataEntry = styled.p`
   margin-bottom: 4px !important;
 `;
 
-const Pin: React.FC<PinProps> = ({ comment, id, name, location, data }) => {
+const Pin: React.FC<PinProps> = ({ comment, id, name, location, orderedFields, data }) => {
   const position: [number, number] = [location.latitude, location.longitude];
   const { value: isUpdating, setTrue, setFalse } = useToggle(false);
-
   return (
     <Marker position={position}>
       <Popup>
         <DataEntry>Name: {name}</DataEntry>
         {comment && <DataEntry>Comment: {comment}</DataEntry>}
-        {data && Object.keys(data).map(property => (
-          data[property] && <DataEntry key={property}>{property}: {data[property]}</DataEntry>
+        {orderedFields && data && orderedFields.map(property => (
+            <DataEntry key={property}>
+              {property}: {data[property]}
+            </DataEntry>
         ))}
         <Button label="Edit" onClick={setTrue} />
       </Popup>
