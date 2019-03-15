@@ -44,7 +44,7 @@ module.exports = () => {
   }
 
   if (isProduction) {
-    plugins.push(new CompressionPlugin({ deleteOriginalAssets: false }))
+    plugins.push(new CompressionPlugin({ deleteOriginalAssets: false }));
   }
 
   // Return configuration
@@ -95,20 +95,20 @@ module.exports = () => {
             test: 'stateVendors'
           },
         },
-        chunks: 'async',
+        chunks: 'all',
       },
       runtimeChunk: 'single',
     },
     plugins,
     resolve: {
       alias: {
-        react: path.resolve(__dirname, 'node_modules/react'),
-        "react-dom": path.resolve(__dirname, 'node_modules/react-dom/')
+        // react: 'preact/compat',
+        // "react-dom": 'preact/compat',
       },
       mainFields: ['module', 'main', 'browser'],
       extensions: [".tsx", ".ts", ".mjs", ".js", ".jsx"]
     },
-    stats: "minimal",
+    stats: "normal",
     module: {
       rules: [
         {
