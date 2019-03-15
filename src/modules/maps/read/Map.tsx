@@ -32,6 +32,7 @@ interface Pin {
   data: object;
   comment: string;
   location: Location;
+  orderedFields: object[];
 }
 
 interface Field {
@@ -89,7 +90,8 @@ const WorldPinsMap: React.FC<MapProps> = ({
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             {!loading && data && (data as any).map && (data as any).map.pins &&
-              (data as any).map.pins.map(({ comment, id, name, location, data: pinData }: Pin) =>
+              (data as any).map.pins.map(
+                ({ comment, id, name, location, data: pinData, orderedFields }: Pin) =>
               location.latitude ? (
                 <PinMarker
                   key={id}
@@ -98,8 +100,9 @@ const WorldPinsMap: React.FC<MapProps> = ({
                   id={id}
                   location={location}
                   comment={comment}
+                  orderedFields={orderedFields}
                 />
-              ) : <React.Fragment />)
+              ) : <React.Fragment key={id} />)
             }
             <React.Suspense fallback={<p>Loading...</p>}>
               {data && data.map &&
