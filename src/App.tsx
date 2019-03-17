@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import { ThemeProvider } from './layout/styled';
 import client from './ApolloClient';
-import Spinner from './common/Spinner';
+import Spinner from './common/Spinner'; // TODO: convert to loading screen
 import theme from './layout/theme';
 import GlobalStyles from './global/GlobalStyles';
 import TopBar from './layout/components/TopBar';

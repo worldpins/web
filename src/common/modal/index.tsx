@@ -52,11 +52,13 @@ const Header = styled.div`
 const ModalWrapper = styled.div`
   box-shadow: 0em 1px 2px 0px rgba(0, 0, 0, 0.25);
   height: 100%;
+  overflow: scroll;
 `;
 
 const FormModalWrapper = styled.form`
   box-shadow: 0em 1px 2px 0px rgba(0, 0, 0, 0.25);
   height: 100%;
+  overflow: scroll;
 `;
 
 const Footer = styled.div`
@@ -94,7 +96,7 @@ const Modal: React.FC<ModalProps> = ({
     [onClose],
   );
 
-  let Wrapper = ModalWrapper;
+  let Wrapper: any = ModalWrapper;
   if (onSubmit) {
     Wrapper = FormModalWrapper;
   }
