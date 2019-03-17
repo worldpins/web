@@ -7,8 +7,8 @@ import parseData from './_csvParser';
 import { uploadMapMutation } from './_mutation';
 import { graphql } from 'react-apollo';
 
-const UploadMap: React.FC<{ uploadMap: (input: any) => Promise<void> }> =
-({ uploadMap }) => {
+const UploadMap: React.FC<{ uploadMap: (input: any) => Promise<void>, history: any }> =
+({ uploadMap, history }) => {
   const [step, setStep] = React.useState(0);
   const [name, setName] = React.useState('');
 
@@ -28,6 +28,7 @@ const UploadMap: React.FC<{ uploadMap: (input: any) => Promise<void> }> =
         complete: async ({ data }) => {
           const map = parseData(data, name);
           await uploadMap({ variables: { map }, refetchQueries: ['maps'] });
+          history.push('/maps');
         },
         skipEmptyLines: true,
       });
