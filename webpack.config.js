@@ -102,8 +102,8 @@ module.exports = () => {
     plugins,
     resolve: {
       alias: {
-        // react: 'preact/compat',
-        // "react-dom": 'preact/compat',
+        react: path.resolve(__dirname, 'node_modules/react'),
+        "react-dom": path.resolve(__dirname, 'node_modules/react-dom/')
       },
       mainFields: ['module', 'main', 'browser'],
       extensions: [".tsx", ".ts", ".mjs", ".js", ".jsx"]
