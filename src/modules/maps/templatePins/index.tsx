@@ -76,15 +76,22 @@ interface Values {
   templatePins: Template[];
 }
 
+interface TempTemplate {
+  comment: string;
+  fields: string[];
+  id?: string;
+  name: string;
+}
+
 const ManageTemplatesFormModal = Form({
-  mapPropsToValues: props => {
-    let templatePins = [];
+  mapPropsToValues: (props: Props) => {
+    let templatePins: Template[] = [];
     if (props.templatePins) {
       templatePins = props.templatePins.reduce(
-        (acc, template) => {
+        (acc: object[], template: TempTemplate) => {
           const item = {
             ...template,
-            fields: template.fields.map(x => ({ name: x })),
+            fields: template.fields.map((x: string) => ({ name: x })),
           };
           return [...acc, item];
         },
