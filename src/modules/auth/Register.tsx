@@ -6,7 +6,7 @@ import styled from '../../layout/styled';
 import Button from '../../common/button';
 
 const Divider = styled.div`
-  border-left: 1px solid ${theme => theme.greyAccent};
+  border-left: 1px solid ${({ theme }) => theme.greyAccent};
 `;
 
 const FormWrapper = styled.form`

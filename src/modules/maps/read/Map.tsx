@@ -32,7 +32,7 @@ interface Pin {
   data: object;
   comment: string;
   location: Location;
-  orderedFields: object[];
+  orderedFields: string[];
 }
 
 interface Field {
