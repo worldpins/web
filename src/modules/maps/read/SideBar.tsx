@@ -19,6 +19,7 @@ const SideBarWrapper = styled.div`
 interface Map {
   id: string;
   name: string;
+  published: boolean;
 }
 
 interface SideBarProps {

@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { Mutation } from 'react-apollo';
 
+import { updateMapMutation } from './_mutations';
 import styled from '../../../layout/styled';
 
 const CardWrapper = styled.div<{ isSelected: boolean }>`
@@ -21,6 +23,7 @@ const CardWrapper = styled.div<{ isSelected: boolean }>`
 interface Map {
   id: string;
   name: string;
+  published: boolean;
 }
 
 interface Props {
@@ -35,9 +38,16 @@ const Card: React.FC<Props> = (
   const onClick = React.useCallback(() => selectMap(map.id), [map.id]);
 
   return (
-    <CardWrapper onClick={onClick} isSelected={isSelected}>
-      <p>{map.name}</p>
-    </CardWrapper>
+    <Mutation variables={{ id: map.id }} mutation={updateMapMutation}>
+      {({ mutate }) => (
+        <CardWrapper onClick={onClick} isSelected={isSelected}>
+          <p>{map.name}</p>
+          <p onClick={() => mutate({ variables: { published: !map.published } })}>
+            {map.published ? 'Unpublish' : 'Publish'}
+          </p>
+        </CardWrapper>
+      )}
+    </Mutation>
   );
 };
 
