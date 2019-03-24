@@ -51,6 +51,7 @@ export const mapsQuery = gql`
         id
         name
         comment
+        published
         initialArea {
           longitude
           latitude

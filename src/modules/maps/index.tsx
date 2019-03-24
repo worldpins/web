@@ -15,6 +15,7 @@ const UploadMapModal = React.lazy(() => import(/* webpackChunkName: "uploadMap" 
 interface MapItem {
   id: string;
   name: string;
+  published: boolean;
 }
 
 interface MapData {
@@ -49,7 +50,8 @@ const Wrapper = styled.div`
 class MapsQuery extends Query<MapData, MapVariables> { }
 
 const Maps: React.SFC<MapsProps> = ({ history, match: { params: { mapId: selectedMap } } }) => {
-  const hasMapIdSelected = Boolean(selectedMap) && selectedMap !== 'create';
+  const hasMapIdSelected = Boolean(selectedMap) &&
+    selectedMap !== 'create' && selectedMap !== 'upload';
   const selectMap = React.useCallback((id: string) => history.replace(`/maps/${id}`), []);
   return (
     <React.Fragment>
