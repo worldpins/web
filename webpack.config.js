@@ -119,6 +119,12 @@ module.exports = () => {
           type: 'javascript/auto',
         },
         {
+          // Pre-compile graphql strings.
+          test: /\.(graphql|gql)$/,
+          exclude: /node_modules/,
+          loader: 'graphql-tag/loader'
+        },
+        {
           // Allows us to debug our typescript just like js.
           test: /\.js$/,
           enforce: 'pre',
