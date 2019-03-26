@@ -1,25 +1,10 @@
 import * as React from 'react';
-import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
+import { withRouter } from 'react-router';
 
 import styled from '../../layout/styled';
 import Button from '../../common/button';
-import { withRouter } from 'react-router';
-
-const meQuery = gql`
-  query me {
-    me {
-      id
-      email
-      profile {
-        firstName
-        lastName
-        dateOfBirth
-      }
-      roles
-    }
-  }
-`;
+import meQuery from './_queries.gql';
 
 const NameWrapper = styled.p`
   color: white;
