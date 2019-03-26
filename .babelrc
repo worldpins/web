@@ -1,10 +1,14 @@
 {
   "presets": [
-    "@babel/preset-react",
+    ["@babel/preset-react", { "useBuiltIns": "entry" }],
     [
       "@babel/preset-env",
       {
+        "corejs": 3,
         "modules": false,
+        "exclude": ["@babel/plugin-transform-typeof-symbol"],
+        "loose": true,
+        "useBuiltIns": "usage",
         "targets": {
           "browsers": [
             ">0.25%",
@@ -12,7 +16,6 @@
             "not op_mini all"
           ]
         },
-        "loose": true
       }
     ],
     "@babel/typescript"
@@ -21,12 +24,10 @@
     [
       "@babel/plugin-transform-runtime",
       {
-        "corejs": 2,
-        "useESModules": true
+        "corejs": 3,
       }
     ],
     "@babel/plugin-syntax-dynamic-import",
-    "@babel/plugin-proposal-export-default-from",
     "babel-plugin-styled-components"
   ],
   "env": {
