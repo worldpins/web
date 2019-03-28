@@ -1,0 +1,7 @@
+mutation uploadMap(
+  $map: JSON!
+) {
+  uploadMap(map: $map) {
+    id
+  }
+}
