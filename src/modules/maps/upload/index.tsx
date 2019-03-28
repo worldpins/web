@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Dropzone from 'react-dropzone';
 import Papa from 'papaparse';
+import { graphql } from 'react-apollo';
 
 import Modal from '../../../common/modal';
 import parseData from './_csvParser';
-import { uploadMapMutation } from './_mutation';
-import { graphql } from 'react-apollo';
+import uploadMapMutation from './_mutation.gql';
 
 const UploadMap: React.FC<{ uploadMap: (input: any) => Promise<void>, history: any }> =
 ({ uploadMap, history }) => {

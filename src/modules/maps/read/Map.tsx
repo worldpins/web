@@ -5,7 +5,7 @@ import { LeafletMouseEvent } from 'leaflet';
 import { Query } from 'react-apollo';
 import { Route } from 'react-router';
 
-import { mapQuery } from '../_queries';
+import { map as mapQuery } from '../_queries.gql';
 
 import PinMarker from './Pin';
 

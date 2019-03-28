@@ -6,7 +6,7 @@ import { graphql, compose } from 'react-apollo';
 import Modal from '../../../common/modal';
 
 import TemplatePins from './TemplatePins';
-import { createTemplatePinMutation, updateTemplatePinMutation } from './_mutations';
+import { createTemplatePin as createTemplatePinMutation, updateTemplatePin as updateTemplatePinMutation } from './_mutations.gql';
 
 interface Props {
   createTemplatePin: (
