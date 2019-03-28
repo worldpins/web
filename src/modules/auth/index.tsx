@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Mutation } from 'react-apollo';
 
-import { loginMutation, registerMutation } from './_mutations';
+import { login as loginMutation, register as registerMutation } from './_mutations.gql';
 import Login from './Login';
 import Register from './Register';
 import styled from '../../layout/styled';
