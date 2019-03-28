@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Form, Field } from 'hooked-form';
 import { graphql } from 'react-apollo';
 
-import { mapQuery } from '../_queries';
+import { map as mapQuery } from '../_queries.gql';
 import StringField from '../../../common/fields/stringField';
 import SelectField from '../../../common/fields/selectField';
 import Modal from '../../../common/modal';
 
-import { createPinMutation } from './_mutations';
+import { createPin as createPinMutation } from './_mutations.gql';
 import Template from './Template';
 
 interface TemplateField {

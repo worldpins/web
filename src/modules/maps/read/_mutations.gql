@@ -1,0 +1,12 @@
+mutation updateMap(
+  $id: String!
+  $published: Boolean
+) {
+  map(id: $id) {
+    id
+    updateMap(input: { published: $published }) {
+      id
+      published
+    }
+  }
+}
