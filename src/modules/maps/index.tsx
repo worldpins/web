@@ -5,7 +5,7 @@ import { Route } from 'react-router';
 import Spinner from '../../common/Spinner';
 import styled from '../../layout/styled';
 
-import { mapsQuery } from './_queries';
+import { maps as mapsQuery } from './_queries.gql';
 import SideBar from './read/SideBar';
 import WorldsPinsMap from './read/Map';
 

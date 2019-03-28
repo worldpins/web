@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import Modal from '../../../common/modal';
 import StringField from '../../../common/fields/stringField';
 
-import { createMapMutation } from './_mutations';
+import { createMap as createMapMutation } from './_mutations.gql';
 
 interface CreateMapModalProps {
   handleSubmit: () => void;
