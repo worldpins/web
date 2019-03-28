@@ -1,0 +1,30 @@
+query publicMaps (
+  $search: String
+  $searchField: String
+  $from: Int
+  $limit: Int
+  $sortField: String
+  $sortDirection: String
+) {
+  publicMaps (
+    search: $search
+    searchField: $searchField
+    from: $from
+    limit: $limit
+    sortField: $sortField
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      name
+      comment
+      published
+      initialArea {
+        longitude
+        latitude
+      }
+    }
+    totalCount
+    filteredCount
+  }
+}
