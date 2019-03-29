@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import { ThemeProvider } from './layout/styled';
 import client from './ApolloClient';
@@ -21,9 +21,10 @@ const App = () => (
           <GlobalStyles />
           <TopBar />
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route path="/home" component={Home} />
             <Route path="/auth" exact component={Auth} />
             <Route path="/maps/:mapId?" exact={false} component={Maps} />
+            <Redirect to="/home" />
           </Switch>
         </React.Suspense>
       </BrowserRouter>
