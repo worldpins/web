@@ -21,12 +21,19 @@ const Divider = styled.div`
   padding-top: 10px;
 `;
 
+const LinkWrapper = styled.div`
+  display: flex;
+  > a:first-child {
+    margin-right: 12px;
+  }
+`;
+
 const TopBarWrapper = styled.div<{ notAuthenticated?: boolean }>`
   align-items: center;
   background-color: ${({ theme }) => theme.primary};
   border: ${({ theme }) => theme.greyAccent};
   display: flex;
-  justify-content: ${({ notAuthenticated }) => notAuthenticated ? 'flex-end' : 'space-between'};
+  justify-content: space-between;
   padding: 10px 6px;
   width: 100%;
   height: ${({ notAuthenticated }) => notAuthenticated ? '3vh' : 'auto'};
@@ -75,6 +82,7 @@ const TopBar: React.FC<Props> = ({ history }) => {
         if (error) {
           return (
             <TopBarWrapper notAuthenticated>
+              <LinkButton label="Home" to="/" />
               <LinkButton label="login / register" to="/auth" />
             </TopBarWrapper>
           );
@@ -88,9 +96,11 @@ const TopBar: React.FC<Props> = ({ history }) => {
 
         return (
           <TopBarWrapper>
-            <div>
+            <LinkWrapper>
+              <LinkButton label="Home" to="/" />
               <LinkButton label="Maps" to="/maps" />
-            </div>
+              <Divider />
+            </LinkWrapper>
             <UserContainer>
               {data && (
                 <React.Fragment>
