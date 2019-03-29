@@ -82,7 +82,7 @@ const TopBar: React.FC<Props> = ({ history }) => {
         if (error) {
           return (
             <TopBarWrapper notAuthenticated>
-              <LinkButton label="Home" to="/" />
+              <LinkButton label="Home" to="/home" />
               <LinkButton label="login / register" to="/auth" />
             </TopBarWrapper>
           );
