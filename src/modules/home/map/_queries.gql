@@ -1,0 +1,21 @@
+query publicMap ($id: String!) {
+  publicMap(id: $id) {
+    id
+    name
+    initialArea {
+      latitude
+      longitude
+    }
+    pins {
+      id
+      name
+      data
+      comment
+      orderedFields
+      location {
+        latitude
+        longitude
+      }
+    }
+  }
+}
