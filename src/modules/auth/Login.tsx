@@ -53,6 +53,6 @@ export default Form({
       update: (proxy: any, { data }: any) => setToken(data.login.authToken),
       variables: values,
     });
-    setTimeout(() => history.push('/maps'), 300);
+    setTimeout(() => history.push('/maps'));
   },
 })(React.memo(LoginForm));
