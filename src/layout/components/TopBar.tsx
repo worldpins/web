@@ -74,7 +74,7 @@ interface Props {
 
 const TopBar: React.FC<Props> = ({ history }) => {
   return (
-    <MeQuery query={meQuery}>
+    <MeQuery query={meQuery} fetchPolicy="cache-and-network">
       {({ data, error, loading, refetch }) => {
 
         if (loading) return <TopBarWrapper />;
