@@ -1,6 +1,12 @@
+
 // webpack.d.ts
 declare module "*.gql" {
   const content: any;
+  export const createMap: any;
+  export const map: any;
+  export const maps: any;
+  export const createTemplatePin: any;
+  export const updateTemplatePin: any;
   export default content;
 }
 
