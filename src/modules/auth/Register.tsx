@@ -93,7 +93,7 @@ export default Form({
       update: (proxy: any, { data }: any) => setToken(data.register.authToken),
       variables: values,
     });
-    setTimeout(() => history.push('/maps'), 300);
+    setTimeout(() => history.push('/maps'));
   },
   validate: ({ email, password, confirmPassword, lastName, firstName }: FormValues) => {
     const errors: FormErrors = {};
