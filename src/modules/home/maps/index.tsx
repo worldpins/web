@@ -52,8 +52,8 @@ const PublicMaps = () => (
         return (
           <LinksWrapper>
             {data && data.publicMaps.items.map(({ id, name }) => (
-              <LinkWrapper>
-                <StyledLink key={id} to={`/home/${id}`}>{name}</StyledLink>
+              <LinkWrapper key={id}>
+                <StyledLink to={`/home/${id}`}>{name}</StyledLink>
               </LinkWrapper>
             ))}
           </LinksWrapper>
