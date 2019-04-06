@@ -6,7 +6,10 @@ import { graphql, compose } from 'react-apollo';
 import Modal from '../../../common/modal';
 
 import TemplatePins from './TemplatePins';
-import { createTemplatePin as createTemplatePinMutation, updateTemplatePin as updateTemplatePinMutation } from './_mutations.gql';
+import {
+  createTemplatePin as createTemplatePinMutation,
+  updateTemplatePin as updateTemplatePinMutation,
+} from './_mutations.gql';
 
 interface Props {
   createTemplatePin: (
@@ -85,7 +88,7 @@ interface TempTemplate {
 
 const ManageTemplatesFormModal = Form({
   mapPropsToValues: (props: Props) => {
-    let templatePins: Template[] = [];
+    let templatePins;
     if (props.templatePins) {
       templatePins = props.templatePins.reduce(
         (acc: object[], template: TempTemplate) => {
@@ -97,7 +100,7 @@ const ManageTemplatesFormModal = Form({
         },
         []);
     }
-    return { templatePins };
+    return { templatePins: templatePins || [] };
   },
   onSubmit: async (values: Values, { createTemplatePin, updateTemplatePin, id: mapid }: Props) => {
     for (const newTemplate of values.templatePins) {

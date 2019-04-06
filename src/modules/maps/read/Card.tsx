@@ -38,6 +38,7 @@ const Card: React.FC<Props> = (
   const onClick = React.useCallback(() => selectMap(map.id), [map.id]);
 
   return (
+    // TODO: Mutation static typing
     <Mutation variables={{ id: map.id }} mutation={updateMapMutation} refetchQueries={['maps']}>
       {mutate => (
         <React.Fragment>
