@@ -123,7 +123,7 @@ const NAME_COL_INDEX = 2;
 
 const parseCsv = (rows: any[][], name: string): GeneratedMap => {
   const dataCols: string[] = [];
-  const [_, secondRow, ...restRows] = rows;
+  const [, secondRow, ...restRows] = rows;
   const coordinatesIndex = secondRow.indexOf(COORDINATES_COL_NAME);
 
   secondRow.forEach((data, i) => {
@@ -142,6 +142,7 @@ const parseCsv = (rows: any[][], name: string): GeneratedMap => {
   };
 
   restRows.forEach((cols, i) => {
+    if (!cols[2]) return;
     const entity: Pin = {};
     // Populate data object.
     entity.data = dataCols.reduce(

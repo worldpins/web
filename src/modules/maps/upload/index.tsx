@@ -71,6 +71,7 @@ const UploadMap: React.FC<{ uploadMap: (input: any) => Promise<void>, history: a
   );
 };
 
+// TODO: graphql static typing
 export default graphql(
   uploadMapMutation, { name: 'uploadMap' },
 )(React.memo(UploadMap));
