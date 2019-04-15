@@ -6,6 +6,7 @@ query publicMap ($id: String!) {
       latitude
       longitude
     }
+    filters
     pins {
       id
       name
