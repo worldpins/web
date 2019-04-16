@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 const LinksWrapper = styled.div`
   align-items: center;
   display: flex;
+  margin-bottom: 12px;
 `;
 
 const LinkWrapper = styled.div`

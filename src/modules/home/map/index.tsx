@@ -60,6 +60,7 @@ const MapView: React.FC<RouteComponentProps<{ mapId: string }>> = (
               location.latitude ? (
                 <PinMarker
                   key={id}
+                  editable={false}
                   data={pinData}
                   name={name}
                   id={id}
