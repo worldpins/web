@@ -6,6 +6,15 @@ import styled from '../../layout/styled';
 import Button from '../../common/button';
 import meQuery from './_queries.gql';
 
+const LogoutButton = styled(Button)`
+  border: 0;
+  height: 100%;
+`;
+
+const LinkButton = styled(Button)`
+  color: white;
+`;
+
 const NameWrapper = styled.p`
   color: white;
   margin: 0;
@@ -54,17 +63,6 @@ interface MeData {
   };
 }
 
-class MeQuery extends Query<MeData, {}> { }
-
-const LogoutButton = styled(Button)`
-  border: 0;
-  height: 100%
-`;
-
-const LinkButton = styled(Button)`
-  color: white;
-`;
-
 interface Props {
   history: {
     push: (path: string) => void;
@@ -74,7 +72,7 @@ interface Props {
 
 const TopBar: React.FC<Props> = ({ history }) => {
   return (
-    <MeQuery query={meQuery} fetchPolicy="cache-and-network">
+    <Query<MeData, {}> query={meQuery} fetchPolicy="cache-and-network">
       {({ data, error, loading, refetch }) => {
 
         if (loading) return <TopBarWrapper />;
@@ -115,7 +113,7 @@ const TopBar: React.FC<Props> = ({ history }) => {
           </TopBarWrapper>
         );
       }}
-    </MeQuery>
+    </Query>
   );
 };
 
