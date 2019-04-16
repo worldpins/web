@@ -9,6 +9,7 @@ import styled from '../../../layout/styled';
 interface PinProps {
   comment: string;
   data?: object;
+  editable?: boolean;
   id: string;
   name: string;
   orderedFields?: string[];
@@ -23,7 +24,7 @@ const DataEntry = styled.p`
   margin-bottom: 4px !important;
 `;
 
-const Pin: React.FC<PinProps> = ({ comment, id, name, location, orderedFields, data }) => {
+const Pin: React.FC<PinProps> = ({ comment, editable, id, name, location, orderedFields, data }) => {
   const position: [number, number] = [location.latitude, location.longitude];
   const { value: isUpdating, setTrue, setFalse } = useToggle(false);
   return (
@@ -36,7 +37,7 @@ const Pin: React.FC<PinProps> = ({ comment, id, name, location, orderedFields, d
               {property}: {data[property]}
             </DataEntry>
         ))}
-        <Button label="Edit" onClick={setTrue} />
+        {editable && <Button label="Edit" onClick={setTrue} />}
       </Popup>
       <Tooltip>{name}</Tooltip>
       {isUpdating && <UpdatePinModal id={id} onClose={setFalse} />}

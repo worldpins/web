@@ -32,14 +32,15 @@ interface Props {
   isSelected: boolean;
 }
 
+const refetchQueries = ['maps'];
+
 const Card: React.FC<Props> = (
   { map, selectMap, isSelected },
 ) => {
   const onClick = React.useCallback(() => selectMap(map.id), [map.id]);
-
+  const variables = React.useMemo(() => ({ id: map.id }), [map.id]);
   return (
-    // TODO: Mutation static typing
-    <Mutation variables={{ id: map.id }} mutation={updateMapMutation} refetchQueries={['maps']}>
+    <Mutation<any, { id?: string; published?: boolean }> variables={variables} mutation={updateMapMutation} refetchQueries={refetchQueries}>
       {mutate => (
         <React.Fragment>
           <p onClick={() => mutate({ variables: { published: !map.published } })}>

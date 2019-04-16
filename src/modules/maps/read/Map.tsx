@@ -96,6 +96,7 @@ const WorldPinsMap: React.FC<MapProps> = ({
                 <PinMarker
                   key={id}
                   data={pinData}
+                  editable={false}
                   name={name}
                   id={id}
                   location={location}
