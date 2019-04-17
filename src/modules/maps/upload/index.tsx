@@ -48,6 +48,7 @@ const UploadMap: React.FC<{ uploadMap: (input: any) => Promise<void>, history: a
     <Modal
       buttons={buttons}
       isOpen
+      onClose={history.goBack}
     >
       {step === 0 &&
         <input placeholder="Give the map a name" value={name} onChange={onChange} />}

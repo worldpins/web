@@ -24,19 +24,28 @@ const DataEntry = styled.p`
   margin-bottom: 4px !important;
 `;
 
+const ToggleText = styled.p`
+  cursor: pointer;
+  color: blue;
+  text-align: center;
+`;
+
 const Pin: React.FC<PinProps> = ({ comment, editable, id, name, location, orderedFields, data }) => {
   const position: [number, number] = [location.latitude, location.longitude];
+  const { toggle, value: showMore } = useToggle(false);
   const { value: isUpdating, setTrue, setFalse } = useToggle(false);
+
   return (
     <Marker position={position}>
       <Popup>
         <DataEntry>Name: {name}</DataEntry>
         {comment && <DataEntry>Comment: {comment}</DataEntry>}
-        {orderedFields && data && orderedFields.map(property => (
+        {orderedFields && data && (showMore ? orderedFields : orderedFields.slice(0, 3)).map(property => (
             <DataEntry key={property}>
               {property}: {data[property]}
             </DataEntry>
         ))}
+        <ToggleText onClick={toggle}>{showMore ? 'Show less' : 'Show more'}</ToggleText>
         {editable && <Button label="Edit" onClick={setTrue} />}
       </Popup>
       <Tooltip>{name}</Tooltip>
