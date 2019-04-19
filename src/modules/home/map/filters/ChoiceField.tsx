@@ -18,6 +18,10 @@ const ChoicesWrapper = styled.div`
   gap: 6px;
 `;
 
+const Name = styled.h3`
+  cursor: pointer;
+`;
+
 interface Props {
   choices: string[];
   name: string;
@@ -50,7 +54,7 @@ const ChoiceField: React.FC<Props> = ({ name, choices, setFilters, value }) => {
   }, []);
   return (
     <div>
-      <h3 onClick={toggle}>{name}</h3>
+      <Name onClick={toggle}>{name} {expanded ? '[-]' : '[+]'}</Name>
       {expanded &&
         <ChoicesWrapper>
           {choices.map((x: string) => (
