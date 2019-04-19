@@ -20,15 +20,26 @@ const BarWrapper = styled.div`
   border-bottom: 1px solid black;
   display: flex;
   position: relative;
+  margin-bottom: 32px;
 `;
 
 const Slot = styled.div<{ inset: number }>`
+  border-right: 1px solid black;
   position: absolute;
   bottom: -8px;
   left: ${({ inset }) => inset}%;
   height: 16px;
-  width: 16px;
-  // visibility: hidden;
+  width: 8px;
+  text-align: bottom;
+  > p {
+    margin: 0;
+    position: absolute;
+    bottom: -16px;
+  }
+`;
+
+const Name = styled.h3`
+  cursor: pointer;
 `;
 
 interface Props {
@@ -64,7 +75,6 @@ const NumericFilter: React.FC<Props> = ({ name, min, max, value, setFilters }) =
     let source = sliderType.current;
     let slot = Number(e.target.dataset.slot);
     if (isNaN(slot)) return;
-
     if (source === "min") {
       setFilters((cur: object) => ({
         ...cur,
@@ -84,11 +94,11 @@ const NumericFilter: React.FC<Props> = ({ name, min, max, value, setFilters }) =
       }))
     }
     sliderType.current = null;
-  }, []);
+  }, [curVal]);
 
   return (
     <div>
-      <h3 onClick={toggle}>{name}</h3>
+      <Name onClick={toggle}>{name} {expanded ? '[-]' : '[+]'}</Name>
       {expanded &&
         <BarWrapper onDragOver={onDragOver}>
           {points.map((n, i) => {
@@ -96,19 +106,27 @@ const NumericFilter: React.FC<Props> = ({ name, min, max, value, setFilters }) =
             if (n===Number(curVal.min)) {
               return (
                 <React.Fragment key={n}>
-                  <Thumb data-slider="min" draggable inset={inset} onDragStart={onDragStart} />
-                  <Slot data-slot={n} inset={inset} onDragOver={onDrop} />
+                  <Thumb title={`${n}`} data-slider="min" draggable inset={inset} onDragStart={onDragStart} />
+                  <Slot data-slot={n} inset={inset} onDragOver={onDrop}>
+                    <p>{n}</p>
+                  </Slot>
                 </React.Fragment>
                 );
             } else if (n===Number(curVal.max)) {
               return (
                 <React.Fragment key={n}>
-                  <Thumb data-slider="max" draggable inset={inset} onDragStart={onDragStart} />
-                  <Slot data-slot={n} inset={inset} onDragOver={onDrop} />
+                  <Thumb title={`${n}`} data-slider="max" draggable inset={inset} onDragStart={onDragStart} />
+                  <Slot data-slot={n} inset={inset} onDragOver={onDrop}>
+                    <p>{n}</p>
+                  </Slot>
                 </React.Fragment>
               )
             } else {
-              return <Slot key={n} inset={inset} data-slot={n} onDragOver={onDrop} />
+              return (
+                <Slot data-slot={n} inset={inset} onDragOver={onDrop}>
+                  <p>{n}</p>
+                </Slot>
+              )
             }
           })}
         </BarWrapper>}
