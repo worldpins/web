@@ -15,7 +15,7 @@
             "not ie 11",
             "not op_mini all"
           ]
-        },
+        }
       }
     ],
     "@babel/typescript"
@@ -24,7 +24,7 @@
     [
       "@babel/plugin-transform-runtime",
       {
-        "corejs": 3,
+        "corejs": 3
       }
     ],
     "@babel/plugin-syntax-dynamic-import",

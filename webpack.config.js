@@ -97,7 +97,6 @@ module.exports = () => {
         },
         chunks: 'all',
       },
-      runtimeChunk: 'single',
     },
     plugins,
     resolve: {
