@@ -47,7 +47,7 @@ const filterPins = (filterKeys: string[], pins: object[], activeFilters: object,
           return activeFilters[key].some((value: string) => point.includes(value));
         } else if (type==='numeric') {
           const point = Number(data[key]);
-          return point < (activeFilters[key].max || Infinity) && point < (activeFilters[key].min || 0)
+          return point < (Number(activeFilters[key].max) || Infinity) && point < (Number(activeFilters[key].min) || 0)
         }
       })
     });
@@ -103,4 +103,4 @@ const MapView: React.FC<RouteComponentProps<{ mapId: string }>> = (
   );
 };
 
-export default MapView;
+export default React.memo(MapView);
