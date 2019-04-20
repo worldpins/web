@@ -41,16 +41,13 @@ interface RegisterPayload {
   };
 }
 
-class LoginMutation extends Mutation<LoginPayload, LoginArguments> { }
-class RegisterMutation extends Mutation<RegisterPayload, FormValues> { }
-
 export default ({ history }: { history: any }) => (
   <Wrapper>
-    <LoginMutation mutation={loginMutation}>
+    <Mutation<LoginPayload, LoginArguments> mutation={loginMutation}>
       {login => <Login login={login} history={history} />}
-    </LoginMutation>
-    <RegisterMutation mutation={registerMutation}>
+    </Mutation>
+    <Mutation<RegisterPayload, FormValues> mutation={registerMutation}>
       {register => <Register register={register} history={history} />}
-    </RegisterMutation>
+    </Mutation>
   </Wrapper>
 );
