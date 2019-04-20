@@ -22,6 +22,10 @@ const Name = styled.h3`
   cursor: pointer;
 `;
 
+const Container = styled.div`
+  margin-bottom: 12px;
+`;
+
 interface Props {
   choices: string[];
   name: string;
@@ -53,7 +57,7 @@ const ChoiceField: React.FC<Props> = ({ name, choices, setFilters, value }) => {
     });
   }, []);
   return (
-    <div>
+    <Container>
       <Name onClick={toggle}>{name} {expanded ? '[-]' : '[+]'}</Name>
       {expanded &&
         <ChoicesWrapper>
@@ -64,8 +68,8 @@ const ChoiceField: React.FC<Props> = ({ name, choices, setFilters, value }) => {
             </Wrapper>
           ))}
         </ChoicesWrapper>}
-    </div>
+    </Container>
   )
 }
 
-export default ChoiceField;
+export default React.memo(ChoiceField);
