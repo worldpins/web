@@ -2,6 +2,7 @@ import * as React from 'react';
 import ChoiceField from './ChoiceField';
 import NumericFilter from './NumericFilter';
 import Button from '../../../../common/button';
+import styled from '../../../../layout/styled';
 
 interface Props {
   activeFilters: object;
@@ -9,20 +10,28 @@ interface Props {
   setFilters: Function;
 }
 
+const ResetButton = styled(Button)`
+  margin-bottom: 32px;
+`;
+
 const Filters: React.FC<Props> = ({ activeFilters, filters, setFilters }) => {
   const restFilters = React.useCallback(() => {
-    setFilters(() => {});
+    setFilters(() => ({}));
   }, []);
+
   const { choiceKeys, numericKeys } = React.useMemo(() => {
     return Object.keys(filters).reduce((acc, key) => {
       if (filters[key].type === 'choice') {
+        // @ts-ignore
         acc.choiceKeys.push(key);
       } else {
+        // @ts-ignore
         acc.numericKeys.push(key);
       }
       return acc;
     }, { choiceKeys: [], numericKeys: [] });
   }, []);
+
   return (
     <React.Fragment>
       <div>
@@ -37,10 +46,10 @@ const Filters: React.FC<Props> = ({ activeFilters, filters, setFilters }) => {
           return <NumericFilter key={property} name={property} min={min} max={max} setFilters={setFilters} value={activeFilters[property]} />;
         })}
       </div>
-      <Button onClick={restFilters} label="Reset" />
+      <ResetButton onClick={restFilters} label="Reset filters" />
     </React.Fragment>
   )
 }
 
 
-export default Filters;
+export default React.memo(Filters);
