@@ -38,7 +38,7 @@ interface Props {
   isSelected: boolean;
 }
 
-const refetchQueries = ['maps'];
+const refetchQueries = ['maps', 'publicMaps'];
 
 const Card: React.FC<Props> = (
   { map, selectMap, isSelected },
