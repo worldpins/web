@@ -41,13 +41,11 @@ interface MapVariables {
   limit?: number;
 }
 
-class PublicMapsQuery extends Query<MapData, MapVariables> { }
-
 const PublicMaps = () => (
   <React.Fragment>
     <h2>Maps</h2>
     <p>Here you will see any published maps</p>
-    <PublicMapsQuery query={publicMapsQuery}>
+    <Query<MapData, MapVariables> query={publicMapsQuery}>
       {({ loading, data }) => {
         if (loading) return <Spinner />;
         return (
@@ -60,7 +58,7 @@ const PublicMaps = () => (
           </LinksWrapper>
         );
       }}
-    </PublicMapsQuery>
+    </Query>
   </React.Fragment>
 );
 

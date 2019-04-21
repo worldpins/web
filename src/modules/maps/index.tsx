@@ -47,15 +47,13 @@ const Wrapper = styled.div`
   display: flex;
 `;
 
-class MapsQuery extends Query<MapData, MapVariables> { }
-
 const Maps: React.SFC<MapsProps> = ({ history, match: { params: { mapId: selectedMap } } }) => {
   const hasMapIdSelected = Boolean(selectedMap) &&
     selectedMap !== 'create' && selectedMap !== 'upload';
   const selectMap = React.useCallback((id: string) => history.replace(`/maps/${id}`), []);
   return (
     <React.Fragment>
-      <MapsQuery fetchPolicy="cache-and-network" query={mapsQuery}>
+      <Query<MapData, MapVariables> fetchPolicy="cache-and-network" query={mapsQuery}>
         {({ loading, data, error }) => {
           if (loading) return <Spinner />;
           if (error) return <p>Error {error.message}</p>;
@@ -72,7 +70,7 @@ const Maps: React.SFC<MapsProps> = ({ history, match: { params: { mapId: selecte
             </Wrapper>
           );
         }}
-      </MapsQuery>
+      </Query>
       <React.Suspense fallback={<p>Loading...</p>}>
         <Route path="/maps/create" component={CreateMapModal} />
         <Route path="/maps/upload" component={UploadMapModal} />
