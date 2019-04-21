@@ -7,7 +7,12 @@ import Modal from '../../../common/modal';
 import parseData from './_csvParser';
 import uploadMapMutation from './_mutation.gql';
 
-const UploadMap: React.FC<{ uploadMap: (input: any) => Promise<void>, history: any }> =
+interface Props {
+  uploadMap: (input: any) => Promise<void>;
+  history: any;
+};
+
+const UploadMap: React.FC<Props> =
 ({ uploadMap, history }) => {
   const [step, setStep] = React.useState(0);
   const [name, setName] = React.useState('');
@@ -75,4 +80,5 @@ const UploadMap: React.FC<{ uploadMap: (input: any) => Promise<void>, history: a
 // TODO: graphql static typing
 export default graphql(
   uploadMapMutation, { name: 'uploadMap' },
+  // @ts-ignore
 )(React.memo(UploadMap));
