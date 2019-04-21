@@ -7,11 +7,11 @@ const headers = [
   'STREET + NUMBER',
   'YEAR',
   'SIZE',
-  'POPULATION SIZE',
+  'NUMBER OF RESIDENTS',
   'DENSITY',
   'NUMBER OF UNITS',
-  'FINISHED',
-  'RENOVATION',
+  'PROJECT STATUS',
+  'TYPE OF CONSTRUCTION',
   'EXPLANATION',
   'LAYOUT',
   'TYPES OF COMMUNAL',
@@ -21,13 +21,13 @@ const headers = [
   'PRIVATE SPACE',
   'LOCATION',
   'COMMUNITY COMPLETED',
-  'COMMUNITY FOCUS',
+  'CORE VALUES',
   'OWNERSHIP',
   'LEGAL FORM',
   'RESIDENT PARTICIPATION',
   'ORGANIZED COMMUNAL ACTIVITIES',
   'Shared goods',
-  'DECISION-MAKING',
+  'DECISION-MAKING PROCESS',
   'HOUSEHOLD TYPE',
   'AGE RANGE',
 ];
@@ -39,28 +39,28 @@ const headersSorted = [
   'Municipality',
   'Street',
   'Year',
-  'Size',
-  'Population',
+  'Size [m²]',
+  'Number of residents',
   'Density',
   'Number of units',
-  'Finished',
-  'Renovation',
+  'Project status',
+  'Type of construction',
   'Explanation',
   'Layout',
-  'Types of communal',
-  'Types of private',
+  'Types of communal spaces',
+  'Types of private spaces',
   'Building volumes',
   'Centrality of indoor',
-  'Private space',
+  'Size of the private units [m²]',
   'Location',
   'Community completed',
-  'Community focus',
+  'Core values',
   'Ownership',
   'Legal form',
   'Resident participation',
   'Organized communal activities',
   'Shared goods',
-  'Decision-making',
+  'Decision-making process',
   'Household type',
   'Age range',
 ];
@@ -71,11 +71,11 @@ const headerMapping = {
   'BUILDING VOLUMES': 'Building volumes',
   'CENTRALITY OF INDOOR': 'Centrality of indoor',
   'COMMUNITY COMPLETED': 'Community completed',
-  'COMMUNITY FOCUS': 'Community focus',
-  'DECISION-MAKING': 'Decision-making',
+  'CORE VALUES': 'Core values',
+  'DECISION-MAKING PROCESS': 'Decision-making process',
   DENSITY: 'Density',
   EXPLANATION: 'Explanation',
-  FINISHED: 'Finished',
+  'PROJECT STATUS': 'Project status',
   'HOUSEHOLD TYPE': 'Household type',
   LAYOUT: 'Layout',
   'LEGAL FORM': 'Legal form',
@@ -84,16 +84,16 @@ const headerMapping = {
   'NUMBER OF UNITS': 'Number of units',
   'ORGANIZED COMMUNAL ACTIVITIES': 'Organized communal activities',
   OWNERSHIP: 'Ownership',
-  'POPULATION SIZE': 'Population',
-  'PRIVATE SPACE': 'Private space',
-  RENOVATION: 'Renovation',
+  'NUMBER OF RESIDENTS': 'Number of residents',
+  'PRIVATE SPACE': 'Size of the private units [m²]',
+  'TYPE OF CONSTRUCTION': 'Type of construction',
   'RESIDENT PARTICIPATION': 'Resident participation',
-  SIZE: 'Size',
+  SIZE: 'Size [m²]',
   'STREET + NUMBER': 'Street',
   'Shared goods': 'Shared goods',
   'TYPE OF COLLABORATIVE COMMUNITY': 'Type of collaborative community',
-  'TYPES OF COMMUNAL': 'Types of communal',
-  'TYPES OF PRIVATE': 'Types of private',
+  'TYPES OF COMMUNAL': 'Types of communal spaces',
+  'TYPES OF PRIVATE': 'Types of private spaces',
   YEAR: 'Year',
   'ZIP CODE': 'Zipcode',
 };
@@ -127,10 +127,8 @@ const parseCsv = (rows: any[][], name: string): GeneratedMap => {
   const coordinatesIndex = secondRow.indexOf(COORDINATES_COL_NAME);
 
   secondRow.forEach((data, i) => {
-    const header = headers.find(h => data.startsWith(h));
-    if (header) {
-      dataCols[i] = header;
-    }
+    const header = headers.find(h => data.toLowerCase().startsWith(h.toLowerCase()));
+    if (header) dataCols[i] = header;
   });
 
   const pins: Pin[] = [];
@@ -145,17 +143,10 @@ const parseCsv = (rows: any[][], name: string): GeneratedMap => {
     if (!cols[2]) return;
     const entity: Pin = {};
     // Populate data object.
-    entity.data = dataCols.reduce(
-      (acc, header, j) => {
-        if (header) {
-          return {
-            ...acc,
-            [headerMapping[header]]: cols[j],
-          };
-        }
-        return acc;
-      },
-      {});
+    entity.data = dataCols.reduce((acc, header, j) => {
+      if (header) return { ...acc, [headerMapping[header]]: cols[j] };
+      return acc;
+    },{});
     // Supply the name for this pin.
     entity.name = cols[NAME_COL_INDEX];
     // Suply the location for this pin.
