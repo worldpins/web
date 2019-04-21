@@ -55,7 +55,6 @@ interface MapData {
   };
 }
 
-class MapQuery extends Query<MapData, { id?: string }> { }
 const attribution = '&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors';
 
 const WorldPinsMap: React.FC<MapProps> = ({
@@ -72,7 +71,7 @@ const WorldPinsMap: React.FC<MapProps> = ({
     [setCoordinates]);
 
   return (
-    <MapQuery
+    <Query<MapData, { id?: string }>
       skip={!mapId || mapId === 'create' || mapId === 'upload'}
       query={mapQuery}
       variables={{ id: mapId }}
@@ -124,7 +123,7 @@ const WorldPinsMap: React.FC<MapProps> = ({
           </Map>
         </React.Fragment>
       )}
-    </MapQuery>
+    </Query>
   );
 };
 
