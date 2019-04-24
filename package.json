@@ -63,7 +63,7 @@
     "core-js": "3.0.0",
     "graphql": "14.1.1",
     "graphql-tag": "2.10.1",
-    "hooked-form": "1.6.1",
+    "hooked-form": "beta",
     "leaflet": "1.4.0",
     "papaparse": "4.6.3",
     "react": "16.8.5",

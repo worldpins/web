@@ -2731,9 +2731,9 @@ homedir-polyfill@^1.0.1:
   dependencies:
     parse-passwd "^1.0.0"
 
-hooked-form@1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/hooked-form/-/hooked-form-1.6.1.tgz#73e20e4e935d7f1b3d30795c7cb95b13274f5de4"
+hooked-form@beta:
+  version "2.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/hooked-form/-/hooked-form-2.0.0-beta.0.tgz#c7b94c1a4b995828c9749379e768695c3e02b436"
 
 hoopy@^0.1.2:
   version "0.1.4"
