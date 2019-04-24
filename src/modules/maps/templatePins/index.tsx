@@ -41,7 +41,6 @@ interface Props {
   ) => Promise<void>;
 }
 
-// TODO: add type mapping.
 const ManageTemplatesModal: React.FC<Props> = ({ history, handleSubmit }) => {
   const onClose = React.useCallback(() => history.replace('/maps'), []);
 

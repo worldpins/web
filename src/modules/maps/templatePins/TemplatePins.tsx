@@ -17,18 +17,20 @@ interface Template {
 }
 
 interface Props {
-  addElement: (template: object) => void;
-  removeElement: (index: number) => void;
+  add: (template: object) => void;
+  remove: (index: number) => void;
+  fieldId: string;
   values: Template[];
 }
 
 const TemplatePin: React.FC<Props> = ({
-  addElement,
+  add,
+  fieldId: arrayFieldId,
   values,
 }) => {
   const onAdd = React.useCallback(
-    () => addElement({ fields: [] }),
-    [addElement]);
+    () => add({ fields: [] }),
+    [add]);
 
   return (
     <div>
@@ -36,7 +38,8 @@ const TemplatePin: React.FC<Props> = ({
       {values.length === 0 ? (
         <p>No Pins Yet</p>
       ) : (
-          values.map((pin, fieldId) => {
+          values.map((pin, i) => {
+            const fieldId = `${arrayFieldId}[${i}]`;
             return (
               <div key={fieldId}>
                 <Field

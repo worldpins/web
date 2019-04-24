@@ -30,10 +30,6 @@ interface CreatePinModalProps {
   onClose: () => void;
   handleSubmit: () => void;
   templatePins: TemplatePin[];
-  values: {
-    templatePinId?: string;
-    data: object;
-  };
 }
 
 const CreatePinModal: React.FC<CreatePinModalProps> = ({

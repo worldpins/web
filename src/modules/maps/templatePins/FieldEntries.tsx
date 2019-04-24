@@ -28,21 +28,24 @@ const FieldEntry = styled.div`
 `;
 
 interface Props {
-  addElement: (field: object) => void;
-  removeElement: (index: number) => void;
+  add: (field: object) => void;
+  fieldId: string;
+  remove: (index: number) => void;
   values: object[];
 }
 
 const FieldEntries: React.FC<Props> = ({
-  addElement,
-  removeElement,
+  add,
+  remove,
   values,
+  fieldId: arrayFieldId,
 }) => {
-  const onAdd = React.useCallback(() => addElement({}), [addElement]);
+  const onAdd = React.useCallback(() => add({}), [add]);
   return (
     <FieldEntriesWrapper>
       <h3>Fields:</h3>
-      {values.map((field, fieldId, i: unknown) => {
+      {values.map((field, i: unknown) => {
+        const fieldId = `${arrayFieldId}[${i}]`;
         return (
           <FieldEntry key={fieldId}>
             <Field
@@ -50,7 +53,7 @@ const FieldEntries: React.FC<Props> = ({
               fieldId={`${fieldId}.name`}
               label={`Field ${(i as number) + 1}`}
             />
-            <Cross onClick={() => removeElement(i as number)} />
+            <Cross onClick={() => remove(i as number)} />
           </FieldEntry>
         );
       })}

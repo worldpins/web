@@ -75,23 +75,23 @@ const headerMapping = {
   'DECISION-MAKING PROCESS': 'Decision-making process',
   DENSITY: 'Density',
   EXPLANATION: 'Explanation',
-  'PROJECT STATUS': 'Project status',
   'HOUSEHOLD TYPE': 'Household type',
   LAYOUT: 'Layout',
   'LEGAL FORM': 'Legal form',
   LOCATION: 'Location',
   MUNICIPALITY: 'Municipality',
+  'NUMBER OF RESIDENTS': 'Number of residents',
   'NUMBER OF UNITS': 'Number of units',
   'ORGANIZED COMMUNAL ACTIVITIES': 'Organized communal activities',
   OWNERSHIP: 'Ownership',
-  'NUMBER OF RESIDENTS': 'Number of residents',
   'PRIVATE SPACE': 'Size of the private units [m²]',
-  'TYPE OF CONSTRUCTION': 'Type of construction',
+  'PROJECT STATUS': 'Project status',
   'RESIDENT PARTICIPATION': 'Resident participation',
   SIZE: 'Size [m²]',
   'STREET + NUMBER': 'Street',
   'Shared goods': 'Shared goods',
   'TYPE OF COLLABORATIVE COMMUNITY': 'Type of collaborative community',
+  'TYPE OF CONSTRUCTION': 'Type of construction',
   'TYPES OF COMMUNAL': 'Types of communal spaces',
   'TYPES OF PRIVATE': 'Types of private spaces',
   YEAR: 'Year',
@@ -143,10 +143,12 @@ const parseCsv = (rows: any[][], name: string): GeneratedMap => {
     if (!cols[2]) return;
     const entity: Pin = {};
     // Populate data object.
-    entity.data = dataCols.reduce((acc, header, j) => {
-      if (header) return { ...acc, [headerMapping[header]]: cols[j] };
-      return acc;
-    },{});
+    entity.data = dataCols.reduce(
+      (acc, header, j) => {
+        if (header) return { ...acc, [headerMapping[header]]: cols[j] };
+        return acc;
+      },
+      {});
     // Supply the name for this pin.
     entity.name = cols[NAME_COL_INDEX];
     // Suply the location for this pin.
