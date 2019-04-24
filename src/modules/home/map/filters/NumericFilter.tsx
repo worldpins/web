@@ -40,7 +40,7 @@ import { Label } from '../../../../common/fields/helpers';
 // `;
 
 const Input = styled.input`
-
+  width: 75px;
 `;
 
 const ColWrapper = styled.div`
@@ -55,8 +55,11 @@ const InputWrapper = styled.div`
   }
 `;
 
-const Name = styled.h3`
+const Name = styled.h3<{ expanded: boolean }>`
   cursor: pointer;
+  font-size: 14px;
+  margin-bottom: ${({ expanded }) => expanded ? '6px' : 0};
+  margin-top: 0;
 `;
 
 const Container = styled.div`
@@ -81,10 +84,10 @@ const NumericFilter: React.FC<Props> = ({ name, min, max, value, setFilters }) =
     setFilters((cur: object) => ({
       ...cur,
       [name]: {
-        min: newMin,
         max: curVal.max,
-      }
-    }))
+        min: newMin,
+      },
+    }));
   }, [curVal, setFilters]);
   const onChangeMax = React.useCallback((e: React.SyntheticEvent<HTMLInputElement>) => {
     e.stopPropagation();
@@ -95,13 +98,13 @@ const NumericFilter: React.FC<Props> = ({ name, min, max, value, setFilters }) =
       [name]: {
         max: newMax,
         min: curVal.min,
-      }
-    }))
+      },
+    }));
   }, [curVal, setFilters]);
 
   return (
     <Container>
-      <Name onClick={toggle}>{name} {expanded ? '[-]' : '[+]'}</Name>
+      <Name expanded={expanded} onClick={toggle}>{name} {expanded ? '[-]' : '[+]'}</Name>
       {expanded &&
         <InputWrapper>
           <ColWrapper>
@@ -129,7 +132,6 @@ const NumericFilter: React.FC<Props> = ({ name, min, max, value, setFilters }) =
 //     }
 //     return array;
 //   }, [min, step]);
-
 
 //   const onDragOver = React.useCallback((e) => void e.preventDefault(), []);
 
