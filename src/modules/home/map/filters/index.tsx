@@ -10,8 +10,10 @@ interface Props {
   setFilters: Function;
 }
 
-const ResetButton = styled(Button)`
-  margin-bottom: 32px;
+const FilterWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 20%;
 `;
 
 const Filters: React.FC<Props> = ({ activeFilters, filters, setFilters }) => {
@@ -34,22 +36,36 @@ const Filters: React.FC<Props> = ({ activeFilters, filters, setFilters }) => {
 
   return (
     <React.Fragment>
-      <div>
+      <FilterWrapper>
         {choiceKeys.map((property: string) => {
           const { choices } = filters[property];
-          return <ChoiceField key={property} value={activeFilters[property] || []} name={property} choices={choices} setFilters={setFilters}  />;
+          return (
+            <ChoiceField
+              key={property}
+              value={activeFilters[property] || []}
+              name={property}
+              choices={choices}
+              setFilters={setFilters}
+            />
+          );
         })}
-      </div>
-      <div>
         {numericKeys.map((property: string) => {
           const { min, max } = filters[property];
-          return <NumericFilter key={property} name={property} min={min} max={max} setFilters={setFilters} value={activeFilters[property]} />;
+          return (
+            <NumericFilter
+              key={property}
+              name={property}
+              min={min}
+              max={max}
+              setFilters={setFilters}
+              value={activeFilters[property]}
+            />
+          );
         })}
-      </div>
-      <ResetButton onClick={restFilters} label="Reset filters" />
+        <Button onClick={restFilters} label="Reset filters" />
+      </FilterWrapper>
     </React.Fragment>
-  )
-}
-
+  );
+};
 
 export default React.memo(Filters);
