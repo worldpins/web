@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Form, Field } from 'hooked-form';
+import { Form, Field, useFormConnect } from 'hooked-form';
 import { graphql } from 'react-apollo';
 
 import { map as mapQuery } from '../_queries.gql';
@@ -40,8 +40,8 @@ const CreatePinModal: React.FC<CreatePinModalProps> = ({
   onClose,
   handleSubmit,
   templatePins,
-  values: { templatePinId },
 }) => {
+  const { values: { templatePinId } } = useFormConnect();
   const options = React.useMemo(
     () => templatePins.map(({ id, name }) => ({ value: id, label: name })),
     []);
@@ -95,7 +95,7 @@ const CreatePinFormModal = Form({
       variables: values,
     });
   },
-})(React.memo(CreatePinModal));
+})(CreatePinModal);
 
 export default graphql<{
   coordinates: object;
