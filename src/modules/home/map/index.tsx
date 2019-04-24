@@ -58,6 +58,7 @@ const filterPins = (
   if (filterKeys.length > 0) {
     return pins.filter(({ data }: { data: object }) => {
       return filterKeys.some((key: string) => {
+        if (data[key] === undefined) return false;
         const { type } = filters[key];
         if (type === 'choice') {
           const p = data[key];
