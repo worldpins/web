@@ -2,6 +2,7 @@ import * as React from 'react';
 import CheckBox from '../../../../common/fields/checkField/CheckBox';
 import styled from '../../../../layout/styled';
 import { useToggle } from 'react-angler';
+import { Label } from '../../../../common/fields/helpers';
 
 const Wrapper = styled.div`
   align-items: center;
@@ -14,16 +15,25 @@ const Wrapper = styled.div`
 
 const ChoicesWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 6px;
 `;
 
-const Name = styled.h3`
+const Name = styled.h3<{ expanded: boolean }>`
   cursor: pointer;
+  font-size: 14px;
+  margin-bottom: ${({ expanded }) => expanded ? '6px' : 0};
+  margin-top: 0;
 `;
 
 const Container = styled.div`
   margin-bottom: 12px;
+`;
+
+const StyledLabel = styled(Label)`
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 80%
 `;
 
 interface Props {
@@ -35,41 +45,43 @@ interface Props {
 
 const ChoiceField: React.FC<Props> = ({ name, choices, setFilters, value }) => {
   const { value: expanded, toggle } = useToggle(false);
-  const setFilter = React.useCallback((value, toRemove: boolean) => {
+  const setFilter = React.useCallback((val, toRemove: boolean) => {
     setFilters((current: any) => {
       const currentValue = current[name] || [];
       if (toRemove) {
-        const newValue = currentValue.filter((y: any) => y!==value);
-        if (newValue.length===0) {
+        const newValue = currentValue.filter((y: any) => y !== val);
+        if (newValue.length === 0) {
           const { [name]: toDel, ...rest } = current;
           return rest;
         }
         return {
           ...current,
           [name]: newValue,
-        }
-      } else {
-        return {
-          ...current,
-          [name]: [...currentValue, value],
-        }
+        };
       }
+      return {
+        ...current,
+        [name]: [...currentValue, val],
+      };
     });
   }, []);
   return (
     <Container>
-      <Name onClick={toggle}>{name} {expanded ? '[-]' : '[+]'}</Name>
+      <Name expanded={expanded} onClick={toggle}>{name} {expanded ? '[-]' : '[+]'}</Name>
       {expanded &&
         <ChoicesWrapper>
           {choices.map((x: string) => (
             <Wrapper key={x}>
-              <CheckBox checked={value.includes(x)} onChange={setFilter.bind(undefined, x, value.includes(x))} />
-              <p>{x}</p>
+              <CheckBox
+                checked={value.includes(x)}
+                onChange={setFilter.bind(undefined, x, value.includes(x))}
+              />
+              <StyledLabel>{x}</StyledLabel>
             </Wrapper>
           ))}
         </ChoicesWrapper>}
     </Container>
-  )
-}
+  );
+};
 
 export default React.memo(ChoiceField);
