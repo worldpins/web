@@ -8,11 +8,9 @@ const headers = [
   'YEAR',
   'SIZE',
   'NUMBER OF RESIDENTS',
-  'DENSITY',
   'NUMBER OF UNITS',
   'PROJECT STATUS',
   'TYPE OF CONSTRUCTION',
-  'EXPLANATION',
   'LAYOUT',
   'TYPES OF COMMUNAL',
   'TYPES OF PRIVATE',
@@ -41,11 +39,9 @@ const headersSorted = [
   'Year',
   'Size [m²]',
   'Number of residents',
-  'Density',
   'Number of units',
   'Project status',
   'Type of construction',
-  'Explanation',
   'Layout',
   'Types of communal spaces',
   'Types of private spaces',
@@ -73,8 +69,6 @@ const headerMapping = {
   'COMMUNITY COMPLETED': 'Community completed',
   'CORE VALUES': 'Core values',
   'DECISION-MAKING PROCESS': 'Decision-making process',
-  DENSITY: 'Density',
-  EXPLANATION: 'Explanation',
   'HOUSEHOLD TYPE': 'Household type',
   LAYOUT: 'Layout',
   'LEGAL FORM': 'Legal form',
@@ -127,7 +121,7 @@ const parseCsv = (rows: any[][], name: string): GeneratedMap => {
   const coordinatesIndex = secondRow.indexOf(COORDINATES_COL_NAME);
 
   secondRow.forEach((data, i) => {
-    const header = headers.find(h => data.toLowerCase().startsWith(h.toLowerCase()));
+    const header = headers.find(h => data.toLowerCase().includes(h.toLowerCase()));
     if (header) dataCols[i] = header;
   });
 
