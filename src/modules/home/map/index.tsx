@@ -56,8 +56,8 @@ const filterPins = (
   filterKeys: string[], pins: object[], activeFilters: object, filters: object,
 ) => {
   if (filterKeys.length > 0) {
-    return pins.filter(({ data }: { data: object }) => {
-      return filterKeys.some((key: string) => {
+    return pins.filter(({ data, ...args }: { data: object }) => {
+      return filterKeys.every((key: string) => {
         if (data[key] === undefined) return false;
         const { type } = filters[key];
         if (type === 'choice') {
@@ -84,8 +84,9 @@ const MapView: React.FC<RouteComponentProps<{ mapId: string }>> = (
 ) => {
   const [activeFilters, setFilters] = React.useState({});
   const filterKeys = React.useMemo(() => Object.keys(activeFilters), [activeFilters]);
+  const variables = React.useMemo(() => ({ id: mapId }), [mapId]);
   return (
-    <Query<Data, Variables> query={mapQuery} variables={{ id: mapId }}>
+    <Query<Data, Variables> query={mapQuery} variables={variables}>
       {({ data, error, loading }) => {
         if (loading) return 'Loading...';
         if (error) return 'Error...';
