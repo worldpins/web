@@ -77,30 +77,36 @@ interface Props {
 const NumericFilter: React.FC<Props> = ({ name, min, max, value, setFilters }) => {
   const { value: expanded, toggle } = useToggle(false);
   const curVal = value || { min, max };
-  const onChangeMin = React.useCallback((e: React.SyntheticEvent<HTMLInputElement>) => {
-    e.stopPropagation();
-    e.preventDefault();
-    const { value: newMin } = e.currentTarget;
-    setFilters((cur: object) => ({
-      ...cur,
-      [name]: {
-        max: curVal.max,
-        min: newMin,
-      },
-    }));
-  }, [curVal, setFilters]);
-  const onChangeMax = React.useCallback((e: React.SyntheticEvent<HTMLInputElement>) => {
-    e.stopPropagation();
-    e.preventDefault();
-    const { value: newMax } = e.currentTarget;
-    setFilters((cur: object) => ({
-      ...cur,
-      [name]: {
-        max: newMax,
-        min: curVal.min,
-      },
-    }));
-  }, [curVal, setFilters]);
+
+  const onChangeMin = React.useCallback(
+    (e: React.SyntheticEvent<HTMLInputElement>) => {
+      e.stopPropagation();
+      e.preventDefault();
+      const { value: newMin } = e.currentTarget;
+      setFilters((cur: object) => ({
+        ...cur,
+        [name]: {
+          max: curVal.max,
+          min: newMin,
+        },
+      }));
+    },
+    [curVal, setFilters]);
+
+  const onChangeMax = React.useCallback(
+    (e: React.SyntheticEvent<HTMLInputElement>) => {
+      e.stopPropagation();
+      e.preventDefault();
+      const { value: newMax } = e.currentTarget;
+      setFilters((cur: object) => ({
+        ...cur,
+        [name]: {
+          max: newMax,
+          min: curVal.min,
+        },
+      }));
+    },
+    [curVal, setFilters]);
 
   return (
     <Container>
@@ -117,90 +123,7 @@ const NumericFilter: React.FC<Props> = ({ name, min, max, value, setFilters }) =
           </ColWrapper>
         </InputWrapper>}
     </Container>
-  )
-}
+  );
+};
 
-// const NumericFilter2: React.FC<Props> = ({ name, min, max, value, setFilters }) => {
-//   const { value: expanded, toggle } = useToggle(false);
-//   const sliderType = React.useRef<string | null>();
-//   const curVal = value || { min, max };
-//   const step = React.useMemo(() => (Number(max) - Number(min)) / 10, [min, max]);
-//   let points = React.useMemo(() => {
-//     const array = [];
-//     for (let i = 0; i<11; i++) {
-//       array[i] = Number(min) + (step * i);
-//     }
-//     return array;
-//   }, [min, step]);
-
-//   const onDragOver = React.useCallback((e) => void e.preventDefault(), []);
-
-//   const onDragStart = React.useCallback((e: any) => {
-//     let slider  = e.target.dataset.slider;
-//     sliderType.current = slider;
-//  }, [])
-
-//   const onDrop = React.useCallback((e) => {
-//     let source = sliderType.current;
-//     let slot = Number(e.target.dataset.slot);
-//     if (isNaN(slot)) return;
-//     if (source === "min") {
-//       setFilters((cur: object) => ({
-//         ...cur,
-//         [name]: {
-//           min: slot,
-//           max: curVal.max,
-//         }
-//       }))
-//     }
-//     if (source === "max") {
-//       setFilters((cur: object) => ({
-//         ...cur,
-//         [name]: {
-//           min: curVal.min,
-//           max: slot,
-//         }
-//       }))
-//     }
-//     sliderType.current = null;
-//   }, [curVal]);
-
-//   return (
-//     <div>
-//       <Name onClick={toggle}>{name} {expanded ? '[-]' : '[+]'}</Name>
-//       {expanded &&
-//         <BarWrapper onDragOver={onDragOver}>
-//           {points.map((n, i) => {
-//             const inset = i * 10;
-//             if (n===Number(curVal.min)) {
-//               return (
-//                 <React.Fragment key={n}>
-//                   <Thumb title={`${n}`} data-slider="min" draggable inset={inset} onDragStart={onDragStart} />
-//                   <Slot data-slot={n} inset={inset} onDragOver={onDrop}>
-//                     <p>{n}</p>
-//                   </Slot>
-//                 </React.Fragment>
-//                 );
-//             } else if (n===Number(curVal.max)) {
-//               return (
-//                 <React.Fragment key={n}>
-//                   <Thumb title={`${n}`} data-slider="max" draggable inset={inset} onDragStart={onDragStart} />
-//                   <Slot data-slot={n} inset={inset} onDragOver={onDrop}>
-//                     <p>{n}</p>
-//                   </Slot>
-//                 </React.Fragment>
-//               )
-//             } else {
-//               return (
-//                 <Slot data-slot={n} inset={inset} onDragOver={onDrop}>
-//                   <p>{n}</p>
-//                 </Slot>
-//               )
-//             }
-//           })}
-//         </BarWrapper>}
-//     </div>
-//   )
-// }
-
-export default NumericFilter;
+export default React.memo(NumericFilter);
