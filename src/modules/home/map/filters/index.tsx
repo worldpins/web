@@ -17,22 +17,28 @@ const FilterWrapper = styled.div`
 `;
 
 const Filters: React.FC<Props> = ({ activeFilters, filters, setFilters }) => {
-  const restFilters = React.useCallback(() => {
-    setFilters(() => ({}));
-  }, []);
+  const restFilters = React.useCallback(
+    () => {
+      setFilters(() => ({}));
+    },
+    []);
 
-  const { choiceKeys, numericKeys } = React.useMemo(() => {
-    return Object.keys(filters).reduce((acc, key) => {
-      if (filters[key].type === 'choice') {
-        // @ts-ignore
-        acc.choiceKeys.push(key);
-      } else {
-        // @ts-ignore
-        acc.numericKeys.push(key);
-      }
-      return acc;
-    }, { choiceKeys: [], numericKeys: [] });
-  }, []);
+  const { choiceKeys, numericKeys } = React.useMemo(
+    () => {
+      return Object.keys(filters).reduce(
+        (acc, key) => {
+          if (filters[key].type === 'choice') {
+            // @ts-ignore
+            acc.choiceKeys.push(key);
+          } else {
+            // @ts-ignore
+            acc.numericKeys.push(key);
+          }
+          return acc;
+        },
+        { choiceKeys: [], numericKeys: [] });
+    },
+    []);
 
   return (
     <React.Fragment>
