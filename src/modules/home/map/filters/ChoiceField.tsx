@@ -45,26 +45,30 @@ interface Props {
 
 const ChoiceField: React.FC<Props> = ({ name, choices, setFilters, value }) => {
   const { value: expanded, toggle } = useToggle(false);
-  const setFilter = React.useCallback((val, toRemove: boolean) => {
-    setFilters((current: any) => {
-      const currentValue = current[name] || [];
-      if (toRemove) {
-        const newValue = currentValue.filter((y: any) => y !== val);
-        if (newValue.length === 0) {
-          const { [name]: toDel, ...rest } = current;
-          return rest;
+
+  const setFilter = React.useCallback(
+    (val, toRemove: boolean) => {
+      setFilters((current: any) => {
+        const currentValue = current[name] || [];
+        if (toRemove) {
+          const newValue = currentValue.filter((y: any) => y !== val);
+          if (newValue.length === 0) {
+            const { [name]: toDel, ...rest } = current;
+            return rest;
+          }
+          return {
+            ...current,
+            [name]: newValue,
+          };
         }
         return {
           ...current,
-          [name]: newValue,
+          [name]: [...currentValue, val],
         };
-      }
-      return {
-        ...current,
-        [name]: [...currentValue, val],
-      };
-    });
-  }, []);
+      });
+    },
+    []);
+
   return (
     <Container>
       <Name expanded={expanded} onClick={toggle}>{name} {expanded ? '[-]' : '[+]'}</Name>

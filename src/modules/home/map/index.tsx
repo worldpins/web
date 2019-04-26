@@ -83,15 +83,19 @@ const MapView: React.FC<RouteComponentProps<{ mapId: string }>> = (
   { match: { params: { mapId } } },
 ) => {
   const [activeFilters, setFilters] = React.useState({});
+
   const filterKeys = React.useMemo(() => Object.keys(activeFilters), [activeFilters]);
   const variables = React.useMemo(() => ({ id: mapId }), [mapId]);
+
   return (
     <Query<Data, Variables> query={mapQuery} variables={variables}>
       {({ data, error, loading }) => {
         if (loading) return 'Loading...';
         if (error) return 'Error...';
+
         const { initialArea: { latitude, longitude }, pins, filters } = data!.publicMap;
         const filteredPins = filterPins(filterKeys, pins, activeFilters, filters);
+
         return (
           <Wrapper>
             <Filters filters={filters} setFilters={setFilters} activeFilters={activeFilters} />
