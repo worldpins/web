@@ -46,16 +46,20 @@ const CreatePinModal: React.FC<CreatePinModalProps> = ({
     () => templatePinId && templatePins.find(({ id }) => id === templatePinId),
     [templatePinId]);
 
+  const buttons = React.useMemo(
+    () => [
+      { label: 'Close', type: 'button', onClick: close, flavor: 'danger' },
+      { label: 'Submit', type: 'submit', flavor: 'primary' },
+    ],
+    [close]);
+
   return (
     <Modal
       isOpen
       onClose={onClose}
       title="Create Pin"
       onSubmit={handleSubmit}
-      buttons={[
-        { label: 'Close', type: 'button', onClick: close, flavor: 'danger' },
-        { label: 'Submit', type: 'submit', flavor: 'primary' },
-      ]}
+      buttons={buttons}
     >
       <Field
         fieldId="name"

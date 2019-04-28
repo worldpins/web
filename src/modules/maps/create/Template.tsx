@@ -11,20 +11,18 @@ interface Props {
   fields: Field[];
 }
 
-const Template: React.FC<Props> = ({ fields }) => {
-  return (
-    <React.Fragment>
-      {fields.map(({ name }, i) => (
-        <Field
-          key={i}
-          component={StringField}
-          fieldId={`data.${name}`}
-          placeholder={name}
-          label={name}
-        />
-        ))}
-    </React.Fragment>
-  );
-};
+const Template: React.FC<Props> = ({ fields }) => (
+  <React.Fragment>
+    {fields.map(({ name }, i) => (
+      <Field
+        key={i}
+        component={StringField}
+        fieldId={`data.${name}`}
+        placeholder={name}
+        label={name}
+      />
+      ))}
+  </React.Fragment>
+);
 
 export default React.memo(Template);

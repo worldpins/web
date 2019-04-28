@@ -27,16 +27,20 @@ const CreateMapModal: React.SFC<CreateMapModalProps> = ({
     () => history.push(`/maps${selectedMap ? `/${selectedMap}` : ''}`),
     []);
 
+  const buttons = React.useMemo(
+    () => [
+      { label: 'Close', type: 'button', onClick: close, flavor: 'danger' },
+      { label: 'Submit', type: 'submit', flavor: 'primary' },
+    ],
+    [close]);
+
   return (
     <Modal
       isOpen
       onClose={onClose}
       onSubmit={handleSubmit}
       title="Create Map"
-      buttons={[
-        { label: 'Submit', type: 'submit', flavor: 'primary' },
-        { label: 'Close', type: 'button', onClick: onClose, flavor: 'danger' },
-      ]}
+      buttons={buttons}
     >
       <Field
         component={StringField}
@@ -60,6 +64,4 @@ const CreateMapFormModal = withRouter(
   })(CreateMapModal),
 );
 
-export default graphql(createMapMutation, {
-  name: 'createMap',
-})(React.memo(CreateMapFormModal));
+export default graphql(createMapMutation, { name: 'createMap' })(CreateMapFormModal);
