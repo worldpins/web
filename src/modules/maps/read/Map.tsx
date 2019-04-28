@@ -70,17 +70,20 @@ const WorldPinsMap: React.FC<MapProps> = ({
     },
     [setCoordinates]);
 
+  const center = React.useMemo(() => ({ lat, lng: lon }), [lat, lon]);
+  const variables = React.useMemo(() => ({ id: mapId }), [mapId]);
+
   return (
     <Query<MapData, { id?: string }>
       skip={!mapId || mapId === 'create' || mapId === 'upload'}
       query={mapQuery}
-      variables={{ id: mapId }}
+      variables={variables}
     >
       {({ loading, data }) => (
         <React.Fragment>
           <Map
             animate
-            center={{ lat, lng: lon }}
+            center={center}
             onClick={handleClick}
             zoom={zoom}
           >
@@ -88,8 +91,8 @@ const WorldPinsMap: React.FC<MapProps> = ({
               attribution={attribution}
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {!loading && data && (data as any).map && (data as any).map.pins &&
-              (data as any).map.pins.map(
+            {!loading && data && data.map && data.map.pins &&
+              data.map.pins.map(
                 ({ comment, id, name, location, data: pinData, orderedFields }: Pin) =>
               location.latitude ? (
                 <PinMarker

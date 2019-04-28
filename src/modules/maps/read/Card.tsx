@@ -46,14 +46,21 @@ const Card: React.FC<Props> = (
   const onClick = React.useCallback(() => selectMap(map.id), [map.id]);
   const variables = React.useMemo(() => ({ id: map.id }), [map.id]);
   return (
-    <Mutation<any, { id?: string; published?: boolean }> variables={variables} mutation={updateMapMutation} refetchQueries={refetchQueries}>
+    <Mutation<any, { id?: string; published?: boolean }>
+      variables={variables}
+      mutation={updateMapMutation}
+      refetchQueries={refetchQueries}
+    >
       {mutate => (
         <React.Fragment>
           <CardWrapper onClick={onClick} isSelected={isSelected}>
-            <CheckBox checked={map.published} onChange={e => {
-              e.stopPropagation();
-              mutate({ variables: { published: !map.published } })
-            }} />
+            <CheckBox
+              checked={map.published}
+              onChange={(e: React.SyntheticEvent) => {
+                e.stopPropagation();
+                mutate({ variables: { published: !map.published } });
+              }}
+            />
             <p>{map.name}</p>
           </CardWrapper>
         </React.Fragment>
