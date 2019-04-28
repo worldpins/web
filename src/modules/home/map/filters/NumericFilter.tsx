@@ -3,42 +3,6 @@ import styled from '../../../../layout/styled';
 import { useToggle } from 'react-angler';
 import { Label } from '../../../../common/fields/helpers';
 
-// const Thumb = styled.div<{ inset: number }>`
-//   background: blue;
-//   border: 1px solid transparent;
-//   border-radius: 100%;
-//   cursor: grab;
-//   position: absolute;
-//   bottom: -8px;
-//   left: ${({ inset }) => inset}%;
-//   height: 16px;
-//   width: 16px;
-//   z-index: 999;
-// `;
-
-// const BarWrapper = styled.div`
-//   align-items: center;
-//   border-bottom: 1px solid black;
-//   display: flex;
-//   position: relative;
-//   margin-bottom: 32px;
-// `;
-
-// const Slot = styled.div<{ inset: number }>`
-//   border-right: 1px solid black;
-//   position: absolute;
-//   bottom: -8px;
-//   left: ${({ inset }) => inset}%;
-//   height: 16px;
-//   width: 8px;
-//   text-align: bottom;
-//   > p {
-//     margin: 0;
-//     position: absolute;
-//     bottom: -16px;
-//   }
-// `;
-
 const Input = styled.input`
   width: 75px;
 `;

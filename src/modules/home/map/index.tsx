@@ -36,7 +36,7 @@ const Wrapper = styled.div`
 
 const MapWrapper = styled.div<{ isOpen: boolean }>`
   margin-left: 6px;
-  width: ${({ isOpen }) => isOpen ? '80%' : '100%'};
+  width: ${({ isOpen }) => isOpen ? '85%' : '100%'};
 `;
 
 interface Data {

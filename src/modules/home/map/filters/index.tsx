@@ -13,7 +13,7 @@ interface Props {
 const FilterWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 20%;
+  width: 15%;
 `;
 
 const Filters: React.FC<Props> = ({ activeFilters, filters, setFilters }) => {
