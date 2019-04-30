@@ -55,7 +55,10 @@ interface MapData {
   };
 }
 
-const attribution = '&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors';
+// const mapUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+// const attribution = '&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors';
+const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+const mapUrl = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png';
 
 const WorldPinsMap: React.FC<MapProps> = ({
   lat = 50.85045, lon = 4.34878, mapId, zoom = 13,
@@ -89,7 +92,8 @@ const WorldPinsMap: React.FC<MapProps> = ({
           >
             <TileLayer
               attribution={attribution}
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              url={mapUrl}
+              zIndex={999}
             />
             {!loading && data && data.map && data.map.pins &&
               data.map.pins.map(
