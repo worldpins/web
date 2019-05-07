@@ -4,29 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-// TODO: add custom terser
-
-// TODO: CDN React and React-DOM
-const frameworkVendors = [
-  'react',
-  'react-dom',
-  'react-router',
-  'react-router-dom',
-  'styled-components',
-  'styled-normalize',
-];
-
-const stateVendors = [
-  'apollo-cache-inmemory',
-  'apollo-client',
-  'apollo-link',
-  'apollo-link-error',
-  'apollo-link-http',
-  'apollo-link-state',
-  'react-apollo',
-  'graphql',
-  'graphql-tag',
-];
 
 module.exports = () => {
   const { NODE_ENV } = process.env;
@@ -84,18 +61,7 @@ module.exports = () => {
             name: 'common',
             test: /[\\/]src[\\/](common|global|layout)[\\/]/
           },
-          frameworkVendors: {
-            chunks: 'all',
-            name: 'frameworkVendors',
-            test: 'frameworkVendors'
-          },
-          stateVendors: {
-            chunks: 'all',
-            name: 'stateVendors',
-            test: 'stateVendors'
-          },
         },
-        chunks: 'all',
       },
     },
     plugins,
