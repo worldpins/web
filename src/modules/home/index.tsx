@@ -9,6 +9,7 @@ const PublicMap = React.lazy(() => import('./map'));
 
 const Container = styled.div`
   padding: 24px 32px;
+  padding-bottom: 0px;
 `;
 
 const Home = () => (
