@@ -55,7 +55,11 @@ interface MapData {
   };
 }
 
-const attribution = '&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors';
+const url = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}';
+const attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>,' +
+  '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> ' +
+  '&mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">' +
+  'OpenStreetMap</a> contributors';
 
 const WorldPinsMap: React.FC<MapProps> = ({
   lat = 50.85045, lon = 4.34878, mapId, zoom = 13,
@@ -89,7 +93,11 @@ const WorldPinsMap: React.FC<MapProps> = ({
           >
             <TileLayer
               attribution={attribution}
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              url={url}
+              subdomains={'abcd'}
+              minZoom={0}
+              maxZoom={20}
+              ext={'png'}
             />
             {!loading && data && data.map && data.map.pins &&
               data.map.pins.map(
