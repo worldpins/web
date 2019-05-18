@@ -5,6 +5,7 @@ import { useToggle } from 'react-angler';
 import Button from '../../../common/button';
 import UpdatePinModal from '../update/Pin';
 import styled from '../../../layout/styled';
+import { ColivingMarker, CohousingMarker, CommuneMarker, HomeshareMarker, SharehouseMarker, StudentcoopMarker } from './LoadPins';
 
 interface PinProps {
   comment: string;
@@ -30,13 +31,28 @@ const ToggleText = styled.p`
   text-align: center;
 `;
 
+const type = 'Type of collaborative community';
+
 const Pin: React.FC<PinProps> = ({ comment, editable, id, name, location, orderedFields, data }) => {
   const position: [number, number] = [location.latitude, location.longitude];
   const { toggle, value: showMore } = useToggle(false);
   const { value: isUpdating, setTrue, setFalse } = useToggle(false);
 
+  const icon = React.useMemo(() => {
+    if (!data && !(data as any)[type]) return CohousingMarker;
+    switch ((data as any)[type].toLowerCase()) {
+      case 'co-living': return ColivingMarker
+      case 'cohousing': return CohousingMarker
+      case 'commune': return CommuneMarker
+      case 'home share': return HomeshareMarker
+      case 'share house': return SharehouseMarker
+      case 'student coop': return StudentcoopMarker
+      default: return CohousingMarker
+    }
+  }, [data && (data as any)[type]]);
+
   return (
-    <Marker position={position}>
+    <Marker position={position} icon={icon}>
       <Popup>
         <DataEntry>Name: {name}</DataEntry>
         {comment && <DataEntry>Comment: {comment}</DataEntry>}
