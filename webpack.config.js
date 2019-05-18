@@ -90,6 +90,15 @@ module.exports = () => {
           loader: 'graphql-tag/loader'
         },
         {
+          test: /\.(png|jpe?g|gif)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {},
+            },
+          ],
+        },
+        {
           // Allows us to debug our typescript just like js.
           test: /\.js$/,
           enforce: 'pre',
