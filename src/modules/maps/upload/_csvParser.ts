@@ -28,6 +28,7 @@ const headers = [
   'DECISION-MAKING PROCESS',
   'HOUSEHOLD TYPE',
   'AGE RANGE',
+  'DEVELOPMENT MODEL',
 ];
 
 const headersSorted = [
@@ -41,6 +42,7 @@ const headersSorted = [
   'Number of residents',
   'Number of units',
   'Project status',
+  'Development model',
   'Type of construction',
   'Typology',
   'Types of communal spaces',
@@ -69,8 +71,8 @@ const headerMapping = {
   'COMMUNITY COMPLETED': 'Community completed',
   'CORE VALUES': 'Core values',
   'DECISION-MAKING PROCESS': 'Decision-making process',
+  'DEVELOPMENT MODEL': 'Development model',
   'HOUSEHOLD TYPE': 'Household type',
-  TYPOLOGY: 'Typology',
   'LEGAL FORM': 'Legal form',
   LOCATION: 'Location',
   MUNICIPALITY: 'Municipality',
@@ -88,6 +90,7 @@ const headerMapping = {
   'TYPE OF CONSTRUCTION': 'Type of construction',
   'TYPES OF COMMUNAL': 'Types of communal spaces',
   'TYPES OF PRIVATE': 'Types of private spaces',
+  TYPOLOGY: 'Typology',
   YEAR: 'Year',
   'ZIP CODE': 'Zipcode',
 };
