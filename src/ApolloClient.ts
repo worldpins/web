@@ -12,9 +12,7 @@ const config = getConfig();
 const request = (operation: { setContext: (options: object) => void }) => {
   const token = window.localStorage.getItem('token');
   operation.setContext({
-    headers: {
-      authorization: `bearer ${token}`,
-    },
+    headers: { authorization: `bearer ${token}` },
   });
 };
 
