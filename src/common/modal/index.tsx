@@ -4,6 +4,7 @@ import ReactModal from 'react-modal';
 import styled from '../../layout/styled';
 import Cross from './cross';
 import Button, { ButtonProps } from '../button';
+import useLockBodyScroll from './useLockBodyScroll';
 
 // Needed for screen readers.
 ReactModal.setAppElement('body');
@@ -28,6 +29,7 @@ const Title = styled.h1`
 
 const Body = styled.div`
   background-color: white;
+  overflow: hidden;
   padding-bottom: 1em;
   padding-left: 1.5em;
   padding-right: 1.5em;
@@ -52,12 +54,13 @@ const Header = styled.div`
 const ModalWrapper = styled.div`
   box-shadow: 0em 1px 2px 0px rgba(0, 0, 0, 0.25);
   height: 100%;
+  overflow: hidden;
 `;
 
 const FormModalWrapper = styled.form`
   box-shadow: 0em 1px 2px 0px rgba(0, 0, 0, 0.25);
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
 `;
 
 const Footer = styled.div`
@@ -95,6 +98,8 @@ const Modal: React.FC<ModalProps> = ({
     },
     [onClose],
   );
+
+  useLockBodyScroll();
 
   let Wrapper: any = ModalWrapper;
   if (onSubmit) {

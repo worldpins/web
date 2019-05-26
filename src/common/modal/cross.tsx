@@ -1,7 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-const SVG = styled.svg`cursor: pointer;`;
+const SVG = styled.svg`
+  cursor: pointer;
+`;
 
 interface CrossProperties {
   onClick: () => void;
