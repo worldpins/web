@@ -21,6 +21,7 @@ module.exports = () => {
   }
 
   if (isProduction) {
+    plugins.push(new BundleAnalyzerPlugin({ analyzerMode: 'static' }));
     plugins.push(new CompressionPlugin({ deleteOriginalAssets: false }));
   }
 
