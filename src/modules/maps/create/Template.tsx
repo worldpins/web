@@ -3,24 +3,21 @@ import { Field } from 'hooked-form';
 
 import StringField from '../../../common/fields/stringField';
 
-interface Field {
-  name: string;
-}
-
 interface Props {
-  fields: Field[];
+  fields: string[];
 }
 
 const Template: React.FC<Props> = ({ fields }) => (
   <React.Fragment>
-    {fields.map(({ name }, i) => (
-      <Field
-        key={i}
-        component={StringField}
-        fieldId={`data.${name}`}
-        placeholder={name}
-        label={name}
-      />
+    {fields.map((name, i) => (
+      <React.Fragment key={name}>
+        <Field
+          component={StringField}
+          fieldId={`data.${name}`}
+          placeholder={name}
+          label={name}
+        />
+      </React.Fragment>
       ))}
   </React.Fragment>
 );
