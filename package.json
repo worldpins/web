@@ -67,7 +67,7 @@
     "graphql-tag": "2.10.1",
     "hooked-form": "2.0.1",
     "leaflet": "1.5.1",
-    "papaparse": "4.6.3",
+    "papaparse": "5.2.0",
     "react": "16.8.6",
     "react-angler": "0.3.0",
     "react-apollo": "2.5.6",
